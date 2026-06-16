@@ -1,0 +1,5364 @@
+ 
+ 
+ 
+ 
+ 
+ 
+SISTEM PENDATAAN PENANAMAN HINGGA PANEN 
+MENGGUNAKAN ALGORITMA DECISION TREE UNTUK 
+EVALUASI KEBERHASILAN PANEN 
+(Studi Kasus: SMK IT Al-Hawari) 
+ 
+SKRIPSI 
+ 
+ 
+Diajukan sebagai salah satu syarat untuk mencapai gelar Sarjana 
+ 
+MURNI MUTPADILAH 
+222101216 
+ 
+ 
+PROGRAM SARJANA DEPARTEMEN TEKNIK INFORMATIKA  
+FAKULTAS INDUSTRI KREATIF UNIVERSITAS TEKNOLOGI BANDUNG  
+APRIL 2026
+
+ 
+ 
+i 
+ 
+Lembar Pengesahan 
+SEMINAR PROPOSAL SKRIPSI 
+ 
+SISTEM PENDATAA PENANAMAN HINGGA PANEN MENGGUNAKAN 
+ALGORITMA DEISION TREE UNTUK EVALUASI KEBERHASILAN PANEN 
+ 
+ 
+ 
+Diajukan sebagai satu syarat untuk mencapai gelar Sarjana 
+ 
+ 
+Murni Mutpadilah 
+222101216 
+ 
+ 
+ 
+ 
+Pembimbing 1 
+ 
+ 
+(Danny Aidil Rismayadi S.S.I., M.Kom) 
+Kepala Departemen Teknik Infomatika 
+ 
+ 
+(Eka Hidayat, S.Kom., M.Kom) 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ii 
+ 
+KATA PENGANTAR 
+Puji syukur ke hadirat Allah SWT atas segala rahmat-Nya, sehingga penulis dapat 
+menyelesaikan 
+skripsi 
+berjudul 
+“PERANCANGAN 
+SISTEM 
+PENDATAAN 
+PENANAMAN DAN HASIL PANEN MENGGUNAKAN ALGORITMA DECISION 
+TREE UNTUK EVALUASI KEBERHASILAN PANEN”. Skripsi ini disusun sebagai 
+syarat memperoleh gelar Sarjana pada Program Studi Teknik Informatika, Fakultas 
+Industri Kreatif, Universitas Teknologi Bandung. 
+ 
+Penulis menyadari bahwa penyusunan skripsi ini tidak lepas dari bantuan dan 
+dukungan berbagai pihak. Oleh karena itu, penulis menyampaikan ucapan terima kasih 
+kepada: 
+1. Bapak Dr. Muchammad Naseer, S.Kom., MT., selaku Rektor Universitas 
+Teknologi Bandung. 
+2. Ibu Dr. Rina Indrayani, SE., MM., selaku Wakil Rektor Bidang Pembelajaran, 
+Kemahasiswaan, dan Kerja Sama. 
+3. Ibu Rika Andriyanti Dinata, S.T., M.T., selaku Dekan Fakultas Industri Kreatif. 
+4. Bapak Eka Hidayat, S.Kom., M.Kom., selaku Kepala Departemen Teknik 
+Informatika. 
+5. Bapak/Ibu Pembimbing 1, selaku Dosen Pembimbing yang telah memberikan 
+arahan dan motivasi selama penyusunan skripsi. 
+6. Bapak Dian Nurhamdani, S.Pd., selaku Kepala Sekolah SMK IT-Alhawari, atas 
+izin dan dukungan data dalam penelitian ini. 
+Penulis menyadari masih terdapat kekurangan dalam skripsi ini. Oleh karena itu, kritik 
+dan saran yang membangun sangat diharapkan. Semoga karya ini bermanfaat bagi 
+pembaca dan pengembangan ilmu pengetahuan. 
+Bandung,................... 2025 
+Penulis, 
+ 
+(Murni Mutpadilah) 
+NIM. 222101216 
+
+ 
+ 
+iii 
+ 
+DAFTAR ISI 
+KATA PENGANTAR ...................................................................................................... ii 
+DAFTAR ISI ................................................................................................................... iii 
+DAFTAR GAMBAR ....................................................................................................... vi 
+BAB I PENDAHULUAN ................................................................................................ 1 
+1.1 Latar Belakang ........................................................................................................ 1 
+1.2 Rumusan Masalah................................................................................................... 3 
+1.3 Tujuan Penelitian .................................................................................................... 4 
+1.4 Manfaat Penelitian .................................................................................................. 4 
+1.5 Ruang Lingkup Penelitian ...................................................................................... 5 
+1.6 Sistematika Penulisan ............................................................................................. 5 
+BAB II TINJAUAN PUSTAKA ...................................................................................... 7 
+2.1 Landasan Teori ....................................................................................................... 7 
+2.1.1 Sistem .............................................................................................................. 7 
+2.1.2 Informasi .......................................................................................................... 7 
+2.1.3 Sistem Informasi .............................................................................................. 8 
+2.1.4 Sistem Informasi Pertanian .............................................................................. 9 
+2.1.5 Sistem Berbasis Web ..................................................................................... 10 
+2.1.6 Algoritma Decision Tree ............................................................................... 10 
+2.1.7 Perbandingan Algoritma untuk Klasifikasi Data Pertanian ........................... 12 
+2.1.7 Evaluasi Penanaman ...................................................................................... 15 
+2.1.8 Hortikultura ................................................................................................... 15 
+2.1.9 Pembelajaran Praktik Pertanian di SMK ....................................................... 18 
+2.1.10 MySQL ........................................................................................................ 19 
+2.1.11 PHP (Hypertext Preprocessor) .................................................................... 20 
+2.1.12 Laravel Framework ..................................................................................... 20 
+
+ 
+ 
+iv 
+ 
+2.1.13 HTML (Hypertext Markup Language) ........................................................ 21 
+2.1.14 CSS (Cascading Style Sheets) ..................................................................... 21 
+2.1.15 Unified Modeling Language (UML) ........................................................... 22 
+2.1.16 Entity Relationship Diagram (ERD) ........................................................... 29 
+2.1.17 Rapid Application Development (RAD) ...................................................... 30 
+2.1.18 Laragon ........................................................................................................ 32 
+2.1.19 Code Editor (Visual Studio Code) ............................................................... 32 
+2.1.20 Browser ........................................................................................................ 33 
+2.1.24 Web Server .................................................................................................. 34 
+2.1.21 Penelitian Kualitatif ..................................................................................... 34 
+2.1.22 Pengujian Perangkat Lunak ......................................................................... 35 
+2.1.23 Black Box Testing ....................................................................................... 36 
+2.2 Penelitian Terdahulu ............................................................................................. 38 
+2.2.1 Start of The Art .............................................................................................. 51 
+BAB III METODE PENELITIAN ................................................................................. 52 
+3.1 Metode Penelitian ................................................................................................. 52 
+3.2 Metode Pengembangan Perangkat Lunak ............................................................ 54 
+3.2.1 Requirement Analysis.................................................................................... 54 
+3.2.2 User Design ................................................................................................... 61 
+3.3.2 Construction .................................................................................................. 86 
+3.3.4 Cutover .......................................................................................................... 91 
+BAB IV ........................................................................................................................... 98 
+JADWAL KERJA .......................................................................................................... 98 
+DAFTAR PUSTAKA ................................................................................................... 101 
+LAMPIRAN ................................................................................................................. 106 
+ 
+
+ 
+ 
+v 
+ 
+DAFTAR TABEL 
+Tabel 3. 1 Analisis Kebutuhan Fungsional ..................................................................... 56 
+Tabel 3. 2 Analisis Kebutuhan Non Fungsional ............................................................. 58 
+Tabel 3. 3 Use Case Scenario Login............................................................................... 62 
+Tabel 3. 4 Use Case Scenario Akses Data Penanaman .................................................. 64 
+Tabel 3. 5 Use Case Scenario Akses Data Pemeliharaan ............................................... 66 
+Tabel 3. 6 Use Case Scenario Akses Data Panen ........................................................... 67 
+Tabel 3. 7 Use Case Scenario Melihat Hasil Evaluasi Panen ......................................... 69 
+Tabel 3. 8 Use Case Scenario Kelola Akun Pengguna ................................................... 71 
+Tabel 3. 9 Use Case Scenario Melihat Profil Pengguna ................................................. 72 
+Tabel 3. 10 Login............................................................................................................ 91 
+Tabel 3. 11 Akses Data Penanaman ............................................................................... 92 
+Tabel 3. 12 Akses Data Pemeliharaan ............................................................................ 93 
+Tabel 3. 13 Akses Data Panen ........................................................................................ 93 
+Tabel 3. 14 Melihat Hasil Evaluasi Panen ...................................................................... 94 
+Tabel 3. 15 Kelola Akun Pengguna ................................................................................ 94 
+Tabel 3. 16 Melihat Profil Pengguna .............................................................................. 95 
+Tabel 3. 17 Logout.......................................................................................................... 95 
+Tabel 3. 18 Rencana Pengujian Beta .............................................................................. 96 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+vi 
+ 
+DAFTAR GAMBAR 
+Gambar 3. 1 Tahapan Perancangan RAD ....................................................................... 54 
+Gambar 3. 2 gambaran sistem sedang berjalan .............................................................. 56 
+Gambar 3. 3 Gambaran sistem yang akan dibuat ........................................................... 56 
+Gambar 3. 4 Use Case Diagram ..................................................................................... 62 
+Gambar 3. 5 Activity Diagram Login ............................................................................. 73 
+Gambar 3. 6 Activity Diagram Data Penanaman ........................................................... 74 
+Gambar 3. 7 Activity Diagram Data Pemeliharaan ........................................................ 75 
+Gambar 3. 8 Activity Diagram Data Panen .................................................................... 76 
+Gambar 3. 9 Activity diagram kelola akun pengguna .................................................... 77 
+Gambar 3. 10 activity diagram melihat hasil evaluasi .................................................... 78 
+Gambar 3. 11 Melihat profil pengguna .......................................................................... 79 
+Gambar 3. 12 Squence diagram login ............................................................................ 80 
+Gambar 3. 13 Squence Diagram Data Penanaman ......................................................... 81 
+Gambar 3. 14 Squence Diagram Data Pemeliharaan ..................................................... 82 
+Gambar 3. 15 Sequence Diagram Data Panen ................................................................ 83 
+Gambar 3. 16 Sequence Diagram Kelola Akun Pengguna ............................................. 84 
+Gambar 3. 17 Sequence Diagram Melihat Hasil Evaluasi ............................................. 85 
+Gambar 3. 18 Squence Diagram Melihat Profil Pengguna ............................................ 86 
+Gambar 3. 19 Mockup Halaman Login .......................................................................... 87 
+Gambar 3. 20 Mockup Halaman Utama ......................................................................... 87 
+Gambar 3. 21 Mockup Akses Data Penanaman ............................................................. 88 
+Gambar 3. 22 Mockup Akses Data Pemeliharaan .......................................................... 89 
+Gambar 3. 23 Akses Kelola Data Panen......................................................................... 89 
+Gambar 3. 24 Mockup Melihat Hasil Evaluasi .............................................................. 90 
+Gambar 3. 25 Mockup Profil .......................................................................................... 90 
+ 
+ 
+ 
+ 
+
+1 
+ 
+BAB I 
+PENDAHULUAN 
+1.1 Latar Belakang 
+ 
+Pendidikan 
+pada 
+dasarnya 
+merupakan 
+proses 
+untuk 
+mengembangkan 
+kemampuan, keterampilan, dan pengetahuan peserta didik agar siap menghadapi dunia 
+kerja maupun kehidupan sehari-hari. Pada pendidikan vokasi, pembelajaran tidak hanya 
+berfokus pada teori, tetapi juga menekankan pada praktik langsung agar siswa dapat 
+memperoleh pengalaman nyata. Salah satu bentuk praktik tersebut terdapat pada bidang 
+pertanian, yang meliputi kegiatan mulai dari penanaman hingga panen. Dalam setiap 
+tahapan kegiatan tersebut, terdapat berbagai data yang dapat dimanfaatkan untuk 
+mendukung proses penilaian hasil praktik. Penilaian ini memiliki peran penting karena 
+dapat digunakan untuk mengetahui tingkat keberhasilan siswa serta sebagai dasar dalam 
+memberikan umpan balik guna meningkatkan kualitas pembelajaran praktik pertanian. 
+Seiring dengan perkembangan teknologi digital yang semakin pesat, pelaksanaan 
+praktik pertanian di lingkungan sekolah perlu didukung oleh pendekatan yang lebih 
+modern guna meningkatkan kualitas dan efektivitas pembelajaran siswa. Penerapan 
+teknologi digital dalam kegiatan pendokumentasian penanaman dan hasil panen menjadi 
+hal yang penting karena dapat meningkatkan efisiensi kerja, ketelitian, serta keteraturan 
+dalam pengelolaan data pertanian.(1) Dengan memanfaatkan sistem digital, institusi 
+pendidikan dapat melakukan pencatatan seluruh tahapan kegiatan pertanian, mulai dari 
+persiapan penanaman hingga masa panen, secara lebih terstruktur dan mudah tanpa harus 
+bergantung pada metode pencatatan manual.(2) Pendekatan ini tidak hanya mengurangi 
+beban administratif, tetapi juga memungkinkan penyimpanan serta akses data yang lebih 
+cepat dan akurat, sehingga mampu mendukung proses pembelajaran yang lebih optimal. 
+Selain itu, penggunaan teknologi digital memberikan pengalaman belajar berbasis data 
+yang memungkinkan siswa memahami siklus pertanian secara menyeluruh dan 
+terintegrasi.(3) 
+ 
+SMK IT Al-Hawari merupakan salah satu sekolah menengah kejuruan swasta 
+yang berlokasi di Kecamatan Cibiuk, Kabupaten Garut, Jawa Barat, dan berada di bawah 
+naungan Kementerian Pendidikan dan Kebudayaan. Sekolah ini memiliki beberapa 
+program keahlian, di antaranya Agribisnis Tanaman Pangan dan Hortikultura (ATPH), 
+
+2 
+ 
+ 
+ 
+Multimedia, serta Desain Pemodelan dan Informasi Bangunan. Dalam penelitian ini, 
+penulis memfokuskan kajian pada jurusan Agribisnis Tanaman Pangan dan Hortikultura 
+(ATPH) karena memiliki kegiatan praktik pertanian yang sesuai dengan topik penelitian, 
+sehingga SMK IT Al-Hawari dipilih sebagai lokasi studi kasus. Pada jurusan tersebut, 
+siswa dibekali keterampilan dalam bidang budidaya tanaman yang mencakup tahapan 
+mulai dari penanaman hingga panen. Kegiatan praktik ini mulai dilaksanakan pada kelas 
+XI melalui mata pelajaran Pembibitan Kultur Jaringan Tanaman dan Hidroponik. Selama 
+proses pembelajaran, siswa melakukan berbagai aktivitas seperti penanaman, 
+pemeliharaan, hingga panen, yang kemudian menjadi dasar dalam proses penilaian hasil 
+praktik siswa. 
+Berdasarkan hasil wawancara dengan Kepala Sekolah SMK IT Al-Hawari, Bapak 
+Dian Nurhamdani, S.Pd., diketahui bahwa pelaksanaan praktik pertanian yang melibatkan 
+guru dan siswa telah menghasilkan berbagai data penanaman, pemeliharaan, dan hasil 
+panen. Namun, data tersebut belum dimanfaatkan secara optimal untuk melakukan 
+evaluasi keberhasilan panen secara terstruktur dan objektif. Proses evaluasi yang 
+dilakukan selama ini masih bersifat deskriptif dan belum didukung oleh metode analisis 
+yang mampu mengaitkan faktor-faktor penanaman dan pemeliharaan dengan hasil panen 
+yang diperoleh. Akibatnya, guru dan siswa mengalami kesulitan dalam mengidentifikasi 
+faktor-faktor yang memengaruhi keberhasilan maupun kegagalan panen secara 
+sistematis. Kondisi ini berdampak pada proses pembelajaran, karena hasil praktik 
+pertanian belum dapat dijadikan dasar evaluasi yang terukur untuk perbaikan kegiatan 
+pertanian pada periode berikutnya. 
+ 
+Berdasarkan permasalahan tersebut, penelitian ini bertujuan untuk merancang dan 
+mengembangkan sebuah sistem digital yang mendukung pendataan kegiatan praktik 
+pertanian mulai dari penanaman hingga panen, sekaligus memfasilitasi evaluasi 
+keberhasilan panen secara terstruktur dan berbasis data dengan memanfaatkan algoritma 
+Decision Tree. Melalui sistem ini, data kegiatan praktik pertanian dapat dikelola dan 
+terdokumentasi secara lebih terstruktur sehingga memudahkan guru dan siswa dalam 
+mengakses serta memanfaatkannya. Selain itu, penerapan algoritma Decision Tree 
+memungkinkan proses analisis dilakukan secara otomatis untuk mengidentifikasi faktor-
+faktor yang memengaruhi keberhasilan panen, sehingga hasil evaluasi tidak hanya 
+bersifat deskriptif tetapi lebih objektif dan berbasis data. Dengan demikian, sistem yang 
+
+3 
+ 
+ 
+ 
+dikembangkan diharapkan dapat membantu meningkatkan kualitas penilaian praktik 
+pertanian serta menjadi dasar dalam menentukan langkah perbaikan yang lebih tepat pada 
+kegiatan penanaman berikutnya. 
+Beberapa penelitian sebelumnya telah menunjukkan keberhasilan penerapan 
+algoritma Decision Tree dalam konteks pertanian. Penelitian pertama mengembangkan 
+sistem klasifikasi data pertanian menggunakan algoritma Decision Tree yang mampu 
+menangani berbagai jenis data dan menghasilkan akurasi yang baik dalam 
+mengklasifikasikan hasil panen berdasarkan faktor-faktor pertanian.(4) Penelitian lain 
+mengimplementasikan algoritma Spatial Decision Tree untuk evaluasi kesesuaian lahan 
+pertanian dengan hasil yang menunjukkan efektivitas algoritma ini dalam menganalisis 
+variabel lahan dan lingkungan untuk menentukan keberhasilan budidaya tanaman.(5) 
+Kedua penelitian tersebut membuktikan bahwa algoritma Decision Tree mampu 
+menganalisis data pertanian berdasarkan berbagai variabel yang relevan sehingga 
+menghasilkan informasi yang bersifat objektif dan mudah dipahami. Melalui sistem yang 
+dikembangkan dalam penelitian ini, data penanaman, pemeliharaan, dan hasil panen yang 
+telah terjadi diharapkan dapat dimanfaatkan secara optimal untuk mendukung proses 
+evaluasi keberhasilan panen, sehingga guru dan siswa memperoleh gambaran yang lebih 
+jelas mengenai capaian hasil praktik pertanian. Selain itu, penelitian ini diharapkan dapat 
+memberikan kontribusi terhadap pengembangan sistem pendataan digital kegiatan 
+pertanian dalam konteks pendidikan, khususnya pada kegiatan praktik pertanian di SMK 
+IT Al-Hawari. 
+1.2 Rumusan Masalah 
+1. Evaluasi hasil panen yang berjalan saat ini masih bersifat deskriptif dan belum 
+didukung analisis berbasis data, sehingga penilaian keberhasilan praktik siswa 
+cenderung subjektif dan belum memiliki standar yang terukur. 
+2. Data penanaman dan pemeliharaan yang telah terkumpul belum dimanfaatkan 
+secara optimal, sehingga guru dan siswa kesulitan mengidentifikasi faktor-faktor 
+yang memengaruhi keberhasilan atau kegagalan panen. 
+3. Hasil evaluasi praktik yang belum berbasis data valid menyulitkan penentuan 
+langkah perbaikan yang tepat untuk periode tanam berikutnya, sehingga 
+peningkatan kualitas pembelajaran praktik pertanian belum optimal. 
+
+4 
+ 
+ 
+ 
+1.3 Tujuan Penelitian 
+1. Merancang dan membangun aplikasi pendataan praktik pertanian berbasis web 
+yang terintegrasi dengan algoritma Decision Tree untuk mendukung evaluasi 
+keberhasilan panen secara objektif. 
+2. Mengolah data penanaman dan pemeliharaan menggunakan algoritma Decision 
+Tree untuk mengidentifikasi pola dan faktor utama yang memengaruhi 
+keberhasilan atau kegagalan panen. 
+3. Menyediakan hasil evaluasi berbasis data sebagai dasar pengambilan keputusan 
+bagi guru dan siswa dalam melakukan perbaikan praktik pertanian pada periode 
+selanjutnya. 
+1.4 Manfaat Penelitian 
+Penelitian ini diharapkan dapat memberikan manfaat sebagai berikut: 
+1. Manfaat Teoritis 
+a. Memberikan kontribusi terhadap pengembangan ilmu pengetahuan             
+di bidang teknologi informasi, khususnya dalam penerapan sistem 
+digitalisasi pada bidang pertanian sekolah. 
+b. Menjadi referensi ilmiah bagi penelitian selanjutnya yang berhubungan 
+dengan penerapan algoritma Decision Tree dalam pengolahan dan analisis 
+data pertanian. 
+2. Manfaat Praktis 
+a. Bagi Sekolah, hasil penelitian ini dapat dimanfaatkan untuk meningkatkan 
+efisiensi dan efektivitas dalam kegiatan pencatatan penanaman serta hasil 
+panen melalui penerapan sistem digitalisasi. 
+b. Bagi Guru, sistem yang dikembangkan dapat digunakan sebagai media 
+bantu dalam proses pembelajaran praktik pertanian serta dalam melakukan 
+evaluasi hasil kegiatan siswa secara lebih objektif. 
+c. Bagi Siswa, penelitian ini memberikan pengalaman belajar berbasis 
+teknologi digital yang dapat membantu memahami faktor-faktor              
+yang memengaruhi keberhasilan panen dan meningkatkan kemampuan 
+analisis data. 
+
+5 
+ 
+ 
+ 
+d. Bagi Peneliti Selanjutnya, penelitian ini dapat dijadikan sebagai bahan 
+acuan untuk mengembangkan sistem serupa dengan pendekatan atau 
+algoritma yang berbeda guna meningkatkan efektivitas sistem digitalisasi 
+pertanian. 
+1.5 Ruang Lingkup Penelitian 
+Ruang lingkup penelitian ini dibatasi agar pembahasan lebih terarah dan fokus pada 
+tujuan penelitian. Adapun batasan dan cakupan penelitian adalah sebagai berikut: 
+1. Penelitian dilakukan di SMK IT Al-Hawari dengan fokus pada kegiatan praktik 
+pertanian yang meliputi proses penanaman hingga hasil panen. 
+2. Sistem yang dikembangkan berupa aplikasi berbasis web yang berfungsi untuk 
+pendataan penanaman, pemeliharaan, dan hasil panen, serta evaluasi keberhasilan 
+panen. 
+3. Analisis keberhasilan panen dilakukan menggunakan algoritma Decision Tree, 
+tanpa membandingkan atau menerapkan algoritma pembelajaran mesin lainnya. 
+4. Data yang digunakan meliputi jenis tanaman, kondisi tanah, waktu tanam, waktu 
+panen, dan hasil panen, yang diperoleh dari kegiatan praktik pertanian di sekolah. 
+5. Sistem tidak mencakup otomatisasi proses pertanian secara fisik, seperti 
+pengairan atau pemupukan otomatis, dan hanya terbatas pada pengelolaan serta 
+analisis data. 
+6. Pengguna sistem terdiri dari guru dan siswa, yang memanfaatkan sistem sebagai 
+media pendataan, evaluasi, dan pendukung pembelajaran praktik pertanian. 
+1.6 Sistematika Penulisan 
+BAB I PENDAHULUAN  
+Bab ini berisi dasar pemikiran penelitian dan alasan pentingnya topik yang diangkat.        
+Di dalamnya mencakup latar belakang permasalahan yang terjadi. Perumusan masalah, 
+tujuan, dan manfaat penelitian juga dijelaskan sebagai arah penelitian. Selain itu, ruang 
+lingkup dan struktur penulisan turut disampaikan agar pembaca memahami alur laporan. 
+BAB II TINJAUAN PUSTAKA  
+Bab ini memuat ringkasan teori-teori yang berkaitan dengan topik penelitian. Teori 
+tersebut menjadi landasan ilmiah dalam proses pengembangan sistem. Referensi dari 
+
+6 
+ 
+ 
+ 
+penelitian terdahulu juga disertakan untuk memperkuat kajian. Melalui bab ini, peneliti 
+dapat menyusun dasar konsep yang mendukung penelitian. 
+BAB III ANALISIS DAN PERANCANGAN  
+Bab ini menjelaskan metode penelitian yang digunakan dalam mengumpulkan                  
+dan menganalisis data. Kebutuhan sistem dianalisis untuk menentukan fitur yang 
+diperlukan. Perancangan arsitektur dan diagram sistem juga dijelaskan sebagai gambaran 
+awal solusi. Dengan demikian, bab ini menjadi acuan sebelum sistem diimplementasikan. 
+BAB IV JADWAL KERJA 
+Bab ini memuat jadwal kerja penelitian yang disusun secara sistematis sebagai acuan 
+pelaksanaan kegiatan penelitian. Jadwal kerja tersebut mencakup tahapan pengumpulan 
+data, perancangan model, pelatihan dan pengujian, serta penyusunan laporan penelitian. 
+Setiap kegiatan disusun secara kronologis untuk memastikan proses penelitian dapat 
+berjalan secara efektif dan sesuai dengan waktu yang telah ditetapkan. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+7 
+BAB II 
+TINJAUAN PUSTAKA 
+2.1 Landasan Teori 
+Landasan teori merupakan seperangkat definisi, konsep, serta proposisi yang 
+disusun secara sistematis mengenai variabel-variabel yang terkait dalam suatu penelitian. 
+Bagian ini berfungsi sebagai fondasi ilmiah yang kokoh untuk memahami permasalahan 
+yang dikaji serta menjadi acuan dalam pengembangan solusi yang diusulkan. Oleh karena 
+itu, penyusunan landasan teori yang komprehensif menjadi hal yang sangat krusial, 
+karena teori-teori yang dipaparkan akan berperan sebagai pijakan utama dan kerangka 
+berpikir dalam keseluruhan proses penelitian ini. 
+2.1.1 Sistem 
+ 
+Sistem dapat dipahami sebagai suatu kesatuan yang terdiri atas berbagai 
+komponen yang saling berhubungan dan saling memengaruhi untuk mencapai tujuan 
+tertentu. Komponen tersebut meliputi manusia, prosedur, data, serta perangkat keras dan 
+perangkat lunak yang bekerja secara terkoordinasi dan terintegrasi dalam satu proses (4). 
+ 
+Dalam pengelolaan data pertanian, sistem informasi dirancang untuk 
+menghimpun data dari berbagai aktivitas budidaya, seperti penanaman, pemupukan, 
+pengendalian hama, hingga panen. Data tersebut kemudian diolah secara digital 
+berdasarkan aturan dan mekanisme tertentu sehingga menghasilkan informasi dan 
+laporan yang dapat mendukung pengambilan keputusan yang lebih tepat bagi petani 
+maupun pengelola pertanian (5). 
+ 
+Secara umum, kedua pandangan tersebut menegaskan bahwa sistem pengelolaan 
+data pertanian bukan hanya sekadar kumpulan perangkat atau prosedur yang berdiri 
+sendiri, melainkan sebuah struktur terpadu yang mengombinasikan peran manusia dan 
+teknologi informasi untuk mengolah data mentah menjadi informasi yang bernilai bagi 
+pengambilan keputusan di bidang pertanian. 
+2.1.2 Informasi 
+ 
+Informasi dapat diartikan sebagai hasil dari proses pengolahan data mentah 
+menjadi bentuk yang memiliki makna serta nilai guna dalam mendukung pengambilan 
+keputusan. Data seperti jumlah stok, harga jual, dan transaksi harian pada dasarnya belum 
+
+8 
+ 
+ 
+ 
+memberikan pemahaman mendalam apabila belum diolah secara sistematis. Dalam 
+konteks sistem informasi penjualan hasil pertanian berbasis web, data transaksi yang 
+diinput oleh admin misalnya data produk dan hasil penjualan diolah menjadi laporan 
+dalam bentuk grafik, tabel, atau rekap yang memudahkan pengguna untuk menganalisis 
+tren penjualan, pola permintaan pasar, dan periode penjualan paling menguntungkan (6). 
+ 
+Melalui pengelolaan informasi seperti ini, kegiatan usaha tani dapat dijalankan 
+dengan lebih efisien karena setiap keputusan didasarkan pada data yang akurat dan 
+terukur. Informasi yang tersaji dalam bentuk visual seperti grafik penjualan atau rekap 
+transaksi tidak hanya mempermudah proses analisis, tetapi juga memberikan gambaran 
+yang lebih jelas mengenai kondisi usaha pertanian secara keseluruhan. Dengan adanya 
+sistem informasi yang terintegrasi, pengelola dapat memantau perubahan pasar secara 
+real time, melakukan evaluasi terhadap strategi penjualan, serta menyesuaikan produksi 
+berdasarkan kebutuhan aktual di lapangan. Pendekatan ini menjadikan informasi bukan 
+sekadar hasil pengolahan data, melainkan sebagai komponen penting dalam pengelolaan 
+pertanian modern yang berbasis teknologi. 
+2.1.3 Sistem Informasi 
+ 
+Sistem informasi merupakan kombinasi dari teknologi, prosedur, dan sumber 
+daya manusia yang berfungsi untuk mengumpulkan, mengolah, menyimpan, dan 
+menyajikan informasi secara terstruktur sehingga dapat mendukung pengambilan 
+keputusan. Komponen utama sistem informasi mencakup perangkat keras, perangkat 
+lunak, basis data, serta aturan kerja yang terintegrasi dan saling mendukung untuk 
+memastikan bahwa data yang masuk diubah menjadi informasi yang berguna dan tepat 
+waktu. Dalam konteks pertanian, sistem informasi tidak hanya sekedar menyimpan data 
+lapangan, tetapi juga memungkinkan proses pengolahan dan akses informasi secara 
+efisien, sehingga pengelola dapat memanfaatkan informasi tersebut untuk mengatur 
+berbagai kegiatan pertanian, mulai dari pencatatan lahan dan jenis tanaman sampai 
+dengan hasil panen. 
+ 
+Penerapan sistem informasi di sektor pertanian membantu kelompok tani dan 
+aparat desa dalam mengelola data secara digital, seperti menyimpan data anggota, 
+komoditas yang diusahakan, jadwal tanam, serta kegiatan kelompok secara terpusat. Hal 
+ini membuat akses terhadap berbagai informasi pertanian menjadi lebih mudah dan 
+
+9 
+ 
+ 
+ 
+efisien, karena data yang dibutuhkan dapat ditampilkan kembali dalam bentuk laporan 
+yang rapi maupun visualisasi lain yang relevan. Sistem informasi semacam ini 
+memungkinkan para petani dan pengurus kelompok untuk memantau perkembangan 
+produksi, menyusun rekapitulasi data, serta mendukung penyusunan perencanaan 
+program pertanian berikutnya dengan lebih baik, terutama pada kondisi di mana data 
+harus diintegrasikan dari berbagai sumber dan tingkatan operasional (7). 
+ 
+Pengembangan sistem informasi yang terintegrasi di sektor pertanian 
+menunjukkan bahwa pemanfaatan teknologi informasi mampu meningkatkan efektivitas 
+pengelolaan data pertanian dengan menyediakan platform yang memudahkan koordinasi, 
+penyimpanan, serta akses terhadap data secara real time. Implementasi sistem seperti ini 
+turut mendukung upaya pemberdayaan petani melalui peningkatan kapasitas dalam 
+pemanfaatan data dan informasi, yang pada akhirnya dapat meningkatkan produktivitas 
+serta ketahanan usaha tani dalam menghadapi tantangan operasional maupun perubahan 
+pasar. 
+2.1.4 Sistem Informasi Pertanian 
+ 
+Sistem informasi pertanian adalah jenis sistem informasi yang fokus pada 
+pengelolaan data dan informasi di bidang pertanian, mencakup berbagai aktivitas mulai 
+dari perencanaan tanam, budidaya, hingga pemasaran produk hasil pertanian. Dalam 
+sistem ini biasanya tersedia fitur-fitur seperti pendataan lahan, jenis komoditas, jadwal 
+kegiatan, penggunaan sarana produksi, serta pencatatan hasil panen. Penerapan sistem 
+informasi berbasis web pada pertanian memungkinkan proses pencatatan dan pengelolaan 
+data dilakukan secara digital, sehingga data yang masuk tidak hanya tersimpan dengan 
+lebih terstruktur, tetapi juga dapat diakses kembali kapan pun diperlukan oleh petugas 
+maupun petani. 
+ 
+Implementa`si sistem informasi pengolahan data pertanian berbasis web di tingkat 
+desa memberi kemudahan bagi petugas dan petani dalam mencatat jadwal tanam, 
+pemupukan, penggunaan pestisida, dan panen dengan cara yang lebih terstruktur dan 
+tidak mudah hilang seperti pada pencatatan manual. Di tingkat kelompok tani, sistem 
+informasi pertanian berbasis web membantu pengurus membagikan informasi kegiatan, 
+mengelola laporan produksi, dan memperlancar komunikasi antaranggota. Sebagai 
+perluasan fungsi, ketika sistem informasi tersebut diintegrasikan dengan modul penjualan 
+
+10 
+ 
+ 
+ 
+berbasis web, petani juga dapat mempromosikan serta menjual hasil panen secara daring 
+sehingga jangkauan pasar menjadi lebih luas. Hal ini menunjukkan bahwa penerapan 
+teknologi web dalam sistem informasi pertanian tidak hanya berperan dalam pencatatan 
+dan manajemen internal, tetapi juga membuka peluang pemasaran digital yang 
+memberikan manfaat ekonomi langsung bagi pelaku pertanian (8). 
+2.1.5 Sistem Berbasis Web 
+ 
+Sistem berbasis web merupakan teknologi informasi yang dijalankan pada server 
+dan dapat diakses oleh pengguna melalui browser dengan menggunakan protokol HTTP 
+atau HTTPS. Pendekatan ini memberikan kemudahan bagi pengguna karena hanya 
+membutuhkan perangkat yang terhubung ke internet tanpa perlu melakukan instalasi 
+aplikasi secara lokal. Selain itu, pemeliharaan dan pembaruan fitur menjadi lebih praktis, 
+karena setiap perubahan yang dilakukan pada sisi server dapat langsung digunakan oleh 
+seluruh pengguna tanpa harus melakukan pembaruan secara manual. Dalam 
+pengembangan sistem informasi penjualan hasil pertanian, teknologi berbasis web 
+memungkinkan admin mengelola data produk, pesanan, dan laporan melalui satu 
+antarmuka yang terintegrasi, sementara pembeli dapat melihat daftar produk serta 
+melakukan pemesanan dari mana saja selama memiliki akses internet. 
+ 
+Penerapan sistem informasi e-commerce berbasis web untuk pemasaran produk 
+pertanian terbukti mampu memperluas jangkauan pasar serta meningkatkan efisiensi 
+transaksi, khususnya di wilayah pedesaan. Sistem ini membantu petani mengurangi 
+ketergantungan terhadap perantara dan mendorong keterlibatan yang lebih aktif dalam 
+saluran pemasaran digital, karena platform web memungkinkan integrasi pengelolaan 
+produk, pelacakan pesanan, serta interaksi langsung dengan konsumen. Selain itu, sistem 
+informasi penyuluhan pertanian berbasis web yang digunakan oleh dinas terkait juga 
+mempermudah penyebaran materi edukasi, pengumuman, dan jadwal kegiatan kepada 
+petani tanpa harus melakukan pertemuan tatap muka secara langsung, sehingga proses 
+komunikasi dan penyampaian informasi dapat berlangsung lebih cepat dan efektif (9). 
+2.1.6 Algoritma Decision Tree 
+ 
+Algoritma Decision Tree merupakan salah satu metode dalam pembelajaran 
+mesin (machine learning) yang umum digunakan untuk melakukan klasifikasi maupun 
+prediksi dengan membangun struktur keputusan berbasis pohon. Model ini memecah data 
+
+11 
+ 
+ 
+ 
+melalui serangkaian aturan keputusan, dimulai dari root (akar) yang mewakili pemisahan 
+awal berdasarkan atribut tertentu, kemudian melalui cabang yang menggambarkan hasil 
+pengujian tiap atribut, dan berakhir pada leaf (daun) yang berisi kelas atau nilai prediksi 
+akhir. Struktur ini digambarkan seperti pohon terbalik yang intuitif dan mudah 
+diinterpretasikan, dimana setiap jalur dari akar ke daun merepresentasikan aturan 
+keputusan yang dapat digunakan dalam analisis data dan pengambilan keputusan (10). 
+ 
+Pohon keputusan mudah diimplementasikan karena mampu menangani data 
+lengkap maupun yang memiliki nilai hilang, serta tidak memerlukan asumsi distribusi 
+data tertentu, sehingga banyak diterapkan di berbagai bidang termasuk pertanian, 
+kesehatan, dan manajemen data. Penggunaan Decision Tree dalam analisis data pertanian, 
+misalnya untuk klasifikasi genotipe atau prediksi hasil, menunjukkan potensi algoritma 
+ini dalam menyelesaikan masalah klasifikasi yang kompleks sekaligus menyediakan 
+model yang mudah dipahami bagi pengguna domain non-teknis (10). 
+ 
+Di bidang pertanian, Decision Tree banyak dimanfaatkan untuk menganalisis 
+faktor-faktor yang memengaruhi hasil atau risiko budidaya karena menghasilkan aturan 
+yang mudah dibaca oleh pengguna nonteknis. Misalnya, atribut seperti curah hujan, 
+serangan hama, jenis pupuk, dan umur tanaman dapat digunakan untuk membedakan 
+kondisi tanaman yang berpotensi berhasil panen dengan yang berisiko gagal. 
+Secara umum, langkah kerja Decision Tree dapat dijelaskan sebagai berikut. 
+1. Menentukan atribut yang paling informatif untuk memecah data pada setiap tahap 
+pemisahan, 
+misalnya 
+berdasarkan 
+nilai information 
+gain atau 
+ukuran 
+ketidakmurnian (impurity). 
+2. Membagi data ke dalam cabang-cabang berdasarkan nilai atribut tersebut hingga 
+terbentuk kelompok data yang lebih homogen. 
+3. Mengulangi proses pemilihan atribut dan pemecahan data secara rekursif sampai 
+memenuhi kriteria berhenti, misalnya semua data dalam cabang berada pada kelas 
+yang sama atau jumlah data dalam cabang sudah sangat sedikit. 
+4. Menggunakan pohon yang dihasilkan sebagai model untuk mengklasifikasikan 
+data baru sesuai jalur keputusan yang terbentuk. 
+ 
+Beberapa kelebihan Decision Tree antara lain modelnya mudah dipahami, dapat 
+ 
+menangani kombinasi data numerik dan kategori, serta tidak memerlukan asumsi 
+
+12 
+ 
+ 
+ 
+distribusi data yang rumit. Di sisi lain, Decision Tree juga memiliki kelemahan, seperti 
+kecenderungan mengalami overfitting jika kedalaman pohon tidak dibatasi dan 
+sensitivitas terhadap perubahan kecil pada data pelatihan yang dapat mengubah struktur 
+pohon. 
+2.1.7 Perbandingan Algoritma untuk Klasifikasi Data Pertanian 
+Algoritma Decision Tree dipilih dalam penelitian ini karena mampu menghasilkan model 
+evaluasi yang mudah dipahami dalam bentuk aturan keputusan berbentuk pohon (IF-
+THEN). Sebelum memutuskan menggunakan Decision Tree, telah dilakukan tinjauan 
+literatur terhadap beberapa algoritma klasifikasi lain yang umum digunakan dalam 
+konteks klasifikasi dan evaluasi data, seperti Naïve Bayes, K-Nearest Neighbor (K-NN), 
+Support Vector Machine (SVM), Random Forest, dan Logistic Regression (11–13). 
+Perbandingan ini dilakukan untuk memastikan bahwa algoritma yang dipilih tidak hanya 
+memiliki akurasi tinggi, tetapi juga sesuai dengan konteks pendidikan, mudah 
+diimplementasikan, dan dapat memberikan penjelasan yang transparan kepada pengguna 
+akhir mengenai faktor-faktor yang memengaruhi keberhasilan panen (14). 
+Tabel 2. 1 Perbandingan Algoritma Klasifikasi untuk Evaluasi Panen 
+Algoritma 
+Akurasi 
+Interpretabilitas 
+Kemudahan 
+Implementasi 
+Kesesuaian 
+untuk 
+Pendidikan 
+Referensi 
+Decision 
+Tree 
+91,90%–
+95,33% 
+Sangat Tinggi 
+(struktur pohon 
+IF-THEN jelas) 
+Tinggi (tanpa 
+tuning 
+parameter 
+kompleks) 
+Sangat 
+Sesuai 
+(transparan 
+& mudah 
+dipahami 
+guru/siswa) 
+(15) 
+Naïve 
+Bayes 
+94,00%–
+97,14% 
+Sedang 
+(probabilitas 
+tidak selalu 
+intuitif) 
+Tinggi 
+Kurang 
+Sesuai 
+(hasil 
+berupa 
+probabilitas 
+(16) 
+
+13 
+ 
+ 
+ 
+sulit 
+dijelaskan) 
+K-Nearest 
+Neighbor 
+(K-NN) 
+94,00%–
+96,67% 
+Rendah (tidak 
+ada aturan 
+eksplisit yang 
+dihasilkan) 
+Sedang 
+Tidak 
+Sesuai 
+(logika 
+klasifikasi 
+sulit 
+dijelaskan) 
+(11) 
+Support 
+Vector 
+Machine 
+(SVM) 
+85,00%–
+89,00% 
+Rendah 
+(hyperplane 
+kompleks, sulit 
+divisualisasikan) 
+Sedang 
+(memerlukan 
+tuning kernel 
+& parameter) 
+Tidak 
+Sesuai 
+(rumit dan 
+abstrak 
+untuk 
+konteks 
+pendidikan) 
+(17) 
+Random 
+Forest 
+66,67%–
+87,50% 
+Rendah 
+(ensemble 
+model, black 
+box sulit 
+diinterpretasi) 
+Sedang–
+Tinggi 
+Tidak 
+Sesuai 
+(terlalu 
+kompleks 
+untuk 
+pembelajara
+n siswa) 
+(15) 
+Logistic 
+Regressio
+n 
+79,41%–
+82,33% 
+Sedang (asumsi 
+linier) 
+Tinggi 
+Kurang 
+Sesuai 
+(asumsi 
+linier tidak 
+selalu cocok 
+data 
+pertanian) 
+(12) 
+ 
+ 
+Dari tabel perbandingan di atas, terlihat bahwa meskipun beberapa algoritma 
+seperti Naïve Bayes mencapai akurasi 97,14% dan K-NN mencapai 96,67%, keunggulan 
+
+14 
+ 
+ 
+ 
+akurasi tersebut tidak menjamin kesesuaian untuk konteks pendidikan di SMK IT Al-
+Hawari. Penelitian Setyoningrum dkk. (2025) menunjukkan bahwa Decision Tree dengan 
+akurasi 91,90% lebih unggul dalam hal interpretabilitas dan kemudahan penjelasan 
+dibandingkan Naïve Bayes dengan akurasi 97,14% (11). Hal ini karena Decision Tree 
+menghasilkan struktur pohon keputusan yang dapat dipresentasikan sebagai serangkaian 
+aturan IF-THEN sederhana, sehingga guru dan siswa dapat memahami logika evaluasi 
+panen secara langsung (11). 
+ 
+Penelitian Octavianto dkk. (2025) pada dataset pertanian menemukan bahwa K-
+NN mencapai akurasi 96,67% sedangkan Decision Tree 95,33%, namun K-NN memiliki 
+keterbatasan signifikan dalam hal interpretabilitas (11). K-NN merupakan algoritma lazy 
+learning yang tidak menghasilkan model eksplisit, sehingga sulit untuk menjelaskan 
+kepada pengguna akhir mengapa sebuah sampel panen diklasifikasikan dalam kategori 
+tertentu. Sebaliknya, Decision Tree secara otomatis menghasilkan pohon keputusan yang 
+dapat diterjemahkan menjadi aturan eksplisit, misalnya: "Jika jenis tanaman = cabai AND 
+lama tanam ≥ 60 hari AND cuaca = cerah MAKA hasil panen = berhasil" (11). 
+ 
+Algoritma SVM dan Random Forest, meskipun digunakan dalam berbagai 
+aplikasi klasifikasi, memiliki kompleksitas yang tinggi dan menghasilkan model black 
+box yang sulit diinterpretasi (15). Dalam konteks pendidikan, kompleksitas ini menjadi 
+hambatan karena siswa tidak dapat memahami mekanisme keputusan yang diambil 
+sistem. Logistic Regression, meskipun sederhana, mengasumsikan hubungan linier antara 
+fitur dan output, yang tidak selalu sesuai dengan data pertanian yang seringkali memiliki 
+pola non-linier (15). 
+ 
+Penelitian Sari (2022) pada klasifikasi data pertanian tanaman pangan dan 
+hortikultura menegaskan bahwa Decision Tree mampu mengidentifikasi pola 
+produktivitas berdasarkan atribut seperti jenis tanaman, lokasi, luas panen, dan kondisi 
+iklim dengan cara yang mudah dipahami (18). Struktur pohon yang dihasilkan Decision 
+Tree memungkinkan penelusuran keputusan secara step-by-step, sehingga cocok untuk 
+mendukung proses pembelajaran siswa tentang faktor-faktor apa saja yang memengaruhi 
+keberhasilan atau kegagalan panen(14) 
+
+15 
+ 
+ 
+ 
+2.1.7 Evaluasi Penanaman 
+ 
+Evaluasi penanaman merupakan suatu proses untuk menilai sejauh mana kegiatan 
+budidaya tanaman telah berjalan sesuai dengan rencana dan target yang ditetapkan. Proses 
+ini umumnya mencakup pengamatan terhadap aspek-aspek penting seperti tingkat 
+keberhasilan hidup tanaman, kecepatan pertumbuhan, tingkat serangan hama dan 
+penyakit, serta jumlah dan kualitas hasil panen yang dihasilkan. Melalui kegiatan ini, 
+pelaku pertanian dapat menilai efektivitas metode budidaya yang digunakan dan 
+menentukan apakah diperlukan penyesuaian terhadap perlakuan tertentu seperti pola 
+tanam, pemberian pupuk, atau sistem pengairan yang diterapkan. 
+ 
+Dalam praktik lapangan, hasil evaluasi penanaman akan menjadi lebih akurat 
+apabila didukung oleh data yang dikumpulkan secara berkala. Misalnya, data tinggi 
+tanaman setiap minggu, jumlah tanaman mati, intensitas serangan hama, serta bobot 
+panen per lahan. Data-data tersebut kemudian diolah menjadi indikator kuantitatif yang 
+dapat menunjukkan keberhasilan perlakuan budidaya yang dilakukan. Dengan 
+tersedianya data ini, penyuluh, guru, maupun petani dapat melakukan peninjauan 
+terhadap strategi budidaya berdasarkan bukti yang objektif, bukan semata pada 
+pengalaman atau pengamatan kasat mata. 
+ 
+Pada era digital saat ini, kegiatan evaluasi penanaman semakin diperkuat oleh 
+pemanfaatan sistem informasi dan teknologi analisis data. Sistem informasi berbasis web, 
+misalnya, memungkinkan pengumpulan dan pengolahan data penanaman secara otomatis 
+serta penyajian hasil dalam bentuk grafik pertumbuhan dan laporan evaluasi yang lebih 
+mudah dibaca dan dianalisis. Pendekatan ini membantu petani dalam mengidentifikasi 
+faktor-faktor pembatas produksi, menentukan waktu tanam yang optimal, serta memantau 
+efektivitas perlakuan budidaya dari waktu ke waktu. Penelitian menunjukkan bahwa 
+integrasi sistem informasi pertanian dengan analitik data berbasis machine learning 
+mampu meningkatkan ketepatan dalam menilai kinerja budidaya dan memprediksi hasil 
+panen berdasarkan variabel lingkungan dan agronomis yang diamati secara berkala (19). 
+2.1.8 Hortikultura 
+ 
+Hortikultura merupakan salah satu cabang ilmu pertanian yang menitikberatkan 
+pada kegiatan budidaya tanaman bernilai ekonomi, seperti sayuran, buah-buahan, 
+tanaman hias, dan tanaman obat. Komoditas hortikultura, khususnya sayuran daun seperti 
+
+16 
+ 
+ 
+ 
+cabai, pakcoy, selada, seledri, dan bawang daun, berperan penting dalam pemenuhan 
+kebutuhan gizi masyarakat sekaligus sebagai sumber pendapatan utama bagi petani di 
+berbagai daerah. 
+ 
+Pemanfaatan lahan pekarangan dan lahan sempit untuk budidaya hortikultura kini 
+semakin dianjurkan karena mampu meningkatkan ketahanan pangan rumah tangga dan 
+mendukung pertanian berkelanjutan. Seiring perkembangan teknologi, sistem budidaya 
+modern seperti hidroponik dan greenhouse telah banyak diterapkan untuk meningkatkan 
+efisiensi penggunaan lahan, air, serta mengurangi risiko serangan hama. 
+ 
+Penelitian terbaru menunjukkan bahwa sistem hidroponik modern memungkinkan 
+pertumbuhan sayuran daun seperti selada (Lactuca sativa L.) dengan kualitas yang lebih 
+baik, karena kondisi lingkungan dan nutrisi dapat dikontrol secara optimal melalui sistem 
+berbasis sensor dan otomatisasi. Hasil studi tersebut mengonfirmasi bahwa pendekatan 
+hortikultura berbasis teknologi tidak hanya meningkatkan produktivitas dan efisiensi, 
+tetapi juga memberikan peluang pembelajaran praktis dalam kegiatan pendidikan dan 
+pelatihan pertanian (20) 
+2.1.8.1 Cabai 
+ 
+Cabai (Capsicum sp.) merupakan salah satu komoditas hortikultura utama 
+di Indonesia dengan tingkat konsumsi dan fluktuasi harga yang tinggi sepanjang 
+tahun. Tanaman cabai membutuhkan paparan sinar matahari cukup, drainase 
+yang baik, serta pemupukan berimbang agar mampu berproduksi optimal. 
+ 
+Laporan kinerja hortikultura menunjukkan bahwa cabai termasuk 
+komoditas strategis yang sensitif terhadap gangguan hama, penyakit, dan 
+perubahan iklim, sehingga kesalahan pengelolaan lahan, pemupukan, ataupun 
+pengendalian organisme pengganggu dapat berdampak langsung pada 
+penurunan produksi dan lonjakan harga di pasar. Hal ini menjadikan cabai 
+sebagai contoh komoditas yang tepat untuk mengajarkan pentingnya pencatatan 
+dan evaluasi penanaman dalam proses pembelajaran pertanian. 
+2.1.8.2 Pakcoy 
+ 
+Pakcoy (Brassica rapa L.) merupakan sayuran daun yang populer karena 
+masa tanamnya yang singkat, rasa yang disukai konsumen, dan teknik budi 
+
+17 
+ 
+ 
+ 
+dayanya yang relatif mudah. Tanaman ini banyak digunakan dalam penelitian 
+dan praktik budidaya karena cepat merespons perlakuan nutrisi maupun 
+perubahan kondisi lingkungan. 
+Beberapa hasil penelitian menyatakan bahwa: 
+1. Pakcoy dapat dibudidayakan di berbagai media tanam, baik di lahan 
+terbuka maupun dalam sistem terlindung seperti greenhouse. 
+2. Pengaturan konsentrasi nutrisi, misalnya larutan AB mix, berpengaruh 
+nyata terhadap tinggi tanaman, jumlah daun, dan bobot segar panen 
+pakcoy. 
+3. Lingkungan yang lebih terkontrol, seperti sistem hidroponik di 
+dalam greenhouse, cenderung menghasilkan pertumbuhan yang lebih 
+seragam dan kualitas tanaman yang lebih baik. 
+Karena karakteristik tersebut, pakcoy sering dipilih sebagai komoditas 
+untuk praktik dan eksperimen sederhana di sekolah, misalnya untuk 
+melatih siswa melakukan pengamatan pertumbuhan mingguan, 
+mencatat jumlah tanaman hidup dan mati, serta mengevaluasi hasil 
+panen berdasarkan perlakuan budidaya yang berbeda. 
+2.1.8.3 Selada 
+ 
+Selada (Lactuca sativa L.) termasuk sayuran daun yang banyak 
+dikonsumsi dalam keadaan segar, misalnya sebagai lalapan atau campuran salad. 
+Tanaman ini memiliki kandungan air tinggi, kalori rendah, serta mengandung 
+vitamin dan mineral yang bermanfaat bagi kesehatan. 
+ 
+Selada dapat dibudidayakan di lahan terbuka maupun dalam sistem 
+hidroponik, dan beberapa penelitian menunjukkan bahwa sistem hidroponik 
+dengan pengaturan nutrisi yang baik mampu menghasilkan selada dengan 
+pertumbuhan lebih cepat dan penampilan yang lebih seragam. Karena 
+karakteristik tersebut, selada sering dijadikan komoditas uji coba dalam 
+penelitian dan pembelajaran mengenai budidaya sayuran modern. 
+
+18 
+ 
+ 
+ 
+2.1.8.4 Seledri 
+ 
+Seledri (Apium graveolens L.) merupakan tanaman sayuran yang daun dan 
+tangkainya dimanfaatkan sebagai penyedap dan pelengkap masakan. Tanaman 
+ini umumnya tumbuh baik pada tanah yang gembur, kaya bahan organik, dan 
+memiliki ketersediaan air yang cukup. 
+ 
+Penelitian mengenai pemanfaatan bahan organik dan perlakuan khusus, 
+seperti pemberian pupuk organik cair atau air kelapa, menunjukkan bahwa 
+perlakuan tersebut dapat memengaruhi tinggi tanaman, jumlah daun, dan bobot 
+segar seledri. Karakter tanaman yang relatif mudah dirawat dan ukuran tajuk 
+yang tidak terlalu besar membuat seledri cocok digunakan sebagai tanaman 
+praktik di lahan sempit maupun di lingkungan sekolah. 
+2.1.8.5 Bawang Daun 
+ 
+Bawang daun (Allium fistulosum L.) banyak digunakan sebagai bumbu 
+dan pelengkap berbagai jenis masakan. Tanaman ini memiliki siklus tanam yang 
+cukup singkat dan dapat dipanen secara bertahap dengan cara memotong bagian 
+daun di atas permukaan tanah sehingga tanaman masih dapat tumbuh kembali. 
+ 
+Penelitian mengenai pengaruh dosis pupuk dan zat pengatur tumbuh pada 
+bawang daun menunjukkan adanya perbedaan nyata terhadap tinggi tanaman, 
+jumlah anakan, dan bobot segar per rumpun. Hal ini menegaskan bahwa teknik 
+pemupukan dan pengelolaan budidaya yang tepat sangat berpengaruh terhadap 
+produktivitas bawang daun, sehingga komoditas ini juga relevan dijadikan objek 
+pembelajaran evaluasi penanaman di tingkat sekolah. 
+2.1.9 Pembelajaran Praktik Pertanian di SMK 
+ 
+Pembelajaran di Sekolah Menengah Kejuruan (SMK) dirancang dengan fokus 
+pada penguasaan keterampilan praktik yang sesuai dengan kompetensi keahlian yang 
+dipilih oleh peserta didik, termasuk pada bidang pertanian. Dalam program keahlian 
+agribisnis tanaman, siswa tidak hanya dibekali pemahaman teori budidaya, tetapi juga 
+dilibatkan secara langsung dalam kegiatan pengolahan lahan, penanaman, pemeliharaan 
+tanaman, hingga panen. Seluruh rangkaian kegiatan tersebut dilaksanakan secara 
+bertahap dan terstruktur sebagai bagian dari proses pembelajaran praktik. 
+
+19 
+ 
+ 
+ 
+ 
+Seiring dengan tuntutan pembelajaran yang bersifat aplikatif tersebut, 
+pemanfaatan platform edukasi pertanian berbasis web terbukti memberikan manfaat yang 
+signifikan dalam membantu siswa memahami teknik budidaya modern, materi 
+penyuluhan, serta berbagai aspek teknis lainnya secara lebih sistematis. Penelitian 
+mengenai pengembangan sistem informasi pendidikan pertanian berbasis web 
+menunjukkan bahwa platform digital dapat berfungsi sebagai media yang efektif untuk 
+menyampaikan informasi, teknik bercocok tanam, serta strategi pengelolaan sumber daya 
+dalam praktik pertanian modern, baik kepada siswa maupun komunitas petani. Melalui 
+integrasi sistem informasi yang terstruktur, guru dan siswa dapat melakukan pencatatan 
+data kegiatan budidaya secara digital dengan lebih rapi dan mudah dianalisis. Hal ini 
+memungkinkan proses evaluasi pembelajaran dilakukan berdasarkan data yang jelas, 
+sehingga refleksi terhadap praktik yang telah dilakukan menjadi lebih objektif dan terukur 
+dibandingkan dengan metode evaluasi yang hanya mengandalkan pengamatan sesaat atau 
+ingatan semata (21). 
+ 
+Pemanfaatan platform berbasis web dalam pembelajaran pertanian juga memberi 
+kesempatan kepada siswa untuk mengakses materi pembelajaran kapan pun dan di mana 
+pun. Selain itu, pendekatan ini turut mendukung pengembangan keterampilan digital yang 
+semakin dibutuhkan dalam era pertanian modern. Tidak hanya itu, penggunaan teknologi 
+berbasis web mendorong terjalinnya kolaborasi antara institusi pendidikan dan para 
+pemangku kepentingan di sektor pertanian, sehingga lulusan SMK diharapkan lebih siap 
+menghadapi tuntutan dunia kerja di bidang agribisnis yang kini semakin bergantung pada 
+pemanfaatan informasi dan teknologi. 
+2.1.10 MySQL 
+ 
+MySQL merupakan salah satu Relational Database Management System 
+(RDBMS) yang banyak digunakan dalam pengembangan aplikasi berbasis web karena 
+sifatnya yang open source, dukungan penuh terhadap Structured Query Language (SQL), 
+serta kompatibilitasnya dengan berbagai sistem operasi. MySQL menyimpan data dalam 
+bentuk tabel-tabel yang saling berelasi sehingga memudahkan proses pengelolaan, 
+pencarian, dan pelaporan data melalui perintah kueri, memungkinkan struktur data yang 
+efisien dan keamanan data yang baik di lingkungan web. 
+
+20 
+ 
+ 
+ 
+Dalam pengembangan sistem informasi berbasis Laravel, MySQL sering dipilih sebagai 
+basis data utama karena integrasinya yang baik dengan framework tersebut serta 
+dukungan pustaka koneksi dan ORM (Object Relational Mapping) yang sudah matang, 
+sehingga pengembang dapat menangani operasi basis data dengan lebih mudah dan 
+terstruktur. Beberapa penelitian sistem informasi berbasis web, termasuk yang 
+mendukung perdagangan hasil pertanian, memanfaatkan MySQL untuk menyimpan data 
+produk, transaksi, dan pengguna secara terpusat. Dalam salah satu penelitian, desain dan 
+evaluasi basis data relasional menggunakan MySQL untuk sistem perdagangan 
+komoditas pertanian berbasis web menunjukkan bahwa penggunaan MySQL dengan 
+berbagai fitur normalisasi dan optimasi kueri mampu mendukung skalabilitas, konsistensi 
+data, dan responsivitas operasi, sehingga sistem dapat menangani transaksi dan 
+permintaan pengguna secara efektif dalam lingkungan nyata (22). 
+2.1.11 PHP (Hypertext Preprocessor) 
+ 
+PHP merupakan bahasa pemrograman server-side yang umum digunakan untuk 
+membangun aplikasi web dinamis karena dijalankan di sisi server untuk mengolah 
+permintaan pengguna, berinteraksi dengan basis data, dan menghasilkan halaman HTML 
+yang kemudian dikirim ke browser. Bahasa ini bersifat open source, memiliki komunitas 
+yang besar, dan sintaksnya relatif mudah dipelajari, sehingga banyak dipilih dalam 
+pengembangan sistem informasi berbasis web. 
+Dalam berbagai penelitian, PHP dipadukan dengan MySQL untuk merancang sistem 
+informasi berbasis web yang menangani data transaksi, produk, dan pengguna secara 
+terpusat. Salah satu contoh penelitian Web-Based Online Sales Information System 
+menunjukkan bahwa penggunaan PHP bersama MySQL dalam pengembangan sistem 
+penjualan berbasis web memungkinkan pencatatan transaksi, pengelolaan produk, dan 
+laporan data berjalan lebih efisien dibandingkan dengan pencatatan manual, serta 
+mendukung kebutuhan pengelolaan data yang terstruktur dalam sistem informasi yang 
+responsif (23). 
+2.1.12 Laravel Framework 
+ 
+Laravel adalah framework PHP modern yang menerapkan pola arsitektur Model 
+View Controller (MVC) untuk membantu pengembangan aplikasi web secara terstruktur. 
+Laravel menyediakan berbagai fitur seperti routing, middleware, Object-Relational 
+
+21 
+ 
+ 
+ 
+Mapping (ORM Eloquent), sistem migrasi basis data, serta template engine Blade yang 
+sangat mendukung pengembangan aplikasi berskala kecil hingga besar. Pendekatan MVC 
+yang digunakan oleh Laravel memisahkan logika bisnis, tampilan, dan interaksi data 
+sehingga memudahkan pengembang dalam mengorganisasi kode serta mempercepat 
+proses pengembangan (24). 
+Beberapa penelitian pengembangan sistem informasi berbasis web menunjukkan bahwa 
+Laravel banyak digunakan dalam pembuatan aplikasi seperti sistem informasi akademik, 
+sistem informasi manajemen stok, atau sistem penjualan karena mendukung 
+implementasi fitur autentikasi, pengelolaan peran pengguna, dan integrasi dengan DBMS 
+seperti MySQL secara lebih mudah dan terstruktur. Penelitian mengenai sistem informasi 
+manajemen stok berbasis web yang dikembangkan dengan Laravel menunjukkan bahwa 
+framework ini mampu menghasilkan aplikasi yang berjalan sesuai tujuan fungsional 
+dengan responsibilitas yang baik untuk pencatatan data dan pengelolaan stok secara 
+digital, serta memberikan kemudahan bagi pengembang dalam memperbarui dan 
+memelihara sistem ke depannya (24) 
+2.1.13 HTML (Hypertext Markup Language) 
+ 
+HTML adalah bahasa markup standar yang digunakan untuk menyusun struktur 
+dasar halaman web. Melalui elemen-elemen HTML, pengembang dapat menentukan 
+judul, paragraf, tabel, formulir, tautan, dan berbagai komponen lain yang akan 
+ditampilkan di browser. 
+ 
+Dalam berbagai sistem informasi berbasis web, termasuk sistem informasi 
+pertanian dan pendidikan, HTML digunakan untuk membangun antarmuka pengguna 
+seperti halaman login, formulir input data, dan tampilan laporan. Ketika dipadukan 
+dengan CSS untuk pengaturan tampilan dan JavaScript untuk memberikan interaktivitas, 
+HTML menjadi fondasi utama antarmuka sistem yang mudah digunakan oleh pengguna 
+awam. 
+2.1.14 CSS (Cascading Style Sheets) 
+ 
+HTML (Hypertext Markup Language) adalah bahasa markup standar yang 
+digunakan untuk menyusun struktur dasar halaman web. Melalui elemen-elemen HTML, 
+pengembang dapat menentukan judul, paragraf, tabel, formulir, tautan, dan berbagai 
+
+22 
+ 
+ 
+ 
+komponen lain yang akan ditampilkan di browser, sehingga menjadi kerangka utama 
+antarmuka pada aplikasi web. Dalam berbagai sistem informasi berbasis web, termasuk 
+sistem informasi pertanian dan pendidikan, HTML digunakan untuk membangun 
+antarmuka pengguna seperti halaman login, formulir input data, atau tampilan laporan 
+yang diakses oleh pengguna. 
+ 
+CSS (Cascading Style Sheets) adalah bahasa yang digunakan untuk mengatur 
+tampilan dan tata letak elemen-elemen HTML pada halaman web. Melalui CSS, 
+pengembang dapat mengatur warna, jenis huruf, jarak antar elemen, ukuran, dan posisi 
+komponen sehingga antarmuka menjadi lebih menarik dan konsisten. Penggunaan CSS 
+berperan penting agar tampilan aplikasi tidak hanya fungsional tetapi juga nyaman dilihat 
+dan mudah dipahami oleh pengguna, termasuk dalam desain responsif yang 
+menyesuaikan tampilan dengan berbagai ukuran layar perangkat seperti komputer, tablet, 
+maupun ponsel pintar. 
+ 
+Dalam pengembangan antarmuka front-end pada sistem informasi berbasis web, 
+HTML5 dan CSS3 sering digunakan bersama dengan JavaScript untuk membangun 
+tampilan yang responsif dan interaktif dengan fokus pada pengalaman pengguna (user 
+experience). Penelitian terbaru mengenai pengembangan antarmuka aplikasi web 
+memperlihatkan bahwa penggunaan HTML5 dan CSS3 yang terstruktur dapat 
+menciptakan antarmuka yang kompatibel dengan berbagai perangkat, mendukung akses 
+data dan kontrol aplikasi secara intuitif, serta meningkatkan kenyamanan pengguna dalam 
+berinteraksi dengan sistem informasi digital seperti aplikasi survei atau sistem berbasis 
+front-end lainnya. Penggunaan HTML5 dan CSS3 dalam kombinasi serta pengaturan 
+gaya yang tepat menjadi fondasi utama dalam menyediakan antarmuka sistem yang 
+mudah dipahami dan dioperasikan oleh pengguna dari berbagai latar belakang. (HTML5 
+dan CSS3) merupakan elemen kunci di dalam pengembangan antarmuka modern karena 
+kemampuan keduanya dalam mendukung desain adaptif dan visual yang menarik di 
+sistem informasi berbasis web (14). 
+2.1.15 Unified Modeling Language (UML) 
+ 
+Unified Modeling Language (UML) merupakan bahasa pemodelan visual standar 
+yang digunakan untuk menggambarkan, merancang, dan mendokumentasikan sistem 
+perangkat lunak secara grafis. UML berfungsi sebagai alat komunikasi antara kebutuhan 
+pengguna dan implementasi teknis oleh pengembang, serta membantu mengurangi 
+
+23 
+ 
+ 
+ 
+ambiguitas dalam perancangan sistem melalui diagram-diagram yang konsisten. Dengan 
+representasi grafis yang jelas, UML mempermudah pemahaman struktur dan perilaku 
+sistem baik bagi tim teknis maupun non-teknis. UML termasuk bahasa pemodelan yang 
+diterima secara luas dalam rekayasa perangkat lunak untuk menyatakan kebutuhan, 
+desain arsitektur, dan cakupan sistem melalui berbagai jenis diagram seperti class, use 
+case, sequence, dan activity (25). 
+ 
+UML menyediakan berbagai jenis diagram yang masing-masing memiliki fungsi 
+spesifik untuk memvisualisasikan aspek struktur dan perilaku sistem. Dalam penelitian 
+ini, beberapa diagram UML yang digunakan antara lain sebagai berikut. 
+1. Use Case Diagram 
+ 
+Use Case Diagram merupakan salah satu jenis diagram dalam Unified 
+Modeling 
+Language 
+(UML) 
+yang 
+digunakan 
+untuk 
+menggambarkan 
+fungsionalitas sistem dari sudut pandang pengguna (aktor). Diagram ini 
+menunjukkan interaksi antara aktor seperti admin, guru, dan siswa dengan sistem 
+serta batasan sistem itu sendiri, sehingga kebutuhan fungsional sistem dapat 
+diidentifikasi dengan jelas dan memudahkan dalam menentukan fitur-fitur yang 
+harus dikembangkan. Use Case Diagram memvisualisasikan hubungan antara 
+aktor dan use case yang mewakili fitur sistem, sehingga menjadi alat penting 
+dalam tahapan analisis kebutuhan dan desain awal software (26) 
+Tabel 2. 2 Simbol Use Case 
+NO GAMBAR 
+NAMA 
+KETERANGAN 
+1 
+ 
+Actor 
+Pihak berupa orang, proses, atau sistem lain 
+yang berada di luar sistem informasi yang 
+dikembangkan, tetapi berinteraksi secara 
+langsung dengan sistem tersebut. 
+2 
+ 
+Dependency 
+Hubungan ketergantungan antar elemen, di 
+mana perubahan pada satu elemen dapat 
+memengaruhi elemen lain yang bergantung 
+padanya. 
+
+24 
+ 
+ 
+ 
+3 
+ Generalization 
+Hubungan yang menggambarkan keterkaitan 
+antara fungsi yang bersifat umum dengan 
+fungsi yang lebih khusus dalam sebuah use 
+case. 
+4 
+<<include>
+> 
+Include 
+Hubungan antar use case yang menunjukkan 
+bahwa suatu use case memerlukan use case 
+lain sebagai bagian dari proses untuk 
+menjalankan fungsinya. 
+5 
+<<extend>> 
+ 
+Extend 
+Hubungan tambahan antar use case yang 
+bersifat opsional, di mana use case tambahan 
+dapat 
+dijalankan 
+tanpa 
+harus 
+selalu 
+bergantung pada use case utama. 
+6 
+ 
+Association 
+Bentuk hubungan komunikasi antara aktor 
+dan use case yang menunjukkan adanya 
+interaksi dalam menjalankan suatu fungsi 
+sistem. 
+7 
+ 
+System 
+Elemen yang digunakan untuk menunjukkan 
+batasan dan ruang lingkup sistem yang 
+sedang dimodelkan. 
+8 
+ 
+Use Case 
+Gambaran urutan aktivitas yang dilakukan 
+oleh sistem untuk menghasilkan keluaran 
+tertentu yang dibutuhkan oleh aktor. 
+9 
+ 
+Collaboration 
+Kerja sama antar elemen sistem yang saling 
+berinteraksi untuk menghasilkan perilaku 
+sistem yang lebih utuh dan terintegrasi. 
+10 
+ 
+Note 
+Elemen tambahan yang berfungsi untuk 
+memberikan keterangan atau penjelasan 
+pendukung pada bagian tertentu dari model 
+sistem. 
+ 
+
+25 
+ 
+ 
+ 
+2. Activity Diagram 
+ 
+Activity Diagram adalah salah satu jenis diagram dalam Unified Modeling 
+Language (UML) yang digunakan untuk menggambarkan alur aktivitas atau 
+proses bisnis yang terjadi di dalam suatu sistem. Diagram ini menunjukkan urutan 
+langkah, keputusan, serta kemungkinan percabangan dalam suatu proses, 
+sehingga memberikan representasi visual tentang bagaimana berbagai aktivitas 
+berinteraksi dan berjalan secara berurutan dalam suatu sistem. Dalam konteks 
+sistem informasi pertanian, Activity Diagram dapat digunakan untuk memodelkan 
+proses pencatatan kegiatan penanaman, pemantauan pertumbuhan tanaman, serta 
+alur evaluasi penanaman yang dilakukan secara berurutan. Diagram ini membantu 
+pengembang dan pemangku kepentingan untuk memahami logika proses secara 
+menyeluruh, serta mengidentifikasi potensi hambatan, redundansi, atau 
+ketidakefisienan dalam alur kerja yang sedang dikembangkan (27). 
+Tabel 2. 3 Simbol Activity Diagram 
+NO GAMBAR 
+NAMA 
+KETERANGAN 
+1 
+ 
+Activity 
+Proses atau rangkaian aktivitas yang sedang 
+dimodelkan dalam activity diagram. 
+2 
+ 
+Initial  
+activity 
+Titik awal dimulainya alur proses pada UML 
+activity diagram. 
+ 
+3 
+Final  
+activity 
+Tahap terakhir yang menandai berakhirnya 
+seluruh alur aktivitas dalam activity diagram. 
+ 
+4 
+ 
+Transition 
+Perpindahan alur dari satu aktivitas ke 
+aktivitas lainnya dalam diagram. 
+
+26 
+ 
+ 
+ 
+5 
+ 
+Decision 
+Titik 
+pengambilan 
+keputusan 
+yang 
+menentukan 
+percabangan 
+alur 
+proses 
+berdasarkan kondisi tertentu. 
+6 
+Merge 
+Elemen 
+yang 
+digunakan 
+untuk 
+menggabungkan satu atau lebih alur masuk 
+menjadi satu alur keluar. 
+7 
+ 
+Fork 
+Elemen yang berfungsi memecah satu alur 
+proses menjadi beberapa aktivitas yang dapat 
+berjalan secara bersamaan. 
+8 
+ 
+Join 
+Elemen yang digunakan untuk menyatukan 
+kembali beberapa aktivitas paralel menjadi 
+satu alur proses. 
+9 
+ 
+Swimlane 
+Pengelompokan aktivitas berdasarkan peran, 
+tanggung jawab, atau pihak yang terlibat 
+dalam proses. 
+ 
+3. Sequence Diagram 
+ 
+Sequence Diagram merupakan salah satu diagram perilaku (behavioral 
+diagram) dalam Unified Modeling Language (UML) yang digunakan untuk 
+menggambarkan urutan interaksi antar objek atau komponen sistem dalam suatu 
+skenario tertentu. Diagram ini menekankan pada urutan waktu (time sequence) 
+dari pesan yang dikirimkan antar objek, sehingga dapat memperlihatkan aliran 
+komunikasi dan tanggapan antar komponen sistem secara kronologis. Contohnya, 
+dalam sistem informasi pertanian berbasis web, diagram ini dapat 
+menggambarkan proses di mana siswa atau pengguna menginput data penanaman, 
+sistem melakukan validasi terhadap data yang diterima, dan kemudian 
+menyimpannya ke dalam basis data. Dengan demikian, Sequence Diagram 
+berperan penting untuk menganalisis alur komunikasi sistem secara rinci dan 
+
+27 
+ 
+ 
+ 
+memastikan interaksi antar komponen berjalan sesuai urutan logis yang 
+diharapkan (28). 
+Tabel 2. 4 Simbol Sequence Diagram 
+NO 
+GAMBAR 
+NAMA 
+KETERANGAN 
+1 
+ 
+Actor 
+Orang, proses atau sistem lain 
+yang berinteraksi dengan sistem 
+informasi yang akan dibuat di luar 
+sistem informasi itu sendiri. 
+2 
+ 
+LifeLine 
+Objek entity, antarmuka yang 
+saling berinteraksi. 
+3 
+Nama_objek: 
+namakelas 
+Objek 
+Menyatakan objek yang 
+berinteraksi oleh pesan. 
+4 
+ 
+Message 
+Spesifikasi dari komunikasi antar 
+objek yang memuat informasi- 
+informasi tentang aktifitas yang 
+terjadi 
+5 
+ 
+Message 
+Spesifikasi dari komunikasi antar 
+objek yang memuat informasi- 
+informasi  tentang  aktifitas  yang 
+terjadi 
+6 
+I:keluaran 
+ 
+Pesan tipe return 
+Menyatakan bahwa suatu objek 
+yang telah menjalankan suatu 
+operasi atau metode menghasilkan 
+suatu kembalian ke objek tertentu, 
+arah panah mengarah pada objek 
+yang menerima kembalian. 
+
+28 
+ 
+ 
+ 
+7 
+I: masukan 
+ 
+Pesan tipe send 
+Menyatakan bahwa suatu objek 
+mengirim data/masukan/informasi 
+ke objek lainnya, arah panah 
+mengarah 
+pada 
+objek 
+yang 
+dikirim. 
+8 
+ 
+I:nama_metode() 
+Pesan tipe call 
+Menyatakan 
+suatu 
+objek 
+memanggil operasi/metode yang 
+ada pada objek lain atau dirinya 
+sendiri. 
+ 
+4. Class Diagram 
+ 
+Class Diagram merupakan salah satu diagram struktural dalam Unified 
+Modeling Language (UML) yang digunakan untuk menggambarkan struktur 
+statis suatu sistem perangkat lunak. Diagram ini menampilkan class, atribut, 
+metode (operations), serta hubungan antar class seperti asosiasi (association), 
+agregasi (aggregation), komposisi (composition), dan pewarisan (inheritance). 
+Setiap class mewakili entitas utama dalam sistem yang berperan dalam proses 
+bisnis atau logika program yang sedang dirancang. Melalui Class Diagram, 
+pengembang dapat mendeskripsikan struktur internal sistem secara visual dan 
+memastikan bahwa setiap komponen memiliki peran serta relasi yang jelas [1]. 
+ 
+Tabel 2. 5 Simbol Class Diagram 
+NO 
+GAMBAR 
+NAMA 
+KETERANGAN 
+1 
+ 
+Association 
+Hubungan antar kelas dengan 
+makna umum, asosiasi biasanya 
+juga disertai dengan multiplicity. 
+2 
+ 
+Nary Association 
+Upaya 
+untuk 
+menghindari 
+asosiasi dengan lebih dari 2 
+objek. 
+
+29 
+ 
+ 
+ 
+3 
+ 
+Class 
+Himpunan dari objek-objek yang 
+berbagi atribut serta operasi yang 
+sama. 
+4 
+ 
+Realization 
+Operasi 
+yang 
+benar-benar 
+dilakukan oleh suatu objek. 
+5 
+ 
+Dependency 
+Hubungan dimana perubahan 
+yang terjadi pada suatu elemen 
+mandiri 
+(independent) 
+akan 
+mempegaruhi 
+elemen 
+yang 
+bergantung  padanya  elemen 
+yang tidak mandiri 
+6 
+ 
+Generalization 
+Hubungan 
+generalisasi 
+dan 
+spesialisasi 
+(umum-khusus) 
+antar dua buah use case dimana 
+fungsi yang satu adalah fungsi 
+yang  lebih  umum  dari  yang 
+lainnya. 
+7 
+ 
+Agregasi/aggreg 
+ation 
+Hubungan antar kelas dengan 
+makna 
+semua-bagian 
+(whole 
+part) 
+ 
+ 
+Dengan menggunakan UML, perancangan sistem menjadi lebih terstruktur, 
+sistematis, dan terdokumentasi dengan baik. UML tidak hanya membantu pengembang 
+dalam memahami dan membangun sistem, tetapi juga memudahkan pihak lain yang 
+berkepentingan seperti analis, penguji, dan pemangku kepentingan dalam mengevaluasi 
+dan mengembangkan sistem secara berkelanjutan. 
+2.1.16 Entity Relationship Diagram (ERD) 
+ 
+Entity Relationship Diagram (ERD) merupakan model konseptual yang 
+digunakan untuk menggambarkan struktur data dan hubungan antar entitas di dalam basis 
+data. Dalam ERD, entitas direpresentasikan sebagai objek utama, misalnya Pengguna, 
+Lahan, atau Komoditas, sedangkan atribut menyatakan karakteristik dari setiap entitas 
+
+30 
+ 
+ 
+ 
+dan relasi menggambarkan keterhubungan di antara entitas tersebut. Dengan demikian, 
+ERD berfungsi sebagai alat bantu visual untuk memodelkan struktur data secara logis 
+sebelum diimplementasikan ke dalam sistem manajemen basis data. 
+ 
+Dalam proses perancangan sistem informasi, ERD menjadi tahapan awal yang 
+krusial sebelum implementasi basis data pada Database Management System (DBMS) 
+seperti MySQL. Melalui ERD, perancang sistem dapat memastikan bahwa kebutuhan 
+data telah terpetakan secara tepat dan hubungan antar entitas bersifat konsisten, sehingga 
+meminimalkan terjadinya redundansi data atau kesalahan dalam desain struktur tabel. 
+Pada sistem informasi pertanian berbasis web, ERD umumnya digunakan untuk 
+memetakan entitas seperti Data Penanaman, Pertumbuhan Tanaman, dan Hasil Panen 
+yang memiliki relasi langsung dengan pengguna dan lahan praktik. Dengan rancangan 
+ERD yang baik, sistem dapat mendukung integritas data dan memperkuat akurasi 
+informasi yang dihasilkan (29). 
+2.1.17 Rapid Application Development (RAD) 
+ 
+Rapid Application Development (RAD) adalah pendekatan pengembangan 
+perangkat lunak yang berfokus pada kecepatan, fleksibilitas, dan keterlibatan pengguna 
+dalam setiap tahap pengembangan. RAD menggunakan prototyping dan siklus iteratif 
+yang relatif singkat untuk menghasilkan sistem fungsional secara cepat, serta 
+memungkinkan perubahan rancangan ditanggapi secara dinamis selama proses 
+pengembangan. Pada RAD, pengguna dilibatkan sejak awal untuk memberikan umpan 
+balik langsung terhadap prototype yang dibangun, sehingga kebutuhan sistem dapat 
+diklarifikasi lebih cepat dan solusi yang dihasilkan lebih sesuai dengan kebutuhan nyata 
+pengguna. 
+Dalam konteks pengembangan sistem informasi berbasis web, metode RAD sering 
+diterapkan karena kemampuannya mempercepat pembuatan aplikasi yang efektif melalui 
+iterasi cepat dan kolaborasi intens antara tim pengembang serta pemangku kepentingan. 
+Contohnya, studi pengembangan web-based student registration information system 
+dengan pendekatan RAD menunjukkan bahwa metode ini membantu meningkatkan 
+efisiensi pengelolaan data siswa, mempermudah akses informasi, serta memungkinkan 
+adaptasi sistem terhadap perubahan kebutuhan secara berkelanjutan. 
+
+31 
+ 
+ 
+ 
+ 
+Implementasi RAD biasanya meliputi tahapan perencanaan kebutuhan 
+(requirements planning), lokakarya desain pengguna (RAD design workshops), serta 
+pembangunan dan pengujian gradual hingga mencapai sistem yang layak pakai, sehingga 
+cocok digunakan dalam proyek sistem informasi pendidikan maupun aplikasi lain yang 
+memerlukan pendekatan pengembangan cepat dan responsif terhadap umpan balik 
+pengguna (30). 
+ 
+Rapid Application Development (RAD) adalah pendekatan pengembangan 
+perangkat lunak yang berfokus pada kecepatan, fleksibilitas, dan keterlibatan pengguna 
+secara intensif melalui penggunaan prototipe dan siklus iteratif yang cepat. RAD 
+menempatkan pengguna (pemangku kepentingan) sebagai bagian aktif sejak awal proses, 
+sehingga kebutuhan sistem dapat diklarifikasi lebih cepat dan perubahan rancangan dapat 
+direspons secara dinamis dengan melibatkan umpan balik langsung dari pengguna. Dalam 
+pengembangan sistem pendataan penanaman dan hasil panen, pendekatan ini 
+memungkinkan guru, siswa, dan admin memberikan masukan terhadap antarmuka dan 
+alur kerja, sehingga sistem yang dihasilkan lebih sesuai dengan kebutuhan di lapangan. 
+Secara garis besar, tahapan RAD meliputi empat fase utama yang biasanya dilakukan 
+secara berulang (iteratif) dan kolaboratif: 
+1. Requirements Planning: Tahap identifikasi kebutuhan dan ruang lingkup 
+fungsional sistem bersama pengguna dan tim pengembang. 
+2. User Design: Tahap perancangan antarmuka dan alur proses dalam bentuk 
+prototipe yang kemudian dievaluasi bersama pengguna untuk mendapatkan 
+umpan balik. 
+3. Construction: Tahap pembangunan sistem berdasarkan prototipe yang telah 
+disepakati, dilakukan secara iteratif hingga fungsi utama aplikasi siap. 
+4. Cutover: Tahap akhir yang mencakup pengujian sistem, pelatihan pengguna, 
+penyesuaian akhir, serta penerapan sistem ke lingkungan operasional. 
+ 
+Pendekatan RAD memampukan proses pengembangan berlangsung lebih cepat 
+dengan serangkaian prototyping dan iterasi sambil terus menyesuaikan sistem 
+berdasarkan umpan balik pengguna, sehingga sering dipilih untuk sistem informasi 
+berbasis web yang memiliki kebutuhan berkembang dan waktu pengembangan terbatas 
+(31). 
+
+32 
+ 
+ 
+ 
+2.1.18 Laragon 
+ 
+Laragon merupakan lingkungan pengembangan web lokal (local development 
+environment) yang menyediakan paket lengkap berisi web server (misalnya Apache), 
+PHP runtime, MySQL/MariaDB, serta layanan pendukung lainnya dalam satu instalasi 
+terpadu. Dibandingkan dengan konfigurasi manual, Laragon menawarkan kemudahan 
+pengaturan, fitur auto virtual host, serta konsumsi sumber daya yang relatif ringan di 
+sistem operasi Windows. Lingkungan ini banyak digunakan oleh pengembang web karena 
+mampu menjalankan berbagai framework seperti Laravel, CodeIgniter, dan Symfony 
+dengan integrasi otomatis terhadap database management system (32). 
+Dalam pengembangan sistem informasi berbasis Laravel, Laragon sering dimanfaatkan 
+sebagai server lokal untuk menulis, menjalankan, dan menguji aplikasi sebelum sistem 
+diunggah ke hosting produksi. Hal ini karena Laragon memungkinkan konfigurasi cepat 
+antara Apache web server, PHP interpreter, dan MySQL database, tanpa perlu 
+penyesuaian manual seperti pada XAMPP. Beberapa penelitian sistem informasi 
+menyebutkan bahwa Laragon mendukung efisiensi siklus pengembangan karena 
+menyediakan environment yang stabil, mendukung prototyping cepat, serta mudah 
+diintegrasikan dengan composer dan git (32) 
+ 
+Dalam konteks pengembangan sistem pendataan penanaman dan hasil panen, 
+Laragon berperan sebagai platform utama selama tahap konstruksi dan pengujian. 
+Melalui fitur integrasi otomatis antara Laravel dan MySQL, pengembang dapat 
+menjalankan aplikasi, melakukan uji coba fungsionalitas, serta memastikan data 
+penanaman dan panen tersimpan dengan benar sebelum sistem diterapkan pada server 
+produksi. 
+2.1.19 Code Editor (Visual Studio Code) 
+ 
+Visual Studio Code (VS Code) merupakan editor kode lintas platform yang ringan 
+namun kaya fitur, dikembangkan oleh Microsoft dan digunakan secara luas oleh 
+pengembang perangkat lunak untuk membangun aplikasi web, desktop, maupun server. 
+VS Code mendukung berbagai bahasa pemrograman seperti PHP, HTML, CSS, dan 
+JavaScript, serta dilengkapi dengan fitur syntax highlighting, IntelliSense, debugging 
+tools, Git integration, dan terminal bawaan. Berkat ekosistem ekstensi yang luas, 
+
+33 
+ 
+ 
+ 
+pengguna dapat menambahkan dukungan terhadap framework atau pustaka tertentu, 
+termasuk Laravel dan Blade Template Engine (33) 
+ 
+Dalam pengembangan sistem informasi berbasis Laravel, VS Code sering dipilih 
+sebagai editor utama karena dukungan ekstensinya yang kuat dan integrasi langsung 
+dengan Git serta Composer. Pengembang dapat menulis controller, model, dan view, 
+sekaligus menjalankan perintah Artisan CLI atau menguji aplikasi melalui terminal 
+bawaan tanpa harus berpindah ke aplikasi lain. Hal ini menjadikan alur kerja 
+pengembangan lebih efisien dan produktif. Beberapa penelitian pengembangan sistem 
+berbasis Laravel menunjukkan bahwa penggunaan VS Code membantu mempercepat 
+penulisan kode, memperkecil kesalahan sintaks, serta meningkatkan produktivitas 
+pengembang karena fitur otomatisasi seperti auto-completion dan code refactoring (33) 
+2.1.20 Browser 
+ 
+Browser adalah perangkat lunak yang digunakan untuk mengakses dan 
+menampilkan halaman web dari web server. Browser mengirimkan request ke server, 
+menerima respons berupa dokumen HTML, CSS, dan skrip seperti JavaScript, lalu 
+merendernya menjadi tampilan yang dapat dilihat dan digunakan oleh pengguna. Browser 
+modern seperti Google Chrome, Mozilla Firefox, Microsoft Edge, dan Safari mendukung 
+teknologi web terbaru serta alat pengembang (developer tools) yang membantu proses 
+pengujian tampilan dan fungsi aplikasi, sehingga peran browser sangat penting dalam 
+pengembangan serta evaluasi kualitas aplikasi web (34) 
+ 
+Dalam pengembangan aplikasi web berbasis sistem pendataan penanaman dan 
+hasil panen, browser menjadi sarana utama bagi admin, guru, maupun siswa untuk 
+melakukan login, mengisi data, dan melihat laporan. Keberfungsian sistem sangat 
+bergantung pada kompatibilitas lintas browser (cross-browser compatibility), karena 
+perbedaan mesin perender (rendering engines) dan standar dukungan teknologi dapat 
+memengaruhi tampilan maupun interaktivitas aplikasi. Kompatibilitas ini mencakup 
+konsistensi fungsi, performa visual, serta respons terhadap event pengguna di berbagai 
+browser yang berbeda, sehingga pengujian di berbagai browser harus dilakukan agar 
+pengalaman pengguna tetap seragam dan dapat diandalkan (34). 
+
+34 
+ 
+ 
+ 
+2.1.24 Web Server 
+ 
+Web server merupakan perangkat lunak yang bertugas menerima permintaan 
+(request) dari klien melalui protokol HTTP atau HTTPS dan mengirimkan kembali 
+respons berupa halaman web atau data. Server ini berfungsi sebagai perantara antara 
+pengguna dan aplikasi web, memastikan setiap permintaan dari browser diproses sesuai 
+logika sistem dan menghasilkan keluaran yang sesuai. Selain itu, web server juga dapat 
+menjalankan skrip server-side seperti PHP untuk menghasilkan konten dinamis sesuai 
+dengan data atau tindakan pengguna (35). 
+Dalam pengembangan aplikasi berbasis web lokal, web server seperti Apache dan Nginx 
+umumnya dijalankan melalui paket pengembangan seperti XAMPP, Laragon, atau 
+WAMP untuk memudahkan proses pengujian aplikasi sebelum dipublikasikan ke server 
+produksi. Berbagai sistem informasi yang dibangun dengan framework Laravel dan basis 
+data MySQL memanfaatkan web server sebagai media utama untuk menjalankan kode 
+dan menampilkan antarmuka kepada pengguna. Melalui mekanisme ini, setiap 
+permintaan HTTP yang dikirimkan pengguna akan diolah oleh web server, kemudian 
+diteruskan ke application layer untuk diproses dan dikembalikan dalam bentuk halaman 
+web atau data JSON. 
+Kinerja web server menjadi faktor krusial dalam menentukan kecepatan respon dan 
+stabilitas sistem informasi. Penggunaan konfigurasi yang optimal, seperti load balancing, 
+caching, dan pengaturan thread management, dapat meningkatkan efisiensi sistem 
+terutama pada aplikasi yang menangani banyak pengguna secara bersamaan (35). 
+2.1.21 Penelitian Kualitatif 
+ 
+Penelitian kualitatif merupakan pendekatan yang berfokus pada pemahaman 
+mendalam terhadap fenomena sosial atau teknis melalui pengumpulan data deskriptif 
+berupa kata-kata, tindakan, maupun dokumen. Pendekatan ini dilakukan dalam konteks 
+alami (natural setting) dengan peneliti sebagai instrumen utama yang terlibat langsung 
+dalam proses pengumpulan serta analisis data. Tujuan utama penelitian kualitatif bukan 
+sekadar mengukur, tetapi memahami makna, motif, dan konteks yang melatarbelakangi 
+suatu fenomena. 
+
+35 
+ 
+ 
+ 
+ 
+Dalam konteks pengembangan sistem informasi, pendekatan kualitatif sering 
+digunakan untuk menggali kebutuhan pengguna, memahami proses kerja eksisting, serta 
+mengidentifikasi kendala yang muncul di lapangan. Melalui interaksi langsung dengan 
+pengguna seperti guru, siswa, atau petani, peneliti dapat memperoleh gambaran konkret 
+mengenai bagaimana sistem seharusnya dirancang agar sesuai dengan kebutuhan 
+operasional dan kebiasaan kerja di lapangan. Teknik pengumpulan data yang umum 
+digunakan dalam penelitian kualitatif meliputi wawancara mendalam, observasi 
+langsung, dan studi dokumentasi, yang kemudian dianalisis menggunakan pendekatan 
+tematik atau deskriptif untuk menghasilkan kebutuhan fungsional dan nonfungsional 
+sistem yang akurat (36). 
+Penelitian kualitatif juga memungkinkan proses pengembangan sistem dilakukan dengan 
+pendekatan user-centered design, di mana kebutuhan dan pengalaman pengguna menjadi 
+fokus utama dalam setiap tahap perancangan. Dengan demikian, hasil analisis kualitatif 
+dapat digunakan untuk memperkuat dasar perancangan sistem informasi agar lebih 
+kontekstual, realistis, dan mudah diterima oleh pengguna akhir (36) 
+2.1.22 Pengujian Perangkat Lunak 
+ 
+Pengujian perangkat lunak merupakan tahap penting dalam siklus pengembangan 
+sistem untuk memastikan bahwa aplikasi yang dibangun berjalan sesuai kebutuhan, bebas 
+dari kesalahan, dan siap digunakan oleh pengguna. Proses pengujian dilakukan dengan 
+memberikan berbagai skenario masukan kepada sistem dan kemudian membandingkan 
+hasil keluarannya dengan perilaku yang diharapkan. Tahapan ini bertujuan untuk menilai 
+apakah fungsi-fungsi yang dikembangkan sudah berjalan dengan benar dan konsisten 
+sesuai rancangan (37). 
+ 
+Dalam pengembangan aplikasi berbasis web, pengujian dilakukan pada beberapa 
+level untuk memperoleh gambaran kualitas sistem secara menyeluruh. Beberapa jenis 
+pengujian yang umum digunakan meliputi: 
+1. Unit Testing, yaitu pengujian pada bagian terkecil program seperti fungsi atau 
+metode untuk memastikan setiap unit berfungsi dengan benar. 
+2. Integration Testing, yaitu pengujian untuk memastikan bahwa modul-modul yang 
+telah diuji secara terpisah dapat berfungsi dengan baik ketika digabungkan. 
+
+36 
+ 
+ 
+ 
+3. System Testing, yaitu pengujian terhadap keseluruhan sistem untuk melihat 
+apakah seluruh komponen berfungsi secara terpadu. 
+4. User Acceptance Testing (UAT), yaitu pengujian yang melibatkan pengguna 
+akhir untuk menilai apakah sistem telah memenuhi kebutuhan bisnis dan layak 
+digunakan. 
+ 
+Dalam konteks pengembangan sistem pendataan penanaman dan hasil panen, 
+proses pengujian dapat difokuskan pada fungsi-fungsi penting seperti login pengguna, 
+penyimpanan dan pembaruan data penanaman, pencatatan pertumbuhan tanaman, serta 
+pembuatan laporan panen. Dengan menerapkan pengujian di berbagai level, pengembang 
+dapat memastikan bahwa sistem yang dihasilkan bekerja stabil dan sesuai dengan 
+kebutuhan pengguna lapangan (37). 
+2.1.23 Black Box Testing 
+ 
+Black Box Testing merupakan metode pengujian perangkat lunak yang berfokus 
+pada penilaian fungsionalitas sistem dari sisi pengguna tanpa memeriksa struktur internal 
+atau kode program. Penguji hanya mengamati bagaimana sistem merespons berbagai 
+masukan (inputs) dan membandingkannya dengan hasil keluaran (outputs) yang 
+diharapkan berdasarkan spesifikasi kebutuhan. Pendekatan ini umum digunakan dalam 
+pengujian sistem informasi berbasis web karena menilai sistem dari sudut pandang 
+pengguna akhir apakah antarmuka dan fungsi sistem beroperasi sebagaimana mestinya 
+(38). 
+ 
+Dalam praktiknya, Black Box Testing digunakan untuk memastikan setiap fitur 
+utama aplikasi berjalan sesuai harapan tanpa harus mengetahui implementasi logika 
+internalnya. Misalnya, dalam sistem pendataan penanaman dan hasil panen, pengujian 
+dapat dilakukan pada fungsi-fungsi seperti pendaftaran pengguna, login, pengisian data 
+penanaman, penginputan perkembangan tanaman, dan penampilan laporan evaluasi. 
+Teknik yang umum diterapkan dalam Black Box Testing meliputi: 
+1. Equivalence Partitioning – membagi ruang masukan ke dalam kelompok yang 
+dianggap setara untuk mengurangi jumlah kasus uji tanpa mengorbankan cakupan 
+pengujian. 
+2. Boundary Value Analysis – menguji nilai batas (minimum, maksimum, dan nilai 
+di sekitar batas) karena sering menjadi sumber kesalahan logika. 
+
+37 
+ 
+ 
+ 
+3. Use Case Testing – membuat skenario pengujian berdasarkan alur penggunaan 
+aktual dari perspektif pengguna. 
+ 
+Kombinasi ketiga teknik ini memungkinkan pengujian dilakukan secara lebih 
+sistematis dan efisien, terutama pada aplikasi berbasis web yang memiliki banyak 
+masukan data dari pengguna (38). 
+
+38 
+ 
+ 
+ 
+ 
+2.2 Penelitian Terdahulu 
+Tabel 2. 6 Penelitian Terdahulu 
+No 
+Judul Penelitian 
+Penulis, 
+Media 
+Publikasi, 
+dan Tahun 
+Tujuan 
+Penelitian 
+Kesimpulan 
+Saran atau 
+Kelemahan 
+Perbandingan dengan 
+Penelitian Sekarang 
+1 
+Implementasi 
+Sistem Informasi 
+Pencatatan Hasil 
+Panen (SIPAN) 
+Berbasis Web pada 
+Imron Farm Tegal 
+Eka Aprilia, 
+Skripsi 
+Universitas 
+BSI, 2025  
+Mengembangkan 
+sistem informasi 
+pencatatan hasil 
+panen 
+berbasis web untu
+k mempermudah 
+pengelolaan data 
+panen di Imron 
+Farm. 
+Sistem SIPAN 
+mampu 
+membantu 
+pencatatan hasil 
+panen dan 
+pembuatan 
+laporan produksi 
+secara terstruktur 
+dan 
+terkomputerisasi.  
+Sistem belum 
+mengelola data 
+perkembangan 
+tanaman dan belum 
+menyediakan fitur 
+evaluasi 
+keberhasilan panen.  
+Penelitian ini hanya mencatat 
+hasil panen akhir, sedangkan 
+penelitian penulis 
+menambahkan pendataan 
+penanaman dan 
+perkembangan tanaman serta 
+evaluasi keberhasilan panen 
+menggunakan 
+algoritma Decision Tree. 
+
+39 
+ 
+ 
+ 
+No 
+Judul Penelitian 
+Penulis, 
+Media 
+Publikasi, 
+dan Tahun 
+Tujuan 
+Penelitian 
+Kesimpulan 
+Saran atau 
+Kelemahan 
+Perbandingan dengan 
+Penelitian Sekarang 
+2 
+Perancangan 
+Aplikasi Sistem 
+Informasi Hasil 
+Panen Desa 
+Banteran 
+Berbasis Web 
+Penulis 
+Skripsi 
+UAJY, 2023  
+Merancang 
+aplikasi web untu
+k mengelola data 
+hasil panen petani 
+di Desa Banteran. 
+Aplikasi 
+mempermudah 
+perangkat desa 
+dan petani dalam 
+memasukkan dan 
+melihat data hasil 
+panen per 
+komoditas.  
+Sistem belum 
+dilengkapi modul 
+penilaian 
+keberhasilan panen 
+dan belum 
+memanfaatkan 
+algoritma 
+klasifikasi.  
+Penelitian ini fokus pada 
+pelaporan hasil panen per 
+desa, sedangkan penelitian 
+penulis menambahkan 
+analisis keberhasilan panen 
+berdasarkan data 
+perkembangan tanaman dan 
+penanaman per petak. 
+3 
+Pengembangan 
+Sistem Informasi 
+Data Padi Berbasis 
+Website di Desa 
+Rias 
+Penulis 
+Jurnal Kharis
+matech, 
+2025  
+Mengembangkan 
+sistem informasi 
+data padi 
+berbasis web untu
+k mendukung 
+pengelolaan data 
+Sistem mampu 
+menyajikan 
+informasi data 
+padi dan grafik 
+perkembangan 
+produksi padi per 
+Fitur analisis 
+keberhasilan panen 
+masih terbatas pada 
+grafik produksi dan 
+belum menggunakan 
+metode data mining.  
+Penelitian ini hanya 
+menampilkan statistik 
+produksi, sedangkan 
+penelitian penulis 
+memanfaatkan 
+algoritma Decision 
+Tree untuk 
+
+40 
+ 
+ 
+ 
+No 
+Judul Penelitian 
+Penulis, 
+Media 
+Publikasi, 
+dan Tahun 
+Tujuan 
+Penelitian 
+Kesimpulan 
+Saran atau 
+Kelemahan 
+Perbandingan dengan 
+Penelitian Sekarang 
+tanam dan panen 
+padi di Desa Rias. 
+periode dengan 
+lebih rapi.  
+mengklasifikasikan 
+keberhasilan panen 
+berdasarkan data penanaman 
+dan perkembangan tanaman. 
+4 
+Sistem Informasi 
+Pendataan 
+Budidaya Padi 
+Berbasis Web 
+Penulis 
+Skripsi 
+INSTIPER, 
+2025  
+Merancang sistem 
+informasi untuk 
+mencatat kegiatan 
+budidaya padi 
+mulai dari 
+penanaman, 
+pemeliharaan, 
+hingga panen. 
+Sistem informasi 
+memudahkan 
+petani dan 
+pengelola untuk 
+menyimpan dan 
+menelusuri 
+kembali riwayat 
+budidaya padi.  
+Sistem belum 
+melakukan evaluasi 
+keberhasilan panen 
+dan belum 
+menerapkan 
+algoritma Decision 
+Tree untuk 
+klasifikasi hasil.  
+Penelitian ini mendukung 
+pendataan budidaya padi, 
+sementara penelitian penulis 
+melanjutkan dengan modul 
+evaluasi keberhasilan panen 
+berdasarkan data 
+perkembangan tanaman. 
+5 
+Sistem Informasi 
+Pendataan 
+Berbagai Jenis 
+Penulis 
+Jurnal 
+Membangun 
+sistem informasi 
+pendataan 
+Sistem dapat 
+membantu 
+pendataan 
+Sistem tidak 
+membahas evaluasi 
+hasil panen maupun 
+Penelitian ini fokus pada 
+pendataan jenis tanaman, 
+sedangkan penelitian penulis 
+
+41 
+ 
+ 
+ 
+No 
+Judul Penelitian 
+Penulis, 
+Media 
+Publikasi, 
+dan Tahun 
+Tujuan 
+Penelitian 
+Kesimpulan 
+Saran atau 
+Kelemahan 
+Perbandingan dengan 
+Penelitian Sekarang 
+Tanaman 
+Hortikultura 
+Berbasis Website 
+RISTECH, 
+2022  
+berbagai jenis 
+tanaman 
+hortikultura 
+berbasis web pada 
+instansi terkait. 
+komoditas 
+hortikultura dan 
+menyajikan 
+informasi jenis 
+tanaman secara 
+terorganisir.  
+keberhasilan 
+budidaya setiap 
+komoditas.  
+menekankan pendataan 
+proses penanaman dan hasil 
+panen yang dianalisis 
+keberhasilannya 
+menggunakan Decision Tree. 
+6 
+Aplikasi 
+Pengelolaan Data 
+Pertanian 
+Berbasis Web 
+Penulis 
+Jurnal 
+IDEALIS, 
+2022  
+Mengembangkan 
+aplikasi web untu
+k mengelola data 
+kegiatan pertanian 
+seperti 
+penanaman, 
+pemupukan, dan 
+panen. 
+Aplikasi 
+membantu 
+penyimpanan data 
+kegiatan pertanian 
+dan memudahkan 
+pembuatan 
+laporan 
+sederhana.  
+Sistem tidak 
+menyediakan fitur 
+evaluasi 
+keberhasilan panen 
+maupun klasifikasi 
+kondisi tanaman.  
+Penelitian ini menjadi dasar 
+pengelolaan data kegiatan, 
+sementara penelitian penulis 
+menambahkan pengolahan 
+data perkembangan tanaman 
+dan hasil panen untuk 
+mengukur keberhasilan panen 
+menggunakan Decision Tree. 
+
+42 
+ 
+ 
+ 
+No 
+Judul Penelitian 
+Penulis, 
+Media 
+Publikasi, 
+dan Tahun 
+Tujuan 
+Penelitian 
+Kesimpulan 
+Saran atau 
+Kelemahan 
+Perbandingan dengan 
+Penelitian Sekarang 
+7 
+Rancang Bangun 
+Back-End Sistem 
+Informasi 
+Pertanian Berbasis 
+Website di 
+Kabupaten 
+Sumbawa 
+Penulis 
+Jurnal JEET, 
+2025  
+Merancang back-
+end sistem 
+informasi 
+pertanian untuk 
+mengelola data 
+lahan, komoditas, 
+dan laporan hasil 
+pertanian di 
+Kabupaten 
+Sumbawa. 
+Sistem back-
+end yang 
+dibangun mampu 
+mengelola data 
+pertanian dan 
+menyediakan 
+antarmuka 
+administrasi yang 
+terstruktur.  
+Penelitian berfokus 
+pada back-end dan 
+administrasi data, 
+tanpa modul evaluasi 
+keberhasilan panen 
+pada level lahan atau 
+petani.  
+Penelitian ini menjadi rujukan 
+desain back-end, sedangkan 
+penelitian penulis melengkapi 
+dengan modul pendataan 
+penanaman dan evaluasi 
+keberhasilan panen di 
+lingkungan SMK 
+menggunakan Decision Tree. 
+8 
+Implementasi 
+Sistem Informasi 
+E-Farming 
+Berbasis Web 
+untuk Pengelolaan 
+Penulis 
+Skripsi USU, 
+2025  
+Menerapkan 
+sistem e-farming 
+berbasis web untu
+k membantu 
+petani mengelola 
+Sistem e-farming 
+memudahkan 
+pengaturan jadwal 
+penanaman dan 
+panen serta 
+Sistem belum 
+dilengkapi analisis 
+keberhasilan panen 
+berdasarkan data 
+pertumbuhan 
+Penelitian ini membahas 
+penjadwalan dan pencatatan, 
+sedangkan penelitian penulis 
+menambahkan evaluasi 
+tingkat keberhasilan panen 
+
+43 
+ 
+ 
+ 
+No 
+Judul Penelitian 
+Penulis, 
+Media 
+Publikasi, 
+dan Tahun 
+Tujuan 
+Penelitian 
+Kesimpulan 
+Saran atau 
+Kelemahan 
+Perbandingan dengan 
+Penelitian Sekarang 
+Lahan Pertanian 
+dan Penjadwalan 
+Panen Padi 
+lahan dan 
+menjadwalkan 
+panen padi. 
+pencatatan 
+kondisi lahan.  
+tanaman dan tidak 
+menggunakan 
+algoritma 
+klasifikasi.  
+menggunakan Decision 
+Tree untuk mendukung 
+proses pembelajaran praktik. 
+9 
+Rancang Bangun 
+Sistem Informasi 
+Pertanian Berbasis 
+Web pada 
+Kelompok Tani 
+Penulis 
+Jurnal 
+INSTINK, 
+2023  
+Mengembangkan 
+sistem informasi 
+pertanian 
+berbasis web untu
+k mengelola data 
+anggota, 
+komoditas, dan 
+kegiatan 
+kelompok tani. 
+Sistem dapat 
+membantu 
+kelompok tani 
+dalam pendataan 
+anggota dan 
+aktivitas serta 
+menampilkan 
+informasi 
+produksi secara 
+lebih rapi.  
+Sistem belum 
+mendukung 
+pencatatan 
+perkembangan 
+tanaman secara 
+periodik dan belum 
+mengukur 
+keberhasilan panen 
+tiap siklus tanam.  
+Penelitian terdahulu 
+menitikberatkan pada 
+administrasi kelompok tani, 
+sedangkan penelitian penulis 
+menargetkan lingkungan 
+SMK dengan fokus pendataan 
+praktik penanaman dan 
+evaluasi keberhasilan panen 
+menggunakan Decision Tree. 
+
+44 
+ 
+ 
+ 
+No 
+Judul Penelitian 
+Penulis, 
+Media 
+Publikasi, 
+dan Tahun 
+Tujuan 
+Penelitian 
+Kesimpulan 
+Saran atau 
+Kelemahan 
+Perbandingan dengan 
+Penelitian Sekarang 
+10 
+Sistem Informasi 
+Hasil Panen Padi 
+Kabupaten Subang 
+Berbasis Web 
+Penulis 
+Jurnal JTIK 
+STMIK 
+Subang, 
+±2022–2023  
+Mengembangkan 
+sistem informasi 
+berbasis web untu
+k mengelola data 
+hasil panen padi 
+per kecamatan di 
+Kabupaten 
+Subang. 
+Sistem mampu 
+menyajikan data 
+hasil panen padi 
+per wilayah 
+sehingga 
+membantu proses 
+pelaporan di 
+tingkat 
+kabupaten.  
+Sistem hanya 
+menangani 
+rekapitulasi hasil 
+panen dan belum 
+mengelola data 
+penanaman maupun 
+evaluasi 
+keberhasilan panen 
+per petani.  
+Penelitian ini fokus pada 
+pelaporan hasil panen di 
+tingkat wilayah, sedangkan 
+penelitian penulis berfokus 
+pada tingkat individu 
+(siswa/petani) dengan analisis 
+keberhasilan panen 
+berdasarkan data penanaman 
+dan perkembangan tanaman. 
+11 
+Implementasi 
+Sistem Informasi 
+E-Farming 
+Berbasis Web 
+untuk Pengelolaan 
+Lahan Pertanian 
+Penulis 
+Skripsi 
+Universitas 
+Sumatera 
+Utara, 2025  
+Menerapkan 
+sistem e-farming 
+berbasis web untu
+k membantu 
+petani mengelola 
+lahan dan 
+Sistem 
+mempermudah 
+pengaturan jadwal 
+tanam dan panen 
+serta pencatatan 
+Sistem belum 
+mengevaluasi 
+keberhasilan panen 
+berdasarkan data 
+perkembangan 
+tanaman dan tidak 
+Penelitian ini fokus pada 
+penjadwalan dan pencatatan 
+lahan, sedangkan penelitian 
+penulis menambahkan 
+analisis keberhasilan panen 
+dengan algoritma Decision 
+
+45 
+ 
+ 
+ 
+No 
+Judul Penelitian 
+Penulis, 
+Media 
+Publikasi, 
+dan Tahun 
+Tujuan 
+Penelitian 
+Kesimpulan 
+Saran atau 
+Kelemahan 
+Perbandingan dengan 
+Penelitian Sekarang 
+dan Penjadwalan 
+Panen Padi 
+menjadwalkan 
+penanaman serta 
+panen padi. 
+kondisi lahan 
+secara digital.  
+menggunakan 
+algoritma 
+klasifikasi.  
+Tree dari data penanaman dan 
+perkembangan tanaman. 
+12 
+Sistem Informasi 
+Hasil Panen Padi 
+Kabupaten Subang 
+Berbasis Web 
+Penulis 
+Jurnal JTIK 
+STMIK 
+Subang, 
+±2022–2023  
+Mengembangkan 
+sistem informasi 
+berbasis web untu
+k mengelola data 
+hasil panen padi 
+per kecamatan di 
+Kabupaten 
+Subang. 
+Sistem mampu 
+menyajikan data 
+hasil panen padi 
+per wilayah dan 
+membantu proses 
+pelaporan di 
+tingkat 
+kabupaten.  
+Sistem hanya 
+menangani 
+rekapitulasi hasil 
+panen dan belum 
+mengelola data 
+penanaman maupun 
+evaluasi 
+keberhasilan panen 
+per petani.  
+Penelitian terdahulu fokus 
+pada pelaporan hasil panen di 
+level kabupaten, sedangkan 
+penelitian penulis fokus pada 
+level individu (siswa/petani) 
+dengan evaluasi keberhasilan 
+panen di lahan praktik. 
+13 
+Sistem Informasi 
+Pendataan 
+Penulis 
+Skripsi 
+Merancang sistem 
+informasi untuk 
+mencatat kegiatan 
+Sistem 
+memudahkan 
+pencatatan dan 
+Sistem belum 
+menilai keberhasilan 
+panen dan belum 
+Penelitian ini mendukung 
+pendataan budidaya padi, 
+sementara penelitian penulis 
+
+46 
+ 
+ 
+ 
+No 
+Judul Penelitian 
+Penulis, 
+Media 
+Publikasi, 
+dan Tahun 
+Tujuan 
+Penelitian 
+Kesimpulan 
+Saran atau 
+Kelemahan 
+Perbandingan dengan 
+Penelitian Sekarang 
+Budidaya Padi 
+Berbasis Web 
+INSTIPER, 
+2025  
+budidaya padi 
+mulai dari 
+penanaman, 
+pemeliharaan, 
+hingga panen. 
+pelacakan riwayat 
+budidaya padi per 
+petani atau lahan.  
+menerapkan 
+algoritma Decision 
+Tree untuk 
+klasifikasi hasil.  
+melanjutkan dengan modul 
+evaluasi keberhasilan panen 
+berdasarkan data 
+perkembangan tanaman. 
+14 
+Sistem Informasi 
+Pendataan 
+Berbagai Jenis 
+Tanaman 
+Hortikultura 
+Berbasis Website 
+Penulis 
+Jurnal 
+RISTECH, 
+2022  
+Membangun 
+sistem informasi 
+pendataan 
+komoditas 
+hortikultura 
+berbasis web pada 
+instansi terkait. 
+Sistem mampu 
+mendokumentasik
+an jenis tanaman 
+hortikultura dan 
+mempermudah 
+pencarian data.  
+Tidak mengelola 
+data proses budidaya 
+dan hasil panen, 
+serta tidak 
+menyediakan 
+analisis 
+keberhasilan.  
+Penelitian terdahulu fokus 
+pada jenis tanaman, 
+sedangkan penelitian penulis 
+fokus pada proses 
+penanaman, perkembangan 
+tanaman, dan hasil panen 
+untuk dievaluasi 
+dengan Decision Tree. 
+15 
+Aplikasi 
+Pengelolaan Data 
+Penulis 
+Jurnal 
+Mengembangkan 
+aplikasi web untu
+Aplikasi berhasil 
+membantu 
+Sistem belum 
+dilengkapi fitur 
+Penelitian ini menjadi dasar 
+pengelolaan data kegiatan, 
+
+47 
+ 
+ 
+ 
+No 
+Judul Penelitian 
+Penulis, 
+Media 
+Publikasi, 
+dan Tahun 
+Tujuan 
+Penelitian 
+Kesimpulan 
+Saran atau 
+Kelemahan 
+Perbandingan dengan 
+Penelitian Sekarang 
+Pertanian Berbasis 
+Web 
+IDEALIS, 
+2022  
+k mengelola data 
+kegiatan pertanian 
+seperti 
+penanaman, 
+pemupukan, dan 
+panen. 
+penyimpanan data 
+dan pembuatan 
+laporan kegiatan 
+pertanian.  
+evaluasi 
+keberhasilan panen 
+dan belum 
+menggunakan 
+algoritma 
+klasifikasi.  
+sementara penelitian penulis 
+menambahkan evaluasi 
+keberhasilan panen 
+berdasarkan data 
+pertumbuhan dan hasil panen. 
+16 
+Rancang Bangun 
+Sistem Informasi 
+Pertanian Berbasis 
+Web pada 
+Kelompok Tani 
+Penulis 
+Jurnal 
+INSTINK, 
+2023  
+Mengembangkan 
+sistem informasi 
+pertanian 
+berbasis web untu
+k mengelola data 
+anggota, 
+komoditas, dan 
+kegiatan 
+kelompok tani. 
+Sistem membantu 
+pengurus 
+kelompok tani 
+dalam mengelola 
+data anggota dan 
+hasil produksi 
+dengan lebih 
+terstruktur.  
+Fokus pada 
+administrasi 
+kelompok tani, 
+belum ada modul 
+detail perkembangan 
+tanaman dan 
+evaluasi panen.  
+Penelitian terdahulu bertujuan 
+administratif, sedangkan 
+penelitian penulis diarahkan 
+ke lingkungan SMK dengan 
+penekanan pada pendataan 
+praktik penanaman dan 
+evaluasi keberhasilan panen. 
+
+48 
+ 
+ 
+ 
+No 
+Judul Penelitian 
+Penulis, 
+Media 
+Publikasi, 
+dan Tahun 
+Tujuan 
+Penelitian 
+Kesimpulan 
+Saran atau 
+Kelemahan 
+Perbandingan dengan 
+Penelitian Sekarang 
+17 
+Pemodelan Sistem 
+Prediksi Tanaman 
+Pangan 
+Menggunakan 
+Algoritma 
+Decision Tree 
+(Crop Prediction 
+System) 
+Penulis 
+Jurnal 
+JOECY, 
+±2023–2024  
+Membangun 
+sistem prediksi 
+produksi tanaman 
+pangan 
+menggunakan 
+algoritma Decisio
+n Tree. 
+Model Decision 
+Tree mampu 
+memprediksi 
+produksi tanaman 
+pangan dengan 
+tingkat akurasi 
+yang cukup baik.  
+Penelitian fokus 
+pada prediksi 
+produksi, tidak 
+membahas integrasi 
+dengan sistem 
+informasi pendataan 
+penanaman dan hasil 
+panen di level 
+praktik lapangan.  
+Penelitian ini menjadi rujukan 
+penggunaan Decision Tree di 
+bidang pertanian, sedangkan 
+penelitian penulis 
+mengadaptasi Decision 
+Tree khusus untuk evaluasi 
+keberhasilan panen 
+berdasarkan data penanaman 
+dan perkembangan tanaman 
+siswa. 
+18 
+Prediksi 
+Pertumbuhan Hari 
+Selada 
+Menggunakan 
+Linear Regression, 
+Penulis 
+Jurnal Comp
+utatio Untar, 
+2025  
+Membandingkan 
+kinerja beberapa 
+metode, 
+termasuk Decisio
+n Tree, untuk 
+Decision 
+Tree memberikan 
+salah satu 
+performa terbaik 
+dalam 
+Penelitian hanya 
+membahas 
+pertumbuhan selada 
+dan tidak terintegrasi 
+dengan sistem 
+Penelitian ini menunjukkan 
+keunggulan Decision 
+Tree untuk data pertumbuhan 
+tanaman, sedangkan 
+penelitian penulis 
+
+49 
+ 
+ 
+ 
+No 
+Judul Penelitian 
+Penulis, 
+Media 
+Publikasi, 
+dan Tahun 
+Tujuan 
+Penelitian 
+Kesimpulan 
+Saran atau 
+Kelemahan 
+Perbandingan dengan 
+Penelitian Sekarang 
+Logistic 
+Regression dan 
+Decision Tree 
+memprediksi 
+pertumbuhan 
+selada. 
+memodelkan 
+pertumbuhan 
+selada 
+berdasarkan 
+variabel 
+masukan.  
+informasi pendataan 
+penanaman dan hasil 
+panen.  
+menggunakan algoritma 
+tersebut untuk mengevaluasi 
+keberhasilan panen di sistem 
+pendataan penanaman 
+berbasis web. 
+19 
+Perbandingan 
+Kinerja Decision 
+Tree dan Random 
+Forest untuk 
+Prediksi Hasil 
+Panen 
+Penulis 
+Jurnal 
+CoSciTech 
+UMRI, 
+2024/2025  
+Menganalisis dan 
+membandingkan 
+performa Decisio
+n 
+Tree dan Random 
+Forest dalam 
+memprediksi hasil 
+panen. 
+Random 
+Forest memiliki 
+akurasi sedikit 
+lebih tinggi 
+dibanding Decisio
+n Tree, 
+namun Decision 
+Tree lebih mudah 
+diinterpretasikan.  
+Penelitian hanya 
+menilai performa 
+model prediksi dan 
+tidak 
+menghubungkannya 
+dengan sistem 
+pendataan 
+penanaman yang 
+Penelitian ini menjadi 
+pembanding pemilihan 
+algoritma, sedangkan 
+penelitian penulis 
+memilih Decision 
+Tree karena interpretasinya 
+lebih mudah digunakan untuk 
+evaluasi panen di lingkungan 
+pendidikan. 
+
+50 
+ 
+ 
+ 
+No 
+Judul Penelitian 
+Penulis, 
+Media 
+Publikasi, 
+dan Tahun 
+Tujuan 
+Penelitian 
+Kesimpulan 
+Saran atau 
+Kelemahan 
+Perbandingan dengan 
+Penelitian Sekarang 
+digunakan oleh 
+pengguna akhir.  
+20 
+Prediksi Hasil 
+Panen Padi dengan 
+Metode Multiple 
+Linear Regression 
+Penulis 
+Jurnal 
+JUSIFOR, 
+2025  
+Membangun 
+model prediksi 
+hasil panen padi 
+menggunakan 
+metode regresi 
+linier berganda. 
+Model regresi 
+mampu 
+memprediksi hasil 
+panen 
+berdasarkan 
+beberapa variabel 
+budidaya dengan 
+tingkat kesalahan 
+tertentu.  
+Tidak menggunakan 
+algoritma Decision 
+Tree dan tidak 
+terintegrasi dengan 
+sistem informasi 
+pendataan 
+penanaman 
+berbasis web.  
+Penelitian ini menunjukkan 
+pendekatan lain untuk 
+prediksi panen, sedangkan 
+penelitian penulis 
+mengembangkan sistem 
+pendataan penanaman dan 
+hasil panen yang sekaligus 
+mengevaluasi keberhasilan 
+panen menggunakan 
+algoritma Decision Tree. 
+ 
+ 
+
+51 
+ 
+ 
+ 
+2.2.1 Start of The Art 
+ 
+Berdasarkan penelitian terdahulu pada tabel di atas, dapat disimpulkan bahwa 
+beberapa penelitian memiliki persamaan dan perbedaan. Persamaan dan perbedaan antara 
+penelitian penulis dengan penelitian terdahulu antara lain sebagai berikut: 
+1. Persamaan 
+a. Sama-sama mengembangkan sistem informasi berbasis web untuk 
+mengelola data penanaman dan hasil panen. 
+b. Seluruh sistem bertujuan untuk meningkatkan efisiensi pencatatan data 
+dan memudahkan petani atau pengguna dalam mengelola informasi 
+penanaman dan hasil panen. 
+c. Hampir semua penelitian menghadapi tantangan dalam mengelola data 
+yang 
+besar 
+dan 
+memastikan 
+akurasi 
+serta 
+kelengkapan 
+data                         
+yang dimasukkan ke dalam sistem. 
+2. Perbedaan 
+a. Penelitian terdahulu umumnya hanya mencakup pendataan penanaman 
+dan hasil panen di berbagai wilayah di Indonesia tanpa fokus khusus pada 
+evaluasi keberhasilan panen menggunakan algoritma klasifikasi. 
+b. Sistem yang dikembangkan dalam penelitian sebelumnya biasanya hanya 
+menyajikan laporan dan grafik sederhana tanpa memanfaatkan 
+algoritma Decision Tree atau metode machine learning lain untuk 
+menganalisis tingkat keberhasilan panen secara mendalam. 
+c. Penelitian ini dirancang untuk memanfaatkan data perkembangan tanaman 
+mingguan (tinggi tanaman, jumlah tanaman hidup, jumlah tanaman mati) 
+sebagai 
+fitur 
+masukan 
+untuk 
+algoritma Decision 
+Tree guna 
+mengklasifikasikan keberhasilan panen, yang menjadikan sistem ini lebih 
+informatif dan mendukung proses pembelajaran praktik pertanian                
+di SMK. 
+ 
+ 
+ 
+
+ 
+52 
+ 
+BAB III 
+METODE PENELITIAN 
+3.1 Metode Penelitian 
+Penelitian ini menggunakan pendekatan kuantitatif untuk menganalisis 
+permasalahan dalam sistem pendataan penanaman dan hasil panen di sekolah dengan 
+memanfaatkan data yang diolah dalam bentuk numerik. Pengumpulan data dilakukan 
+melalui observasi lapangan dan wawancara terstruktur kepada kepala sekolah, guru 
+praktik pertanian, di mana hasil wawancara dan pengamatan dikonversi ke dalam bentuk 
+skor atau kategori tertentu berdasarkan indikator yang telah ditetapkan. Observasi 
+dilakukan dengan menggunakan lembar penilaian untuk mengukur aspek-aspek seperti 
+proses penanaman, pencatatan pertumbuhan, dan evaluasi hasil panen. Studi literatur 
+digunakan sebagai dasar teoritis dalam penelitian. Data yang diperoleh kemudian 
+dianalisis secara statistik untuk mengidentifikasi kebutuhan sistem sebagai dasar dalam 
+pengembangan sistem pendataan berbasis web dengan penerapan algoritma Decision 
+Tree. 
+3.1.1 Teknik Pengumpulan Data 
+Berikut adalah teknik pengumpulan data yang digunakan oleh peneliti: 
+1. Studi Literatur 
+Studi literatur dilakukan dengan menelaah, mengumpulkan, dan mengkaji 
+berbagai referensi yang relevan dengan pendokumentasian kegiatan penanaman, 
+pengelolaan data hasil panen, penerapan algoritma Decision Tree, serta 
+pengembangan sistem informasi berbasis web dalam konteks pendidikan 
+pertanian. Sumber data yang digunakan mencakup e-book, jurnal ilmiah, 
+prosiding, skripsi/tesis, artikel terkait, serta literatur teori lain yang mendukung 
+perancangan sistem pendataan penanaman dan evaluasi keberhasilan panen di 
+SMK IT Al-Hawari. 
+2. Wawancara 
+Wawancara dilakukan secara langsung dengan Bapak Dian Nurhamdani selaku 
+kepala sekolah, guru praktik pertanian, dan guru teori untuk menggali kebutuhan 
+sistem pendataan penanaman dan hasil panen. Melalui wawancara, peneliti 
+
+53 
+ 
+ 
+ 
+mendapatkan informasi mendalam mengenai proses pencatatan penanaman       
+dan hasil panen yang saat ini berjalan, kendala yang dihadapi, dan fitur apa saja        
+yang diinginkan dalam sistem baru. 
+Pertanyaan yang diajukan dalam wawancara mencakup: 
+a. Bagaimana proses pencatatan penanaman dan hasil panen yang saat ini 
+berjalan? 
+b. Kendala apa yang dihadapi dalam pencatatan manual? 
+c. Data apa saja yang perlu dicatat dalam setiap tahap budidaya tanaman? 
+d. Bagaimana cara mengevaluasi keberhasilan panen saat ini? 
+e. Fitur apa yang diinginkan dalam sistem pendataan penanaman dan hasil 
+panen berbasis web? 
+f. Siapa saja yang akan menggunakan sistem ini (admin, guru, siswa)? 
+ 
+Dengan wawancara ini, peneliti dapat mengidentifikasi kebutuhan fungsional dan 
+nonfungsional sistem, serta pemahaman mendalam tentang kebutuhan pengguna                
+di lapangan. 
+3. Observasi 
+ 
+Observasi dilakukan secara langsung dengan tidak langsung menggunakan media 
+visual atau dokumen untuk mengamati kegiatan siswa dalam melakukan praktik 
+penanaman, pemeliharaan tanaman, pencatatan perkembangan tanaman, dan evaluasi 
+hasil panen. Peneliti mengamati proses pembelajaran praktik pertanian di lahan sekolah 
+untuk memahami bagaimana siswa melakukan pencatatan data, kendala yang dihadapi, 
+dan bagaimana guru mengevaluasi keberhasilan panen. 
+Aspek yang diamati dalam observasi mencakup: 
+a. Proses penanaman dan pencatatan data penanaman (jenis tanaman, tanggal 
+tanam, jumlah bibit, lokasi lahan) 
+b. Data perkembangan tanaman apa saja yang dicatat setiap minggu (tinggi 
+tanaman, jumlah hidup, jumlah mati, kondisi hama/penyakit) 
+c. Berapa lama waktu yang dibutuhkan untuk pencatatan manual 
+d. Bagaimana siswa dan guru melakukan pencatatan (di kertas, digital, atau 
+media lain) 
+e. Kendala apa yang muncul saat pencatatan dan evaluasi panen 
+f. Bagaimana guru memberikan evaluasi dan penilaian keberhasilan panen 
+
+54 
+ 
+ 
+ 
+ 
+Dengan observasi, peneliti dapat memahami konteks nyata kegiatan pembelajaran 
+praktik dan kebutuhan data secara detail tanpa harus mengandalkan jawaban verbal saja. 
+3.2 Metode Pengembangan Perangkat Lunak 
+ 
+Metode pengembangan perangkat lunak yang diterapkan dalam penelitian ini 
+adalah Rapid Application Development (RAD). Pemilihan metode RAD didasarkan pada 
+karakteristiknya yang mengutamakan kecepatan, proses iteratif, dan fleksibilitas dalam 
+pengembangan sistem. Pendekatan ini memungkinkan sistem dibangun secara bertahap 
+serta disesuaikan dengan kebutuhan penelitian yang dapat berkembang selama proses 
+pengembangan. Selain itu, metode RAD dinilai tepat digunakan dalam penelitian 
+pengembangan sistem karena mampu mempercepat tahapan perancangan, implementasi, 
+hingga pengujian aplikasi. Tahapan metode RAD dapat dilihat pada Gambar 3. 1 berikut: 
+ 
+ 
+Gambar 3. 1 Tahapan Perancangan RAD 
+3.2.1 Requirement Analysis 
+Pada tahap ini, peneliti melakukan pengumpulan dan analisis kebutuhan sistem 
+berdasarkan permasalahan yang terjadi pada proses pendataan penanaman dan hasil 
+panen di SMK IT Al-Hawari yang belum terkelola secara optimal dan belum mendukung 
+evaluasi berbasis data. Analisis dilakukan untuk mengidentifikasi kebutuhan pengguna, 
+baik dari sisi guru maupun siswa, serta menentukan batasan dan tujuan sistem yang akan 
+dikembangkan. 
+Tahap ini juga berfokus pada penentuan kebutuhan fungsional dan nonfungsional 
+sistem, termasuk kebutuhan pengolahan data penanaman, pemeliharaan, dan hasil panen 
+yang akan digunakan dalam proses evaluasi menggunakan algoritma Decision Tree. Hasil 
+dari analisis kebutuhan ini menjadi dasar dalam pengembangan aplikasi berbasis web 
+yang dirancang secara cepat dan iteratif sesuai dengan pendekatan Rapid Application 
+
+55 
+ 
+ 
+ 
+Development (RAD), sehingga sistem dapat menyesuaikan dengan kebutuhan pengguna 
+secara lebih fleksibel. 
+1. Analisis Masalah 
+Pada tahap ini, peneliti melakukan analisis terhadap permasalahan dalam 
+proses pendataan penanaman dan hasil panen di SMK IT Al-Hawari yang 
+belum terkelola secara optimal. Data yang dihasilkan dari kegiatan penanaman 
+dan pemeliharaan sebenarnya telah tersedia, namun belum dimanfaatkan 
+secara maksimal untuk mendukung proses evaluasi. Evaluasi hasil panen yang 
+dilakukan masih bersifat deskriptif dan belum didukung oleh analisis berbasis 
+data, sehingga penilaian keberhasilan praktik cenderung subjektif dan belum 
+memiliki standar yang terukur. 
+Selain itu, belum adanya sistem yang mampu mengolah data secara sistematis 
+menyebabkan 
+kesulitan 
+dalam 
+mengidentifikasi 
+faktor-faktor 
+yang 
+memengaruhi keberhasilan maupun kegagalan panen. Kondisi ini berdampak 
+pada kurang optimalnya proses evaluasi dan perbaikan kegiatan praktik 
+pertanian. Oleh karena itu, diperlukan sebuah sistem pendataan berbasis web 
+yang dapat mengelola data penanaman, pemeliharaan, dan hasil panen secara 
+terstruktur serta mengimplementasikan algoritma Decision Tree untuk 
+mendukung evaluasi keberhasilan panen secara objektif dan berbasis data. 
+a. Gambaran sistem yang sedang berjalan 
+Gambaran umum sistem yang sedang berjalan pada kegiatan praktik 
+pertanian di SMK IT Al-Hawari masih dilakukan secara manual. Proses 
+dimulai dari siswa mencatat data penanaman pada buku, kemudian 
+dilanjutkan dengan pencatatan data pemeliharaan dan data panen pada 
+buku yang sama. Setelah seluruh data dicatat, siswa menyerahkan buku 
+tersebut kepada guru untuk dilakukan pemeriksaan dan penilaian. Seluruh 
+proses pencatatan dan pengelolaan data dilakukan secara tertulis tanpa 
+menggunakan sistem digital, sehingga data belum terorganisir secara 
+optimal dan masih bergantung pada pencatatan manual oleh siswa semua 
+dapat dilihat pada Gambar 3.2 berikut: 
+ 
+
+56 
+ 
+ 
+ 
+ 
+Gambar 3. 2 gambaran sistem sedang berjalan 
+b. Gambaran sistem yang akan dibuat 
+Gambaran umum sistem Sistem yang diusulkan merupakan sistem 
+pendataan praktik pertanian berbasis digital yang melibatkan siswa, guru, 
+dan basis data dalam proses pengelolaan informasi. Pada sistem ini, siswa 
+melakukan input data penanaman, pemeliharaan, dan panen melalui 
+sistem, kemudian data tersebut disimpan ke dalam basis data. Selanjutnya, 
+sistem akan mengambil data yang telah tersimpan untuk dilakukan proses 
+evaluasi secara otomatis menggunakan algoritma Decision Tree. Hasil 
+evaluasi yang diperoleh kemudian disimpan kembali ke dalam basis data 
+dan dapat ditampilkan dalam bentuk informasi kepada pengguna, 
+khususnya guru, sebagai bahan dalam proses penilaian. Dengan demikian, 
+sistem ini tidak hanya berfungsi sebagai media pendataan, tetapi juga 
+sebagai alat bantu dalam melakukan analisis dan evaluasi hasil praktik 
+pertanian secara terstruktur dan berbasis data semua dapat dilihat pada 
+gambar berikut: 
+ 
+ 
+ 
+Gambar 3. 3 Gambaran sistem yang akan dibuat 
+2. Analisis kebutuhan fungsional  
+Pada Tabel 3.1 berikut merupakan analisis kebutuhan fungsional. 
+Tabel 3. 1 Analisis Kebutuhan Fungsional 
+
+57 
+ 
+ 
+ 
+User Story 
+High Priority 
+Medium 
+Priority 
+Low 
+Priority 
+No 
+Priority 
+Admin dapat 
+masuk ke sistem 
+untuk mengelola 
+aplikasi. 
+Tersedianya 
+fitur login 
+untuk admin. 
+Admin dapat 
+mengelola akun 
+guru dan siswa. 
+Sistem 
+menyediakan 
+fitur tambah, 
+ubah, dan 
+hapus akun 
+guru dan 
+siswa. 
+Guru dan siswa 
+dapat masuk ke 
+sistem 
+menggunakan 
+akun yang 
+disediakan 
+admin. 
+Tersedianya 
+fitur login 
+untuk guru dan 
+siswa. 
+ 
+Siswa dapat 
+mengelola data 
+penanaman. 
+Sistem 
+menyediakan 
+fitur input, 
+ubah, dan 
+hapus data 
+penanaman. 
+ 
+ 
+ 
+  
+Siswa dapat 
+mengelola data 
+pemeliharaan 
+tanaman. 
+Sistem 
+menyediakan 
+form 
+pemeliharaan 
+tanaman untuk 
+mencatat 
+ 
+
+58 
+ 
+ 
+ 
+User Story 
+High Priority 
+Medium 
+Priority 
+Low 
+Priority 
+No 
+Priority 
+kegiatan 
+pemeliharaan. 
+Guru dapat 
+melihat data 
+penanaman, data 
+pemeliharaan, 
+dan hasil panen. 
+Sistem 
+menampilkan 
+data 
+penanaman, 
+data 
+pemeliharaan, 
+dan hasil 
+panen secara 
+terstruktur. 
+siswa 
+mendapatkan 
+hasil evaluasi 
+keberhasilan 
+panen. 
+Sistem 
+menerapkan 
+algoritma 
+Decision Tree 
+untuk 
+menghasilkan 
+evaluasi 
+keberhasilan 
+panen secara 
+otomatis. 
+ 
+ 
+Guru dan siswa 
+dapat melihat 
+hasil evaluasi 
+panen. 
+Sistem 
+menampilkan 
+hasil evaluasi 
+keberhasilan 
+panen. 
+ 
+3. Analisis Kebutuhan Non Fungsional 
+Analisis kebutuhan non fungsional dapat dilihat pada tabel 3.2 berikut ini: 
+Tabel 3. 2 Analisis Kebutuhan Non Fungsional 
+
+59 
+ 
+ 
+ 
+Acquisition 
+User Concern 
+Scope / How 
+Usability 
+Aplikasi mudah 
+digunakan oleh admin, 
+guru, dan siswa. 
+Antarmuka pengguna dirancang 
+sederhana dan intuitif dengan 
+navigasi yang jelas serta 
+tampilan yang konsisten. 
+Accuracy 
+Hasil evaluasi 
+keberhasilan panen 
+harus akurat. 
+Algoritma Decision Tree 
+diterapkan menggunakan data 
+penanaman dan hasil panen 
+yang valid serta diuji untuk 
+memastikan akurasi evaluasi. 
+Performance 
+Sistem dapat 
+memproses data 
+dengan cepat. 
+Pengolahan data dan evaluasi 
+panen dilakukan secara efisien 
+agar waktu respon sistem tetap 
+singkat. 
+Security 
+Data pengguna dan 
+data pertanian harus 
+aman. 
+Sistem menerapkan autentikasi 
+login dan pembatasan hak akses 
+berdasarkan peran pengguna 
+(admin, guru, siswa). 
+Reliability 
+Sistem dapat 
+digunakan secara 
+stabil tanpa sering 
+mengalami gangguan. 
+Aplikasi diuji untuk memastikan 
+fungsi utama berjalan dengan 
+baik dan data tersimpan dengan 
+benar. 
+Scalability 
+Sistem dapat 
+dikembangkan di masa 
+depan. 
+Struktur sistem dan basis data 
+dirancang agar mudah 
+ditambahkan fitur atau data 
+baru. 
+Compatibility Sistem dapat diakses 
+melalui berbagai 
+perangkat. 
+Aplikasi berbasis web dan dapat 
+diakses menggunakan browser 
+umum seperti Google Chrome 
+dan Mozilla Firefox. 
+ 
+4. Rencana Implementasi Algoritma Decision Tree 
+
+60 
+ 
+ 
+ 
+Algoritma Decision Tree diterapkan untuk mengklasifikasikan tingkat 
+keberhasilan panen berdasarkan data penanaman dan hasil panen yang 
+tersimpan di dalam sistem. Adapun tahapan penerapan algoritma Decision 
+Tree dijelaskan sebagai berikut: 
+a. Pengumpulan Data (Data Collection) 
+Tahap ini mencakup pengumpulan data yang diperoleh dari kegiatan praktik 
+pertanian di SMK IT Al-Hawari. Data yang dihimpun meliputi jenis tanaman, 
+kondisi tanah, waktu tanam, waktu panen, serta jumlah hasil panen. Seluruh 
+data tersebut digunakan sebagai sumber data utama dalam proses evaluasi 
+keberhasilan panen. 
+b. Pra-Pemrosesan Data (Data Preprocessing) 
+Tahap pra-pemrosesan dilakukan untuk memastikan data yang digunakan 
+memiliki kualitas yang baik sebelum diproses oleh algoritma. Proses yang 
+dilakukan pada tahap ini meliputi: 
+1. Menghilangkan data yang tidak lengkap, tidak valid, atau duplikat 
+yang berpotensi memengaruhi hasil evaluasi. 
+2. Mengelompokkan dan menyesuaikan data ke dalam bentuk dan 
+kategori yang sesuai dengan kebutuhan analisis. 
+3. Melakukan transformasi data apabila diperlukan agar atribut dapat 
+diproses secara optimal oleh algoritma Decision Tree. 
+4. Membagi data ke dalam data pelatihan (training data) dan data 
+pengujian (testing data) untuk menilai kinerja model yang dibangun. 
+c. Penentuan Atribut dan Kriteria Pemisahan (Attribute Selection) 
+Pada tahap ini, sistem menentukan atribut yang paling berpengaruh 
+terhadap keberhasilan panen untuk dijadikan dasar pemisahan data. 
+Pemilihan atribut dilakukan berdasarkan tingkat kontribusinya dalam 
+membedakan kelas keberhasilan panen, sehingga struktur pohon 
+keputusan dapat terbentuk secara optimal. 
+d. Pembentukan Model (Model Construction) 
+Data pelatihan digunakan untuk membangun model Decision Tree. Proses 
+ini dilakukan dengan membentuk node awal berdasarkan atribut terpilih, 
+kemudian dilanjutkan dengan pembentukan cabang-cabang keputusan 
+
+61 
+ 
+ 
+ 
+hingga menghasilkan aturan klasifikasi yang merepresentasikan pola 
+hubungan antar atribut dalam data. 
+e. Pengujian Model (Model Testing) 
+Model Decision Tree yang telah dibangun diuji menggunakan data 
+pengujian untuk menilai kemampuan model dalam mengklasifikasikan 
+tingkat keberhasilan panen. Tahap ini bertujuan untuk mengetahui apakah 
+model dapat menghasilkan evaluasi yang konsisten dan sesuai dengan data 
+yang diuji. 
+f. Implementasi dan Penyajian Hasil (Implementation and Result 
+Presentation) 
+Model Decision Tree yang telah melalui proses pengujian kemudian 
+diimplementasikan ke dalam sistem pendataan penanaman dan hasil 
+panen. Sistem secara otomatis melakukan evaluasi keberhasilan panen 
+berdasarkan data yang dimasukkan, dan hasil evaluasi ditampilkan kepada 
+pengguna sebagai informasi pendukung dalam proses evaluasi dan 
+pembelajaran praktik pertanian. 
+3.2.2 User Design 
+Tahap ini menjelaskan rancangan sistem yang akan dikembangkan pada aplikasi 
+pendataan penanaman dan hasil panen berbasis web dengan penerapan algoritma 
+Decision Tree sebagai metode evaluasi keberhasilan panen. Perancangan sistem 
+meliputi penyusunan use case diagram, use case scenario, activity diagram, sequence 
+diagram, class diagram, serta desain antarmuka (interface). 
+1. Use case 
+Use case diagram merupakan gambaran fungsionalitas yang tersedia pada 
+sistem pendataan penanaman dan hasil panen berbasis web. Diagram ini 
+mencakup fungsi-fungsi utama yang dapat diakses oleh pengguna, seperti 
+proses login, pengelolaan data penanaman, pemeliharaan tanaman, pendataan 
+hasil panen, serta penampilan hasil evaluasi keberhasilan panen yang 
+dihasilkan secara otomatis menggunakan algoritma Decision Tree. Adapun 
+gambaran use case diagram dapat dilihat pada Gambar 3.4 berikut: 
+ 
+
+62 
+ 
+ 
+ 
+ 
+Gambar 3. 4 Use Case Diagram 
+ 
+2. Use Case Scenario  
+Di bawah ini disajikan use case scenario dari sistem pendataan penanaman 
+dan hasil panen berbasis web, yang dijelaskan sebagai berikut: 
+a. Use case scenario login 
+Use case ini menjelaskan proses login pengguna ke dalam sistem 
+pendataan penanaman dan hasil panen. Pengguna melakukan login dengan 
+memasukkan kredensial akun yang telah disediakan oleh admin untuk 
+memperoleh akses ke fitur-fitur yang tersedia sesuai dengan hak akses 
+masing-masing. Setelah proses login berhasil, pengguna dapat mengakses 
+menu dan fungsi sistem sesuai perannya. Use case scenario untuk halaman 
+login dapat dilihat pada Tabel 3.3 berikut: 
+ 
+Tabel 3. 3 Use Case Scenario Login 
+Use Case Name: 
+Login 
+Use Case ID: 
+UC-01 
+Importance Level: High 
+Primary actor: Admin, Guru, 
+Siswa 
+Use Case Type: Included Case 
+
+63 
+ 
+ 
+ 
+Use Case Name: 
+Login 
+Use Case ID: 
+UC-01 
+Importance Level: High 
+Stakeholder and Interest:  
+Pengguna ingin mengakses sistem sesuai hak akses masing-masing. 
+Brief Description:  
+Use case ini menjelaskan proses pengguna masuk ke dalam sistem 
+menggunakan akun yang telah disediakan oleh admin. 
+Trigger:  
+Pengguna membuka aplikasi dan ingin mengakses fitur sistem. 
+Type: External 
+Normal Flow Of Events:  
+1. Pengguna membuka halaman login 
+2. Sistem menampilkan halaman login 
+3. Pengguna memasukan username dan password 
+4. Pengguna menekan tombol login 
+5. Sistem memvalidasi data login 
+6. Sistem memeriksa hak akses 
+7. Aplikasi menampilkan pesan suskes login 
+8. Aplikasi secara otomatis mengarahkan pengguna ke halaman utama 
+sesuai hak akses 
+Alternative Flow: 
+1. Username atau password salah. 
+2. Akun tidak aktif. 
+3. Koneksi ke server gagal. 
+ 
+b. Use Case Scenario Akses Data Penanaman 
+Use case ini menggambarkan aktivitas akses dan pengelolaan data 
+penanaman yang dilakukan oleh siswa melalui sistem pendataan 
+penanaman dan hasil panen berbasis web. Dalam use case ini, siswa dapat 
+melakukan pencatatan data penanaman serta melakukan perubahan atau 
+penghapusan data sesuai dengan pelaksanaan kegiatan praktik pertanian 
+
+64 
+ 
+ 
+ 
+di lapangan. Di sisi lain, guru berperan dalam mengakses dan meninjau 
+data penanaman yang telah dimasukkan oleh siswa sebagai bagian dari 
+proses pemantauan kegiatan praktik pertanian. Penerapan use case ini 
+bertujuan untuk memastikan data penanaman tersimpan secara sistematis 
+dan dapat digunakan sebagai dasar pendukung dalam evaluasi hasil panen. 
+Use case scenario terkait akses data penanaman disajikan pada Tabel 3.4 
+berikut: 
+Tabel 3. 4 Use Case Scenario Akses Data Penanaman 
+Use Case Name: Akses 
+Data Penanaman 
+Use Case ID: 
+UC-02 
+Importance Level: High 
+Primary actor: Siswa 
+Secondary Actor: Guru 
+Use Case Type: Main Case 
+Stakeholder and Interest:  
+1. Siswa ingin mencatat dan mengelola data penanaman. 
+2. Guru ingin memantau data penanaman siswa. 
+Brief Description:  
+Use case ini menjelaskan proses akses data penanaman oleh siswa dan 
+guru. 
+Trigger:  
+Pengguna memilih menu data penanaman.  
+Type: External 
+Pre-condition: Pengguna telah login ke dalam sistem. 
+Normal Flow of Events (Skenario Utama: Siswa) 
+1. Pengguna membuka halaman utama. 
+2. Aplikasi menampilkan halaman utama. 
+3. Pengguna menekan menu penanaman. 
+4. Aplikasi memeriksa hak akses. 
+5. Aplikasi mendeteksi hak akses sebagai Siswa. 
+6. Aplikasi menampilkan data penanaman ditambah tombol kelola 
+penanaman pribadi. 
+7. Pengguna mengisi atau mengedit form data. 
+
+65 
+ 
+ 
+ 
+Use Case Name: Akses 
+Data Penanaman 
+Use Case ID: 
+UC-02 
+Importance Level: High 
+8. Pengguna menekan tombol simpan. 
+9. Aplikasi melakukan validasi input data. 
+10. Aplikasi menyatakan validasi Benar. 
+11. Aplikasi menyimpan data ke database. 
+12. Aplikasi menampilkan pesan sukses. 
+Alternative Flow: 
+4A. Hak Akses Guru Alur ini terjadi jika pada langkah 4 sistem 
+mendeteksi pengguna bukan Siswa. 
+1. Aplikasi mendeteksi hak akses sebagai Guru. 
+2. Aplikasi menampilkan data penanaman siswa (tanpa tombol 
+kelola). 
+9A. Validasi Input Salah Alur ini terjadi jika pada langkah 9 input 
+data tidak valid. 
+1. Aplikasi menyatakan validasi Salah. 
+2. Aplikasi menampilkan pesan error. 
+3. Pengguna kembali ke Langkah 7 (Isi/edit form data). 
+ 
+c. Use Case Scenario Akses Data Pemeliharaan 
+Use case ini menggambarkan proses akses dan pengelolaan data 
+pemeliharaan tanaman yang dilakukan oleh siswa melalui sistem 
+pendataan penanaman dan hasil panen berbasis web. Dalam use case ini, 
+siswa dapat melihat data pemeliharaan, mencatat kegiatan pemeliharaan 
+tanaman, 
+serta 
+melakukan 
+pembaruan 
+atau 
+penghapusan 
+data 
+pemeliharaan sesuai dengan aktivitas praktik pertanian yang dilaksanakan. 
+Data pemeliharaan yang tercatat mencakup berbagai kegiatan perawatan 
+tanaman dan berperan sebagai informasi pendukung dalam proses 
+pendataan kegiatan pertanian serta evaluasi hasil panen. Use case scenario 
+untuk akses data pemeliharaan disajikan pada Tabel 3.5 berikut: 
+ 
+ 
+
+66 
+ 
+ 
+ 
+Tabel 3. 5 Use Case Scenario Akses Data Pemeliharaan 
+Use Case Name: 
+Akses Data 
+Pemeliharaan 
+Use Case ID: 
+UC-03 
+Importance Level: High 
+Primary actor: Siswa 
+Secondary Actor: Guru 
+Use Case Type: Main Case 
+Stakeholder and Interest:  
+1. Siswa ingin mencatat kegiatan pemeliharaan tanaman. 
+2. Guru ingin memantau kegiatan pemeliharaan. 
+Brief Description:  
+Use case ini menjelaskan proses akses data pemeliharaan tanaman. 
+Trigger:  
+Pengguna memilih menu data pemeliharaan.  
+Type: External 
+Pre-condition: Pengguna telah login ke dalam sistem. 
+Normal Flow of Events (Skenario Utama: Siswa) 
+1. Pengguna membuka halaman utama. 
+2. Aplikasi menampilkan halaman utama. 
+3. Pengguna menekan menu pemeliharaan. 
+4. Aplikasi memeriksa hak akses. 
+5. Aplikasi mendeteksi hak akses sebagai Siswa. 
+6. Aplikasi menampilkan data pemeliharaan ditambah tombol kelola 
+pemeliharaan pribadi. 
+7. Pengguna mengisi atau mengedit form data. 
+8. Pengguna menekan tombol simpan. 
+9. Aplikasi melakukan validasi input data. 
+10. Aplikasi menyatakan validasi Benar. 
+11. Aplikasi menyimpan data ke database. 
+12. Aplikasi menampilkan pesan sukses. 
+Alternative Flow: 
+4A. Hak Akses Guru Alur ini terjadi jika pada langkah 4 sistem 
+mendeteksi pengguna bukan Siswa. 
+
+67 
+ 
+ 
+ 
+Use Case Name: 
+Akses Data 
+Pemeliharaan 
+Use Case ID: 
+UC-03 
+Importance Level: High 
+1. Aplikasi mendeteksi hak akses sebagai Guru. 
+2. Aplikasi menampilkan data pemeliharaan siswa (tanpa tombol 
+kelola). 
+9A. Validasi Input Salah Alur ini terjadi jika pada langkah 9 input 
+data tidak valid. 
+1. Aplikasi menyatakan validasi Salah. 
+2. Aplikasi menampilkan pesan error. 
+3. Pengguna kembali ke Langkah 7 (Isi/edit form data). 
+ 
+d. Use Case Scenario Akses Data Panen  
+Use case ini menggambarkan proses akses dan pengelolaan data hasil 
+panen yang dilakukan oleh siswa melalui sistem pendataan penanaman 
+dan hasil panen berbasis web. Dalam use case ini, siswa dapat melihat data 
+hasil panen, melakukan pencatatan hasil panen, serta memperbarui atau 
+menghapus data panen yang telah dimasukkan sesuai dengan kegiatan 
+praktik pertanian yang dilaksanakan. Data hasil panen yang tersimpan 
+dalam sistem berfungsi sebagai dokumentasi akhir kegiatan praktik 
+pertanian dan menjadi salah satu komponen utama dalam proses evaluasi 
+keberhasilan panen. Use case scenario untuk akses data panen disajikan 
+pada Tabel 3.6 berikut: 
+Tabel 3. 6 Use Case Scenario Akses Data Panen 
+Use Case Name: 
+Akses Data Panen 
+Use Case ID: 
+UC-04 
+Importance Level: High 
+Primary actor: Siswa 
+Secondary Actor: Guru 
+Use Case Type: Main Case 
+Stakeholder and Interest:  
+1. Siswa ingin mencatat hasil panen. 
+2. Guru ingin memantau data hasil panen. 
+
+68 
+ 
+ 
+ 
+Use Case Name: 
+Akses Data Panen 
+Use Case ID: 
+UC-04 
+Importance Level: High 
+Brief Description:  
+Use case ini menjelaskan proses akses dan pencatatan data hasil 
+panen. 
+Trigger:  
+Pengguna memilih menu data panen.  
+Type: External 
+Pre-condition: Pengguna telah login ke dalam sistem. 
+Normal Flow of Events (Skenario Utama: Siswa) 
+1. Pengguna membuka halaman utama. 
+2. Aplikasi menampilkan halaman utama. 
+3. Pengguna menekan menu panen. 
+4. Aplikasi memeriksa hak akses. 
+5. Aplikasi mendeteksi hak akses sebagai Siswa. 
+6. Aplikasi menampilkan data panen ditambah tombol kelola panen 
+pribadi. 
+7. Pengguna mengisi atau mengedit form data. 
+8. Pengguna menekan tombol simpan. 
+9. Aplikasi melakukan validasi input data. 
+10. Aplikasi menyatakan validasi Benar. 
+11. Aplikasi menyimpan data ke database. 
+12. Aplikasi menampilkan pesan sukses. 
+Alternative Flow: 
+4A. Hak Akses Guru Alur ini terjadi jika pada langkah 4 sistem 
+mendeteksi pengguna bukan Siswa. 
+1. Aplikasi mendeteksi hak akses sebagai Guru. 
+2. Aplikasi menampilkan data panen siswa (tanpa tombol kelola). 
+9A. Validasi Input Salah Alur ini terjadi jika pada langkah 9 input 
+data tidak valid. 
+1. Aplikasi menyatakan validasi Salah. 
+2. Aplikasi menampilkan pesan error. 
+
+69 
+ 
+ 
+ 
+Use Case Name: 
+Akses Data Panen 
+Use Case ID: 
+UC-04 
+Importance Level: High 
+3. Pengguna kembali ke Langkah 7 (Isi/edit form data). 
+ 
+e. Use Case Scenario Melihat Hasil Evaluasi Panen 
+Use case ini menggambarkan proses penyajian dan peninjauan hasil 
+evaluasi keberhasilan panen yang dihasilkan oleh sistem berdasarkan data 
+penanaman, pemeliharaan, dan hasil panen yang telah dicatat sebelumnya. 
+Dalam use case ini, guru dan siswa dapat mengakses informasi hasil 
+evaluasi yang disajikan oleh sistem sebagai bahan penilaian dan 
+pembelajaran. Hasil evaluasi tersebut digunakan untuk mengetahui tingkat 
+keberhasilan panen serta sebagai dasar dalam melakukan perbaikan 
+kegiatan praktik pertanian pada periode selanjutnya. Use case scenario 
+untuk melihat hasil evaluasi panen disajikan pada Tabel 3.7 berikut: 
+Tabel 3. 7 Use Case Scenario Melihat Hasil Evaluasi Panen 
+Use Case Name: 
+Melihat Hasil 
+Evaluasi Panen 
+Use Case ID: 
+UC-05 
+Importance Level: 
+Medium 
+Primary Actor: Guru 
+Secondary Actor: Siswa  
+Use Case Type: Supporting Case 
+Stakeholder and Interest:  
+Guru dan siswa ingin mengetahui hasil evaluasi keberhasilan panen. 
+Brief Description:  
+Use case ini menjelaskan proses melihat hasil evaluasi keberhasilan 
+panen berdasarkan data yang telah dicatat. 
+Trigger:  
+Pengguna memilih menu hasil evaluasi panen. 
+Type: External 
+Normal Flow Of Events:  
+1. Pengguna login ke sistem. 
+2. Pengguna memilih menu hasil evaluasi panen. 
+
+70 
+ 
+ 
+ 
+Use Case Name: 
+Melihat Hasil 
+Evaluasi Panen 
+Use Case ID: 
+UC-05 
+Importance Level: 
+Medium 
+3. Sistem memeriksa ketersediaan data penanaman, pemeliharaan, 
+dan panen. 
+4. Sistem mengambil data penanaman. 
+5. Sistem mengambil data pemeliharaan. 
+6. Sistem mengambil data hasil panen. 
+7. Sistem melakukan evaluasi keberhasilan panen menggunakan 
+algoritma Decision Tree. 
+8. Sistem menentukan kategori hasil evaluasi. 
+9. Sistem menyusun dan menampilkan hasil evaluasi panen kepada 
+pengguna. 
+Alternative Flow: 
+1. Sistem mendeteksi bahwa data penanaman, pemeliharaan, atau 
+panen belum lengkap. 
+2. Sistem menampilkan pesan bahwa evaluasi panen belum dapat 
+dilakukan. 
+ 
+f. Use Case Scenario Kelola Akun Pengguna 
+Use case ini menggambarkan proses pengelolaan akun pengguna yang 
+dilakukan oleh admin dalam sistem pendataan penanaman dan hasil panen 
+berbasis web. Dalam use case ini, admin memiliki kewenangan untuk 
+menambahkan akun pengguna baru, memperbarui informasi akun yang 
+sudah ada, serta menghapus akun pengguna sesuai dengan kebutuhan 
+sistem. Pengelolaan akun pengguna bertujuan untuk memastikan setiap 
+pengguna dapat mengakses sistem sesuai dengan peran dan hak akses yang 
+telah ditentukan. Use case scenario untuk kelola akun pengguna disajikan 
+pada Tabel 3.8 berikut: 
+ 
+ 
+ 
+
+71 
+ 
+ 
+ 
+Tabel 3. 8 Use Case Scenario Kelola Akun Pengguna 
+Use Case Name: 
+Kelola Akun 
+Pengguna 
+Use Case ID: 
+UC-06 
+Importance Level: 
+Medium 
+Primary actor: Admin 
+Use Case Type: Main Case 
+Stakeholder and Interest:  
+Admin ingin mengelola akun pengguna sistem. 
+Brief Description:  
+Use case ini menjelaskan proses admin dalam menambah, mengubah, 
+dan menghapus akun pengguna. 
+Trigger:  
+Admin memilih menu kelola akun pengguna. 
+Type: External 
+Normal Flow Of Events:  
+1. Admin login ke sistem. 
+2. Admin memilih menu kelola akun pengguna. 
+3. Sistem menampilkan daftar akun. 
+4. Admin menambah, mengubah, atau menghapus akun. 
+5. Sistem menyimpan perubahan data akun. 
+Alternative Flow: 
+1. Data akun tidak valid. 
+2. Username sudah digunakan. 
+3. Sistem gagal menyimpan data. 
+ 
+g. Use Case Scenario Melihat Profil Pengguna 
+Use case ini menggambarkan proses akses informasi profil pengguna yang 
+dilakukan oleh pengguna sistem, baik siswa, guru, maupun admin. Dalam 
+use case ini, pengguna dapat melihat data profil akun yang berisi informasi 
+identitas dan hak akses yang dimiliki dalam sistem. Fitur melihat profil 
+pengguna bertujuan untuk memberikan informasi akun secara jelas kepada 
+pengguna serta memastikan kesesuaian data pengguna yang terdaftar di 
+
+72 
+ 
+ 
+ 
+dalam sistem. Use case scenario untuk melihat profil pengguna disajikan 
+pada Tabel 3.9 berikut. 
+ 
+Tabel 3. 9 Use Case Scenario Melihat Profil Pengguna 
+Use Case Name: 
+Melihat Profil 
+Pengguna 
+Use Case ID: 
+UC-07 
+Importance Level: Low 
+Primary actor: Siswa, Guru, 
+Admin 
+Use Case Type: Supporting Case 
+Stakeholder and Interest:  
+Pengguna ingin melihat informasi akun pribadinya. 
+Brief Description:  
+Use case ini menjelaskan proses pengguna melihat profil akun. 
+Trigger:  
+Pengguna memilih menu profil pengguna. 
+Type: External 
+Normal Flow Of Events:  
+1. Pengguna login ke sistem. 
+2. Pengguna memilih menu profil pengguna. 
+3. Sistem mengambil data profil pengguna. 
+4. Sistem menampilkan data profil pengguna kepada pengguna. 
+Alternative Flow: 
+ 
+3. Activity Diagram 
+Activity diagram digunakan untuk menggambarkan interaksi antara pengguna 
+dan sistem pendataan penanaman hingga panen. Diagram ini menunjukkan 
+alur aktivitas yang dilakukan oleh pengguna, mulai dari proses login hingga 
+pengelolaan dan pemantauan data penanaman, pemeliharaan, serta hasil 
+panen, beserta respons sistem terhadap setiap aktivitas tersebut. Activity 
+diagram juga membantu dalam memahami alur kerja sistem secara 
+menyeluruh, sehingga dapat digunakan sebagai dasar untuk mengidentifikasi 
+
+73 
+ 
+ 
+ 
+kebutuhan perbaikan atau pengembangan sistem guna meningkatkan 
+efektivitas dan efisiensi pelaksanaan kegiatan praktik pertanian. 
+a. Activity Diagram Login 
+Activity diagram login menggambarkan alur aktivitas pengguna dalam 
+melakukan proses login ke sistem. Proses dimulai ketika pengguna 
+membuka halaman login, memasukkan username dan password, 
+kemudian sistem memvalidasi data tersebut. Jika data valid, pengguna 
+diarahkan ke halaman utama sesuai peran. Activity Diagram untuk login 
+dapat dilihat pada Gambar 3.5 berikut: 
+ 
+Gambar 3. 5 Activity Diagram Login 
+b. Activity Diagram Data Penanaman 
+Activity diagram data penanaman menggambarkan alur aktivitas 
+pengguna dalam mengakses dan mengelola data penanaman. Proses 
+dimulai ketika pengguna memilih menu data penanaman, kemudian 
+
+74 
+ 
+ 
+ 
+sistem menampilkan data penanaman. Siswa dapat menambahkan, 
+mengubah, atau menghapus data penanaman, sedangkan guru hanya 
+dapat melihat data yang tersedia. Setiap perubahan data yang dilakukan 
+akan disimpan oleh sistem. Activity Diagram untuk data penanaman dapat 
+dilihat pada Gambar 3.6 berikut: 
+ 
+Gambar 3. 6 Activity Diagram Data Penanaman 
+c. Activity Diagram Data Pemeliharaan 
+Activity diagram data pemeliharaan menunjukkan alur pengguna dalam 
+mengakses dan mencatat data pemeliharaan tanaman. Siswa dapat 
+mengelola data pemeliharaan, sedangkan guru hanya melihat data. 
+Perubahan data disimpan oleh sistem. Activity Diagram untuk data 
+pemeliharaan dapat dilihat pada Gambar 3.7 berikut: 
+
+75 
+ 
+ 
+ 
+ 
+Gambar 3. 7 Activity Diagram Data Pemeliharaan 
+d. Activity Diagram Data Panen 
+Activity diagram data panen menggambarkan alur pengguna dalam 
+mengakses dan mencatat data hasil panen pada sistem. Pada proses ini, 
+siswa 
+sebagai 
+pengguna 
+utama 
+dapat 
+menambahkan 
+maupun 
+memperbarui data panen sesuai dengan hasil praktik yang dilakukan, 
+kemudian data tersebut akan disimpan oleh sistem ke dalam basis data. 
+Selain itu, siswa juga dapat melihat kembali data yang telah diinput. 
+Sementara itu, guru hanya berperan dalam melihat atau memonitor data 
+panen yang tersedia tanpa melakukan perubahan. Data yang ditampilkan 
+kepada guru dapat digunakan sebagai dasar dalam proses penilaian hasil 
+praktik siswa. Activity Diagram untuk data panen dapat dilihat pada 
+Gambar 3.8 berikut. 
+
+76 
+ 
+ 
+ 
+ 
+Gambar 3. 8 Activity Diagram Data Panen 
+e. Activity Diagram Kelola Akun Pengguna 
+Activity diagram kelola akun pengguna menggambarkan alur aktivitas 
+admin dalam mengelola data akun pengguna pada sistem. Pada proses ini, 
+admin memiliki hak akses untuk melakukan penambahan akun baru, 
+melakukan perubahan data akun yang sudah ada, serta menghapus akun 
+pengguna yang tidak diperlukan. Setiap tindakan yang dilakukan oleh 
+admin akan diproses oleh sistem dan kemudian disimpan ke dalam basis 
+data agar data akun tetap terkelola dengan baik dan terstruktur. Dengan 
+adanya proses ini, pengelolaan akun pengguna menjadi lebih terorganisir 
+dan memudahkan dalam pengaturan hak akses setiap pengguna. Activity 
+
+77 
+ 
+ 
+ 
+Diagram untuk kelola akun pengguna dapat dilihat pada Gambar 3.9 
+berikut: 
+ 
+Gambar 3. 9 Activity diagram kelola akun pengguna 
+f. Activity Diagram Melihat Hasil Evaluasi 
+Activity diagram melihat hasil evaluasi menggambarkan alur pengguna 
+dalam mengakses informasi hasil evaluasi keberhasilan panen pada 
+sistem. Pada proses ini, sistem terlebih dahulu mengolah data yang berasal 
+dari penanaman, pemeliharaan, dan panen menggunakan metode yang 
+telah ditentukan, kemudian menghasilkan informasi berupa hasil evaluasi. 
+Setelah proses pengolahan selesai, sistem akan menampilkan hasil 
+evaluasi tersebut kepada pengguna, baik siswa maupun guru, sehingga 
+dapat digunakan sebagai bahan untuk mengetahui tingkat keberhasilan 
+praktik yang telah dilakukan. Dengan adanya proses ini, pengguna dapat 
+memperoleh informasi secara lebih terstruktur dan mudah dipahami. 
+Activity Diagram untuk melihat hasil evaluasi dapat dilihat pada Gambar 
+3.10 berikut\: 
+
+78 
+ 
+ 
+ 
+ 
+Gambar 3. 10 activity diagram melihat hasil evaluasi 
+g. Activity Diagram Profil Pengguna 
+Activity diagram profil pengguna menggambarkan alur pengguna dalam 
+mengakses dan melihat informasi profil akun yang dimiliki pada sistem. 
+Pada proses ini, pengguna terlebih dahulu masuk ke menu profil, 
+kemudian sistem akan mengambil data akun yang tersimpan di dalam 
+basis data dan menampilkannya sesuai dengan identitas pengguna yang 
+sedang aktif. Informasi yang ditampilkan dapat berupa data pribadi 
+maupun informasi akun lainnya yang berkaitan. Dengan adanya fitur ini, 
+pengguna dapat mengetahui dan memastikan data profil yang dimiliki 
+sudah sesuai. Activity Diagram untuk profil pengguna dapat dilihat pada 
+Gambar 3.11 berikut: 
+
+79 
+ 
+ 
+ 
+ 
+Gambar 3. 11 Melihat profil pengguna 
+4. Sequence Diagram 
+Sequence diagram digunakan untuk menggambarkan alur interaksi antara 
+pengguna dan sistem melalui pertukaran pesan yang terjadi pada setiap proses 
+yang berjalan. Diagram ini menunjukkan urutan komunikasi antara aktor dan 
+sistem secara berurutan berdasarkan waktu, sehingga setiap aktivitas yang 
+dilakukan dapat terlihat dengan jelas. Dalam penelitian ini, sequence diagram 
+digunakan untuk menjelaskan alur interaksi pada sistem pendataan 
+penanaman hingga panen yang dikembangkan, mulai dari proses input data 
+hingga menghasilkan informasi yang dibutuhkan. Dengan adanya diagram 
+ini, alur kerja sistem dapat dipahami dengan lebih jelas, terstruktur, dan 
+memudahkan dalam melihat hubungan antar komponen dalam sistem. 
+a. Sequence Diagram Login  
+Sequence diagram login menggambarkan alur interaksi antara pengguna 
+dan sistem dalam proses masuk ke dalam aplikasi. Pada proses ini, 
+pengguna memasukkan data akun berupa username dan password, 
+kemudian sistem melakukan proses verifikasi terhadap data yang 
+dimasukkan dengan data yang tersimpan di dalam basis data. Jika data 
+sesuai, sistem akan memberikan akses kepada pengguna untuk masuk ke 
+dalam sistem, sedangkan jika tidak sesuai, sistem akan menampilkan 
+
+80 
+ 
+ 
+ 
+informasi kesalahan. Sequence diagram login dapat dilihat pada Gambar 
+3.12 berikut: 
+ 
+Gambar 3. 12 Squence diagram login 
+b. Sequence Diagram Data Penanaman 
+Sequence diagram data penanaman menggambarkan alur interaksi antara 
+pengguna dan sistem dalam proses pengelolaan data penanaman. Pada 
+proses ini, pengguna melakukan input data penanaman melalui sistem, 
+kemudian sistem akan menerima dan memproses data tersebut sebelum 
+disimpan ke dalam basis data. Selain itu, sistem juga dapat menampilkan 
+kembali data penanaman yang telah tersimpan kepada pengguna sebagai 
+bentuk informasi. Dengan adanya alur ini, proses pendataan penanaman 
+dapat dilakukan secara terstruktur dan terdokumentasi dengan baik. 
+Sequence diagram data penanaman dapat dilihat pada Gambar 3.13 
+berikut: 
+
+81 
+ 
+ 
+ 
+ 
+Gambar 3. 13 Squence Diagram Data Penanaman 
+c. Sequence Diagram Data Pemeliharaan  
+Sequence diagram data pemeliharaan menggambarkan alur interaksi 
+antara pengguna dan sistem dalam proses pengelolaan data pemeliharaan 
+tanaman. Pada proses ini, pengguna melakukan input data pemeliharaan 
+seperti kegiatan perawatan tanaman melalui sistem, kemudian sistem 
+akan memproses data tersebut dan menyimpannya ke dalam basis data. 
+Selain itu, sistem juga dapat menampilkan kembali data pemeliharaan 
+yang telah tersimpan kepada pengguna sebagai informasi. Dengan adanya 
+proses ini, data pemeliharaan dapat terdokumentasi secara terstruktur dan 
+memudahkan dalam pemantauan perkembangan tanaman. Sequence 
+diagram data pemeliharaan dapat dilihat pada Gambar 3.14 berikut: 
+
+82 
+ 
+ 
+ 
+ 
+Gambar 3. 14 Squence Diagram Data Pemeliharaan 
+d. Sequence Diagram Data Panen  
+Sequence diagram data panen menggambarkan alur interaksi antara 
+pengguna dan sistem dalam proses pengelolaan data hasil panen. Pada 
+proses ini, pengguna melakukan input data panen ke dalam sistem, 
+kemudian sistem akan menerima dan memproses data tersebut sebelum 
+disimpan ke dalam basis data. Selanjutnya, data panen yang telah 
+tersimpan akan digunakan sebagai bagian dari proses evaluasi dengan 
+memanfaatkan algoritma Decision Tree untuk menentukan tingkat 
+keberhasilan panen. Hasil dari proses tersebut kemudian dapat 
+ditampilkan kembali kepada pengguna sebagai informasi. Sequence 
+diagram data panen dapat dilihat pada Gambar 3.15 berikut: 
+
+83 
+ 
+ 
+ 
+ 
+Gambar 3. 15 Sequence Diagram Data Panen 
+e. Sequence Diagram Kelola Akun Pengguna  
+Sequence diagram kelola akun pengguna menggambarkan alur interaksi 
+antara admin dan sistem dalam proses pengelolaan data akun pengguna. 
+Pada proses ini, admin melakukan berbagai aktivitas seperti 
+menambahkan akun baru, mengubah data akun yang sudah ada, maupun 
+menghapus akun pengguna yang tidak diperlukan melalui sistem. Setiap 
+tindakan yang dilakukan oleh admin akan diproses oleh sistem, kemudian 
+data tersebut disimpan atau diperbarui ke dalam basis data. Selain itu, 
+sistem juga dapat menampilkan kembali data akun pengguna sebagai 
+informasi bagi admin. Dengan adanya proses ini, pengelolaan akun 
+pengguna dapat dilakukan secara terstruktur dan terorganisir dengan baik. 
+
+84 
+ 
+ 
+ 
+Sequence diagram kelola akun pengguna dapat dilihat pada Gambar 3.16 
+berikut: 
+ 
+Gambar 3. 16 Sequence Diagram Kelola Akun Pengguna 
+f. Sequence Diagram Melihat Hasil Evaluasi  
+Sequence diagram melihat hasil evaluasi menggambarkan alur interaksi 
+antara pengguna dan sistem dalam proses menampilkan hasil evaluasi 
+keberhasilan panen. Pada proses ini, pengguna mengakses menu evaluasi 
+pada sistem, kemudian sistem mengambil data penanaman, pemeliharaan, 
+dan panen yang telah tersimpan di dalam basis data. Selanjutnya, sistem 
+melakukan proses analisis menggunakan algoritma Decision Tree untuk 
+menentukan tingkat keberhasilan panen berdasarkan data tersebut. Hasil 
+dari proses evaluasi kemudian ditampilkan kepada pengguna dalam 
+bentuk informasi yang dapat digunakan sebagai dasar penilaian. Sequence 
+diagram melihat hasil evaluasi dapat dilihat pada Gambar 3.17 berikut: 
+
+85 
+ 
+ 
+ 
+ 
+Gambar 3. 17 Sequence Diagram Melihat Hasil Evaluasi 
+g. Sequence Diagram Melihat Profil Pengguna  
+Sequence diagram melihat profil pengguna menggambarkan alur interaksi 
+antara pengguna dan sistem dalam proses mengakses informasi profil 
+akun. Pada proses ini, pengguna memilih menu profil, kemudian sistem 
+akan mengambil data pengguna yang tersimpan di dalam basis data sesuai 
+dengan akun yang sedang aktif. Setelah itu, sistem menampilkan 
+informasi profil kepada pengguna sebagai bentuk informasi yang dapat 
+dilihat dan diperiksa. Dengan adanya proses ini, pengguna dapat 
+mengetahui data profil yang dimiliki secara lebih jelas dan terstruktur. 
+Sequence diagram melihat profil pengguna dapat dilihat pada Gambar 
+3.18 berikut: 
+
+86 
+ 
+ 
+ 
+ 
+Gambar 3. 18 Squence Diagram Melihat Profil Pengguna 
+3.3.2 Construction 
+Pada tahap ini, peneliti merancang desain tampilan sistem dalam bentuk mock-up 
+yang selanjutnya digunakan sebagai acuan dalam pengembangan aplikasi pada penelitian 
+ini. Beberapa rancangan mock-up disusun untuk menggambarkan tampilan antarmuka 
+yang terdapat pada aplikasi yang dikembangkan, antara lain sebagai berikut: 
+1. Halaman Login 
+Halaman login digunakan sebagai pintu masuk pengguna ke dalam sistem 
+dengan mengisikan email dan kata sandi yang telah terdaftar. Melalui halaman 
+ini, sistem melakukan proses autentikasi untuk memastikan hak akses 
+pengguna sebelum masuk ke halaman utama. Rancangan mockup halaman 
+login dapat dilihat pada Gambar 3. 5 berikut: 
+
+87 
+ 
+ 
+ 
+ 
+Gambar 3. 19 Mockup Halaman Login 
+2. Mockup Halaman Utama 
+Halaman ini digunakan sebagai halaman utama admin dalam mengelola akun 
+guru dan siswa pada sistem pendataan penanaman. Melalui halaman ini, admin 
+dapat melihat informasi ringkas terkait jumlah guru dan siswa yang terdaftar, 
+serta mengakses menu pengelolaan akun pengguna. Rancangan mockup 
+halaman dashboard dapat dilihat pada Gambar 3. 6 berikut: 
+ 
+Gambar 3. 20 Mockup Halaman Utama 
+3. Mockup Akses Data Penanaman 
+Halaman Akses data penanaman digunakan oleh siswa untuk melakukan 
+pencatatan data penanaman awal pada sistem pendataan penanaman berbasis 
+web, sedangkan guru hanya melihat data penanaman. Pada halaman ini 
+disediakan form penanaman awal yang digunakan untuk menginput informasi 
+
+88 
+ 
+ 
+ 
+terkait kegiatan penanaman, seperti data tanaman dan waktu penanaman. 
+Rancangan mockup halaman kelola data penanaman dapat dilihat pada Gambar 
+3.7 berikut: 
+ 
+Gambar 3. 21 Mockup Akses Data Penanaman 
+4. Mockup Akses Data Pemeliharaan 
+Halaman Akses data pemeliharaan tanaman digunakan oleh siswa untuk 
+mencatat kegiatan perawatan tanaman selama masa tanam berlangsung. Pada 
+halaman ini tersedia form pemeliharaan tanaman yang digunakan untuk 
+menginput data kegiatan perawatan, seperti penyiraman, pemupukan, dan 
+pengendalian hama. Halaman ini juga dilengkapi dengan menu navigasi yang 
+memudahkan pengguna untuk berpindah ke halaman penanaman dan data 
+panen. Rancangan mockup halaman kelola data pemeliharaan tanaman dapat 
+dilihat pada Gambar 3.8 berikut: 
+ 
+
+89 
+ 
+ 
+ 
+Gambar 3. 22 Mockup Akses Data Pemeliharaan 
+5. Mockup Akses Data Panen 
+Halaman akses data panen digunakan oleh siswa untuk melihat data hasil panen 
+yang telah dicatat pada sistem pendataan penanaman. Pada halaman ini 
+disajikan riwayat data panen yang menampilkan informasi hasil panen 
+berdasarkan data penanaman dan pemeliharaan yang telah dicatat sebelumnya. 
+Data hasil panen tersebut tersimpan dalam sistem dan dimanfaatkan sebagai 
+dasar dalam proses evaluasi keberhasilan panen secara otomatis menggunakan 
+algoritma Decision Tree. Rancangan mockup halaman akses data panen 
+ditunjukkan pada Gambar 3.9 berikut: 
+ 
+Gambar 3. 23 Akses Kelola Data Panen 
+6. Mockup Melihat Hasil Evaluasi 
+Halaman melihat hasil evaluasi panen digunakan oleh guru dan siswa untuk 
+mengetahui tingkat keberhasilan panen berdasarkan data penanaman, 
+pemeliharaan, dan hasil panen yang telah dicatat sebelumnya. Pada halaman 
+ini ditampilkan hasil evaluasi panen yang dihasilkan secara otomatis oleh 
+sistem menggunakan algoritma Decision Tree. Informasi evaluasi tersebut 
+membantu pengguna dalam memahami capaian hasil praktik pertanian serta 
+menjadi bahan evaluasi dan pembelajaran. Rancangan mockup halaman 
+melihat hasil evaluasi panen dapat dilihat pada Gambar 3. 11 berikut: 
+
+90 
+ 
+ 
+ 
+ 
+Gambar 3. 24 Mockup Melihat Hasil Evaluasi 
+7. Mockup Profil 
+Halaman profil berfungsi sebagai media bagi pengguna untuk melihat 
+informasi akun yang dimiliki pada sistem pendataan penanaman. Melalui 
+halaman ini, pengguna dapat melihat data diri seperti nama, peran pengguna, 
+serta informasi akun lainnya yang tersimpan dalam sistem. Selain itu, halaman 
+profil dilengkapi dengan menu navigasi yang memudahkan pengguna untuk 
+berpindah ke halaman lain sesuai dengan kebutuhan. Rancangan mockup 
+halaman profil ditunjukkan pada Gambar 3.11 berikut: 
+ 
+Gambar 3. 25 Mockup Profil 
+
+91 
+ 
+ 
+ 
+3.3.4 Cutover 
+ 
+Pada tahap ini, aplikasi yang telah dikembangkan diuji untuk memastikan setiap 
+fitur dapat berjalan sesuai dengan fungsi yang direncanakan. Proses pengujian dilakukan 
+guna mendeteksi potensi kesalahan atau kendala yang mungkin muncul sebelum sistem 
+digunakan secara langsung oleh pengguna. Pengujian aplikasi dilaksanakan dengan 
+menerapkan dua metode pengujian, yaitu: 
+1. Pengujian alpha  
+Pengujian alpha dilakukan untuk memastikan fungsi-fungsi utama pada sistem 
+pendataan penanaman dan hasil panen berbasis web berjalan sesuai dengan 
+kebutuhan yang telah ditentukan. Pada tahap ini, metode black box testing 
+digunakan untuk menguji setiap fitur sistem berdasarkan input dan output yang 
+dihasilkan, tanpa memperhatikan proses atau struktur internal sistem. Pengujian 
+ini bertujuan untuk menilai kinerja sistem dari sudut pandang pengguna sebelum 
+digunakan secara lebih luas. 
+Rencana Pengujian alpha halaman Login dapat dilihat pada Tabel 3.10 berikut: 
+Tabel 3. 10 Login 
+No 
+ 
+Skenario Uji 
+  
+Hasil yang Diharapkan 
+  
+Hasil Pengujian 
+Sesuai 
+Tidak 
+Sesuai 
+1 
+Login menggunakan 
+username dan password 
+yang valid 
+Sistem mengarahkan 
+pengguna ke dashboard 
+sesuai dengan hak akses 
+2 
+Login menggunakan 
+username yang salah 
+Sistem menampilkan 
+pesan bahwa username 
+tidak terdaftar 
+3 
+Login menggunakan 
+password yang salah 
+Sistem menampilkan 
+pesan bahwa password 
+tidak sesuai 
+4 
+Login tanpa mengisi 
+username dan password 
+Sistem menampilkan 
+peringatan bahwa data 
+login harus diisi 
+
+92 
+ 
+ 
+ 
+5 
+Login dengan hanya 
+mengisi salah satu field 
+(username atau password) 
+Sistem menampilkan 
+peringatan bahwa seluruh 
+field wajib diisi 
+6 
+Login menggunakan akun 
+yang tidak aktif 
+Sistem menolak akses dan 
+menampilkan 
+pemberitahuan akun tidak 
+aktif 
+ 
+ 
+7 
+Login menggunakan akun 
+guru 
+Sistem mengarahkan 
+pengguna ke halaman guru 
+ 
+ 
+8 
+Login menggunakan akun 
+siswa 
+Sistem mengarahkan 
+pengguna ke halaman 
+siswa 
+ 
+Rencana Pengujian alpha halaman Akses Data Penanaman dapat dilihat pada 
+Tabel 3.12 berikut: 
+Tabel 3. 11 Akses Data Penanaman 
+No 
+  
+Skenario Uji 
+ 
+Hasil yang Diharapkan 
+ 
+ 
+Hasil Pengujian 
+Sesuai 
+Tidak 
+Sesuai 
+1 
+Pengguna memilih menu 
+data penanaman 
+Sistem menampilkan data 
+penanaman 
+ 
+ 
+2 
+Siswa menambah data 
+penanaman 
+Data penanaman berhasil 
+disimpan 
+3 
+Siswa mengubah data 
+penanaman 
+Perubahan data 
+penanaman tersimpan 
+ 
+ 
+4 
+Siswa menghapus data 
+penanaman 
+Data penanaman berhasil 
+dihapus 
+5 
+Guru mengakses data 
+penanaman 
+Guru dapat melihat data 
+tanpa mengubah 
+ 
+ 
+ 
+
+93 
+ 
+ 
+ 
+Rencana Pengujian alpha halaman Akses Data Pemeliharaan dapat dilihat pada 
+Tabel 3.12 berikut: 
+Tabel 3. 12 Akses Data Pemeliharaan 
+No 
+  
+Skenario Uji 
+  
+Hasil yang Diharapkan 
+ 
+Hasil Pengujian 
+Sesuai 
+Tidak 
+Sesuai 
+1 
+Pengguna memilih menu 
+data pemeliharaan 
+Sistem menampilkan 
+data pemeliharaan 
+2 
+Siswa menambah data 
+pemeliharaan 
+Data pemeliharaan 
+berhasil disimpan 
+3 
+Siswa mengubah data 
+pemeliharaan 
+Perubahan data 
+pemeliharaan tersimpan 
+4 
+Guru mengakses data 
+pemeliharaan 
+Guru dapat melihat data 
+pemeliharaan 
+ 
+Rencana Pengujian alpha halaman Akses Data Panen dapat dilihat pada Tabel 
+3.13 berikut: 
+Tabel 3. 13 Akses Data Panen 
+No 
+  
+Skenario Uji 
+  
+Hasil yang 
+Diharapkan 
+ 
+Hasil Pengujian 
+Sesuai 
+Tidak 
+Sesuai 
+1 
+Pengguna memilih menu 
+data panen 
+Sistem menampilkan 
+data hasil panen 
+2 
+Siswa menambah data 
+hasil panen 
+Data hasil panen 
+berhasil disimpan 
+ 
+ 
+3 
+Siswa menyimpan data 
+panen tidak lengkap 
+Sistem menampilkan 
+pesan kesalahan 
+4 
+Guru mengakses data 
+hasil panen 
+Guru dapat melihat data 
+panen 
+ 
+
+94 
+ 
+ 
+ 
+Rencana Pengujian alpha Melihat Hasil Evaluasi Panen dapat dilihat pada Tabel 
+3.14 berikut: 
+Tabel 3. 14 Melihat Hasil Evaluasi Panen 
+No 
+  
+Skenario Uji 
+  
+Hasil yang Diharapkan 
+ 
+Hasil Pengujian 
+Sesuai 
+Tidak 
+Sesuai 
+1 
+Pengguna memilih 
+menu hasil evaluasi 
+panen 
+Sistem menampilkan hasil 
+evaluasi panen 
+2 
+Evaluasi dilakukan 
+tanpa data lengkap 
+Sistem menampilkan pesan 
+evaluasi belum tersedia 
+ 
+Rencana Pengujian alpha Kelola Akun Pengguna dapat dilihat pada Tabel 3.15 
+berikut: 
+Tabel 3. 15 Kelola Akun Pengguna 
+No 
+  
+Skenario Uji 
+  
+Hasil yang Diharapkan 
+ 
+Hasil Pengujian 
+Sesuai 
+Tidak 
+Sesuai 
+1 
+Admin menambah akun 
+pengguna 
+Akun pengguna berhasil 
+ditambahkan 
+2 
+Admin mengubah data 
+akun 
+Data akun berhasil 
+diperbarui 
+3 
+Admin menghapus akun 
+pengguna 
+Akun pengguna berhasil 
+dihapus 
+ 
+ 
+4 
+Admin menambah 
+username yang sama 
+Sistem menampilkan 
+pesan kesalahan 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+95 
+ 
+ 
+ 
+Rencana Pengujian alpha Melihat Profil Pengguna dapat dilihat pada Tabel 3.16 
+berikut: 
+Tabel 3. 16 Melihat Profil Pengguna 
+No 
+  
+Skenario Uji 
+  
+Hasil yang Diharapkan 
+ 
+Hasil Pengujian 
+Sesuai 
+Tidak 
+Sesuai 
+1 
+Pengguna memilih 
+menu profil 
+Sistem menampilkan data 
+profil pengguna 
+ 
+Rencana Pengujian alpha Logout dapat dilihat pada Tabel 3.17 berikut: 
+Tabel 3. 17 Logout 
+No 
+  
+Skenario Uji 
+  
+Hasil yang Diharapkan 
+ 
+Hasil Pengujian 
+Sesuai 
+Tidak 
+Sesuai 
+1 
+Pengguna memilih 
+menu logout 
+Sistem menampilkan 
+halaman login 
+ 
+2. Pengujian Beta 
+Pengujian beta dilakukan untuk mengetahui sejauh mana kualitas dan kelayakan 
+sistem dapat diterima oleh pengguna secara langsung. Pada tahap ini, evaluasi 
+penerimaan pengguna dilakukan dengan menggunakan Technology Acceptance 
+Model (TAM) sebagai kerangka penilaian. Pengujian dilaksanakan melalui 
+penyebaran kuesioner kepada responden yang mewakili pengguna sistem, yaitu 
+siswa dan guru yang terlibat dalam kegiatan praktik pertanian. Hasil kuesioner 
+yang diperoleh kemudian dianalisis untuk memahami pandangan pengguna 
+terkait kemudahan penggunaan sistem, manfaat yang dirasakan, serta kesesuaian 
+sistem dengan kebutuhan mereka. Indikator pernyataan yang digunakan dalam 
+pengujian beta ini disajikan pada Tabel 3.18 berikut: 
+ 
+ 
+ 
+
+96 
+ 
+ 
+ 
+Tabel 3. 18 Rencana Pengujian Beta 
+No 
+Konstruk / 
+Variabel 
+Indikator 
+1 
+Perceived Ease of 
+Use 
+Sistem mudah dipelajari oleh pengguna. 
+2 
+Perceived Ease of 
+Use 
+Tampilan sistem mudah dipahami. 
+3 
+Perceived Ease of 
+Use 
+Menu dan fitur sistem mudah digunakan. 
+4 
+Perceived Ease of 
+Use 
+Proses penginputan data penanaman mudah 
+dilakukan. 
+5 
+Perceived Ease of 
+Use 
+Proses penginputan data pemeliharaan tanaman 
+mudah dilakukan. 
+6 
+Perceived Ease of 
+Use 
+Proses penginputan data hasil panen mudah 
+dilakukan. 
+7 
+Perceived 
+Usefulness 
+Sistem membantu pencatatan data penanaman 
+secara lebih terstruktur. 
+8 
+Perceived 
+Usefulness 
+Sistem membantu pemantauan kegiatan 
+pemeliharaan tanaman. 
+9 
+Perceived 
+Usefulness 
+Sistem membantu proses evaluasi keberhasilan 
+panen. 
+10 
+Perceived 
+Usefulness 
+Informasi yang dihasilkan sistem bermanfaat bagi 
+pengguna. 
+11 
+Attitude Toward 
+Using 
+Pengguna merasa sistem ini bermanfaat dalam 
+kegiatan praktik pertanian. 
+12 
+Attitude Toward 
+Using 
+Pengguna merasa nyaman menggunakan sistem. 
+13 
+Behavioral 
+Intention to Use 
+Pengguna tertarik untuk menggunakan sistem secara 
+berkelanjutan. 
+14 
+Behavioral 
+Intention to Use 
+Pengguna bersedia menggunakan sistem dalam 
+kegiatan praktik pertanian berikutnya. 
+
+97 
+ 
+ 
+ 
+No 
+Konstruk / 
+Variabel 
+Indikator 
+15 
+Behavioral 
+Intention to Use 
+Sistem layak digunakan sebagai media pendukung 
+pembelajaran praktik pertanian. 
+16 
+Acceptance 
+Sistem dapat diterima dan digunakan sesuai dengan 
+kebutuhan pengguna. 
+ 
+ 
+ 
+ 
+
+ 
+98 
+ 
+BAB IV 
+JADWAL KERJA 
+ 
+Tabel 4. 1 Jadwal Kerja 
+No 
+Kegiatan 
+Oktobe
+r 
+November Desember Januari Februa
+i 
+Maret 
+April 
+Mei 
+Juni 
+Juli 
+1 
+Studi 
+Literatur dan 
+Penentuan 
+Topik 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+            
+    
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+2 
+Pengumpulan 
+Data 
+(Wawancara 
+& Observasi) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+            
+    
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+3 
+Analisis 
+Kebutuhan 
+Sistem 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+            
+    
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+4 
+Perancangan 
+Sistem 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+            
+    
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+99 
+ 
+ 
+ 
+No 
+Kegiatan 
+Oktobe
+r 
+November Desember Januari Februa
+i 
+Maret 
+April 
+Mei 
+Juni 
+Juli 
+5 
+Desain 
+Antarmuka 
+Sistem 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+            
+    
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+6 
+Analisis 
+Hasil dan 
+Evaluasi 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+            
+    
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+7 
+Penyusunan 
+Laporan 
+Skripsi 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+            
+    
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+8 
+Finalisasi 
+Proposal 
+Skripsi 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+            
+    
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+9 
+Implementasi 
+Sistem 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+            
+    
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+10 
+Implementasi 
+Decision 
+Tree 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+            
+    
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+100 
+ 
+ 
+ 
+No 
+Kegiatan 
+Oktobe
+r 
+November Desember Januari Februa
+i 
+Maret 
+April 
+Mei 
+Juni 
+Juli 
+11 
+Pengujian 
+sistem 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+            
+    
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+12 
+Analisis 
+Hasil 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+            
+    
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+13 
+Penyusunan 
+Laporan 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+            
+    
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+14 
+Finalisasi 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+            
+    
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+101 
+ 
+DAFTAR PUSTAKA 
+1. 
+Halawa DN. Peran Teknologi Pertanian Cerdas (Smart Farming) untuk Generasi 
+Pertanian Indonesia. JURNAL KRIDATAMA SAINS DAN TEKNOLOGI. 2024 Aug 
+21;6(02):502–12.  
+2. 
+Pratama A, Hasibuan PK. SISTEM INFORMASI DATA PANEN DINAS PERTANIAN. 
+Sisfo: Jurnal Ilmiah Sistem Informasi. 2022 Oct 11;6(2):63.  
+3. 
+Wijaya EPH, Hidayat F, Rahmasita AN, Fahmi K, Haikal M, Salam NI. Aplikasi Petani 
+Cerdas: Inovasi Industri Pertanian Menuju Pembangunan Berkelanjutan 2030. Indonesian 
+Journal of Multidisciplinary on Social and Technology. 2024 Jun 30;2(2):59–63.  
+4. 
+Moretto M, Delucchi L, Zorer R, Moser D, Micheli F, Paoli A, et al. DigiAgriApp: a 
+client-server application to monitor field activities. Environmental Modelling & 
+Software. 2025 Aug;192:106528.  
+5. 
+Riza M, Ahmad L, Imilda. Perancangan Sistem Informasi Manajemen Produksi Padi 
+Berbasis Web untuk Dinas Pertanian Provinsi Aceh. Jurnal Ilmu Komputer dan Teknologi 
+Informasi. 2024 Mar 30;1(1):14–23.  
+6. 
+Angellin K, Oetama RS, Amri M. Web-Based Inventory and Sales Information System: 
+Indonesian Micro Small Medium Enterprise Case Study. JOINS (Journal of Information 
+System). 2023 Jun 30;8(1):57–66.  
+7. 
+Mushi GE, Serugendo GDM, Burgi PY. Data management system for sustainable 
+agriculture among smallholder farmers in Tanzania: research-in-progress. Inf Technol 
+Dev. 2023 Oct 2;29(4):558–81.  
+8. 
+Eprosina Yesi J, P N. Rancang Bangun Sistem Informasi Pertanian Berbasis Web pada 
+Kelompok Tani di Bengkayang. Instink: Inovasi Pendidikan, Teknologi Informasi dan 
+Komputer. 2025 Oct 29;4(2):55–68.  
+9. 
+Sari FW, Napitupulu IH, Laoly Y. Pemanfaatan sistem informasi e-commerce dalam 
+pemasaran hasil pertanian di Desa Bukit berbasis web. Jurnal Manajemen Strategi dan 
+Aplikasi Bisnis. 2025 Jun 20;8(1):81–90.  
+
+102 
+ 
+ 
+ 
+10. 
+Bishnoi S, Hooda BK. Decision Tree Algorithms and their Applicability in Agriculture 
+for Classification. Journal of Experimental Agriculture International. 2022 May 3;20–7.  
+11. 
+Adhitya Prayoga Permana, Kurniyatul Ainiyah, Khadijah Fahmi Hayati Holle. Analisis 
+Perbandingan Algoritma Decision Tree, kNN, dan Naive Bayes untuk Prediksi 
+Kesuksesan Start-up. 2021;  
+12. 
+Muhammad Fawwaz Albasith, Muhammad Aliva Nurramadhan, Ahmad Albani Islami, 
+Rido Rabani Kurniawan, Muhammad Yunas Hidayatullah. Perbandingan Kinerja 
+Logistic Regression dan Decision Tree dalam Memprediksi Produksi Padi di Sumatera.  
+13. 
+Amelia Mar’atusholihat, Nuk Ghurroh Setyoningrum, Dede Rizal Nursamsi. 
+Perbandingan Kinerja Algoritma Decision Tree Dan Naïve Bayes Dalam Analisis 
+Sentimen Publik Terhadap Kebijakan Pemerintah Mengenai Batasan Penggunaan Media 
+Sosial Anak. 2025;  
+14. 
+Nurkholis A, Muhaqiqin, Susanto T. Algoritme Spatial Decision Tree untuk Evaluasi 
+Kesesuaian Lahan Padi Sawah Irigasi. Jurnal RESTI (Rekayasa Sistem dan Teknologi 
+Informasi). 2020 Oct 30;4(5):978–87.  
+15. 
+Nuurul Izzati Yaman, Ayu Ratna Juwita, Santi Arum Puspita Lestari, Sutan Faisal. 
+Perbandingan Kinerja Algoritma Decision Tree dan Random Forest untuk Klasifikasi 
+Nutrisi pada Makanan Cepat Saji. 2024;  
+16. 
+RONI, ASRUL ABDULLAH, RACHMAT WAHID SALEH INSANI. Implementasi 
+Naïve Bayes dan Decision Tree Untuk Klasifikasi Jenis Tanaman. 2025;  
+17. 
+Bishnoi S, Hooda BK. Decision Tree Algorithms and their Applicability in Agriculture 
+for Classification. Journal of Experimental Agriculture International. 2022 May 3;20–7.  
+18. 
+Saufika Sukmawati, Sulastri, Herny Februariyanti, Arief Jananto. PERBANDINGAN 
+ALGORITMA C 4.5 DAN ALGORITMA NAIVE BAYES UNTUK KLASIFIKASI 
+PEKERJA MIGRAN INDONESIA. 2022;  
+19. 
+Dooyum Uyeh D, Gebremedhin KG, Hiablie S. Perspectives on the strategic importance 
+of digitalization for Modernizing African Agriculture. Comput Electron Agric. 2023 
+Aug;211:107972.  
+
+103 
+ 
+ 
+ 
+20. 
+Herrera-Arroyo R, Martínez-Nolasco J, Botello-Álvarez E, Sámano-Ortega V, Martínez-
+Nolasco C, Moreno-Aguilera C. Smart Hydroponic Cultivation System for Lettuce 
+(Lactuca sativa L.) Growth Under Different Nutrient Solution Concentrations in a 
+Controlled Environment. Applied System Innovation. 2025 Aug 7;8(4):110.  
+21. 
+Arista NID, Himawan R, Pratama RAJ. A web-based educational information system for 
+urban agriculture management as a solution to urban land conversion. Social Agriculture, 
+Food System, and Environmental Sustainability. 2025 Feb 28;2(1):17–32.  
+22. 
+T. Gañgan MG. A MySQL Relational Database for a Web-Based Agricultural Trading 
+System: Design, Development, and Performance Evaluation. International Journal of 
+Innovative Research in Multidisciplinary Education. 2025 Sep 16;04(09).  
+23. 
+Hendriyanto H, Cakranegara PA. Web-Based Online Sales Information System Using 
+PHP and MYSQL Database in Nara Collection. JMKSP (Jurnal Manajemen, 
+Kepemimpinan, dan Supervisi Pendidikan). 2022 Jan 1;7(1):35.  
+24. 
+Kurniasih M, Widayat W. Sistem Informasi Manajemen Stok Berbasis Web 
+Menggunakan Framework Laravel. Jurnal Pendidikan dan Teknologi Indonesia. 2025 
+May 20;5(5):1457–69.  
+25. 
+Koç H, Erdoğan AM, Barjakly Y, Peker S. UML Diagrams in Software Engineering 
+Research: A Systematic Literature Review. In: The 7th International Management 
+Information Systems Conference. Basel Switzerland: MDPI; 2021. p. 13.  
+26. 
+Molla MMI, Ahmad J, Wan Kadir WMN. A Comparison of Transforming the User 
+Stories and Functional Requirements into UML Use Case Diagram. International Journal 
+of Innovative Computing. 2024 May 31;14(1):29–36.  
+27. 
+Siewe F, Ngounou GM. On the Execution and Runtime Verification of UML Activity 
+Diagrams. Software. 2025 Feb 27;4(1):4.  
+28. 
+Sequeira R, Reis A, Alves P, Branco F. Roadmap for Implementing Business Intelligence 
+Systems in Higher Education Institutions: Systematic Literature Review. Information. 
+2024 Apr 7;15(4):208.  
+
+104 
+ 
+ 
+ 
+29. 
+Balconi M, Angioletti L. Hemodynamic and Electrophysiological Biomarkers of 
+Interpersonal Tuning during Interoceptive Synchronization. Information. 2023 May 
+13;14(5):289.  
+30. 
+Widiyatmoko AT, Nugroho A, Wiyanto W. Development of Web-Based Student 
+Registration Information System with Rapid Application Development Approach. 
+Journal of Computer Networks, Architecture and High Performance Computing. 2024 
+Feb 20;6(1).  
+31. 
+Arianty KP. RAD-Based Public Opinion Monitoring Information System for BSN. 
+Journal of Computer Networks, Architecture and High Performance Computing. 2025 Jul 
+21;7(3):816–24.  
+32. 
+Junaidi I, Anwar E, Putri EM, Putra Y, Jeprimansyah. Design and Implementation of a 
+Website-Based Sales Information System Using the Laravel Framework: A Case Study 
+of Grosir Uncu Aris. International Journal of Research in Community Services. 2025 Oct 
+31;6(4):213–21.  
+33. 
+Lymmy Ogbidi, Benneth Oteh. Advances in Hybrid Machine Learning and Physics-
+Based Models for Enhanced Reservoir Simulation. International Journal of Scientific 
+Research in Computer Science, Engineering and Information Technology. 2024 Dec 
+25;10(6):2533–43.  
+34. 
+Talluri M. Cross-Browser Compatibility Challenges And Solutions In Enterprise 
+Applications. Int J Environ Sci. 2025 Aug 4;60–5.  
+35. 
+Putra FPE, Zulfikri A, Rohman A, Alim R. Analysis Comparative of Performance 
+Optimization Techniques for PHP Framework Testing: Laravel, CodeIgniter, Symfony. 
+Brilliance: Research of Artificial Intelligence. 2025 Jun 24;5(1):242–8.  
+36. 
+Idrissi A, Benabbou R, Benhra J, Haji M El. Smart Waste Collection Based on Vehicle 
+Routing Optimization: Case of Casablanca City. Procedia Comput Sci. 2024;236:194–
+201.  
+37. 
+van Heugten Breurkes J, Gilson F, Galster M. Overlap between Automated Unit and 
+Acceptance Testing – a Systematic Literature Review. In: The International Conference 
+
+105 
+ 
+ 
+ 
+on Evaluation and Assessment in Software Engineering 2022. New York, NY, USA: 
+ACM; 2022. p. 80–9.  
+38. 
+Santi PADA, Afwani R, Albar MohA, Anjarwani SE, Mardiansyah AZ. Black Box 
+Testing with Equivalence Partitioning and Boundary Value Analysis Methods (Study 
+Case: Academic Information System of Mataram University). In: Proceedings of the First 
+Mandalika International Multi-Conference on Science and Engineering 2022, MIMSE 
+2022 (Informatics and Computer Science). Dordrecht: Atlantis Press International BV; 
+2022. p. 207–19.  
+  
+ 
+ 
+ 
+ 
+ 
+
+106 
+ 
+ 
+ 
+LAMPIRAN 
+A. Surat Permhonan Izin Penelitian 
+ 
+ 
+
+107 
+ 
+ 
+ 
+B. Bukti Balasan dari Sekolah 
+ 
+ 
+ 
+
+108 
+ 
+ 
+ 
+C. Surat Permohonan Izin Wawancara 
+ 
+ 
+ 
+
+109 
+ 
+ 
+ 
+D. Bukti Wawancara 
+ 
+
+110 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+111 
+ 
+ 
+ 
+E. Surat Permohonan Izin Observasi 
+ 
+ 
+ 
+
+112 
+ 
+ 
+ 
+F. Bukti Data Observasi 
+ 
+ 
+G. Dokumentasi 
+ 
+ 
+
+113 
+ 
+ 
+ 
+ 
+ 

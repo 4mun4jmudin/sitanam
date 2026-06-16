@@ -1,0 +1,19 @@
+🔥 URUTAN HALAMAN YANG BENAR BERDASARKAN USE CASE
+ADMIN
+Dashboard
+Kelola Akun Pengguna
+Lihat Profil
+GURU
+Dashboard
+Akses Data Penanaman
+Akses Data Pemeliharaan
+Akses Data Panen
+Melihat Evaluasi Panen
+Lihat Profil
+SISWA
+Dashboard
+Akses Data Penanaman
+Akses Data Pemeliharaan
+Akses Data Panen
+Melihat Evaluasi Panen
+Lihat Profil

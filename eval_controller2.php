@@ -1,0 +1,1 @@
+Penanaman → Pemeliharaan → Panen → Evaluasi Rule-Based Decision Tree
