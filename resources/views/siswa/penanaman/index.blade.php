@@ -218,7 +218,7 @@
                                         <option value="{{ $jt->id }}" 
                                                 data-satuan="{{ $jt->satuan_default }}"
                                                 data-kategori="{{ $jt->kategori_tanaman }}"
-                                                data-bobot="{{ $jt->estimasi_bobot_per_satuan_kg }}"
+                                                data-bobot="{{ (float) $jt->estimasi_bobot_per_satuan_kg }}"
                                                 data-opsional="{{ json_encode($jt->satuan_opsional ?? []) }}"
                                                 {{ old('jenis_tanaman_id') == $jt->id ? 'selected' : '' }}>
                                             {{ $jt->nama_tanaman }} - {{ $jt->kategori_tanaman }} - {{ $jt->satuan_default }}

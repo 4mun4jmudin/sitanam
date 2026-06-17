@@ -76,7 +76,7 @@
                                     </span>
                                 </td>
                                 <td class="p-4 text-center text-sm font-medium text-gray-600">
-                                    {{ $tanaman->estimasi_bobot_per_satuan_kg ?? '-' }} Kg
+                                    {{ $tanaman->estimasi_bobot_per_satuan_kg ? (float) $tanaman->estimasi_bobot_per_satuan_kg : '-' }} Kg
                                 </td>
                                 <td class="p-4 text-center">
                                     @if($tanaman->status === 'Aktif')
@@ -96,67 +96,6 @@
                                 </td>
                             </tr>
 
-                            <!-- Edit Modal -->
-                            <x-modal name="edit-tanaman-{{ $tanaman->id }}" focusable>
-                                <form method="post" action="{{ route($role.'.jenis_tanaman.update', $tanaman->id) }}" class="p-6">
-                                    @csrf
-                                    @method('PUT')
-                                    <h2 class="text-lg font-bold text-gray-900 mb-4">Edit Tanaman: {{ $tanaman->nama_tanaman }}</h2>
-                                    
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div>
-                                            <label class="block text-sm font-bold text-gray-700 mb-1">Nama Tanaman</label>
-                                            <input type="text" name="nama_tanaman" value="{{ $tanaman->nama_tanaman }}" class="w-full border-gray-300 rounded-xl" required>
-                                        </div>
-                                        <div>
-                                            <label class="block text-sm font-bold text-gray-700 mb-1">Kategori</label>
-                                            <select name="kategori_tanaman" class="w-full border-gray-300 rounded-xl" required>
-                                                <option value="Sayuran Daun" {{ $tanaman->kategori_tanaman == 'Sayuran Daun' ? 'selected' : '' }}>Sayuran Daun</option>
-                                                <option value="Sayuran Buah" {{ $tanaman->kategori_tanaman == 'Sayuran Buah' ? 'selected' : '' }}>Sayuran Buah</option>
-                                                <option value="Umbi" {{ $tanaman->kategori_tanaman == 'Umbi' ? 'selected' : '' }}>Umbi</option>
-                                                <option value="Buah" {{ $tanaman->kategori_tanaman == 'Buah' ? 'selected' : '' }}>Buah</option>
-                                                <option value="Tanaman Bumbu" {{ $tanaman->kategori_tanaman == 'Tanaman Bumbu' ? 'selected' : '' }}>Tanaman Bumbu</option>
-                                                <option value="Lainnya" {{ $tanaman->kategori_tanaman == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <label class="block text-sm font-bold text-gray-700 mb-1">Satuan Default (Target/Panen)</label>
-                                            <select name="satuan_default" class="w-full border-gray-300 rounded-xl" required>
-                                                <option value="Ikat" {{ $tanaman->satuan_default == 'Ikat' ? 'selected' : '' }}>Ikat</option>
-                                                <option value="Kg" {{ $tanaman->satuan_default == 'Kg' ? 'selected' : '' }}>Kg</option>
-                                                <option value="Buah" {{ $tanaman->satuan_default == 'Buah' ? 'selected' : '' }}>Buah</option>
-                                                <option value="Gram" {{ $tanaman->satuan_default == 'Gram' ? 'selected' : '' }}>Gram</option>
-                                                <option value="Karung" {{ $tanaman->satuan_default == 'Karung' ? 'selected' : '' }}>Karung</option>
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <label class="block text-sm font-bold text-gray-700 mb-1">Satuan Opsional</label>
-                                            <input type="text" name="satuan_opsional" value="{{ is_array($tanaman->satuan_opsional) ? implode(', ', $tanaman->satuan_opsional) : '' }}" class="w-full border-gray-300 rounded-xl" placeholder="Misal: Kg, Karung">
-                                            <p class="text-[10px] text-gray-500 mt-1">Pisahkan dengan koma jika lebih dari satu.</p>
-                                        </div>
-                                        <div>
-                                            <label class="block text-sm font-bold text-gray-700 mb-1">Estimasi Bobot (Kg / 1 Satuan)</label>
-                                            <input type="number" step="0.001" name="estimasi_bobot_per_satuan_kg" value="{{ $tanaman->estimasi_bobot_per_satuan_kg }}" class="w-full border-gray-300 rounded-xl" required>
-                                            <p class="text-[10px] text-gray-500 mt-1">Isi 1 jika satuan default adalah Kg.</p>
-                                        </div>
-                                        <div>
-                                            <label class="block text-sm font-bold text-gray-700 mb-1">Umur Panen (Hari)</label>
-                                            <input type="number" name="umur_panen_hari" value="{{ $tanaman->umur_panen_hari }}" class="w-full border-gray-300 rounded-xl">
-                                        </div>
-                                        <div>
-                                            <label class="block text-sm font-bold text-gray-700 mb-1">Status</label>
-                                            <select name="status" class="w-full border-gray-300 rounded-xl" required>
-                                                <option value="Aktif" {{ $tanaman->status == 'Aktif' ? 'selected' : '' }}>Aktif</option>
-                                                <option value="Tidak Aktif" {{ $tanaman->status == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="mt-6 flex justify-end gap-3">
-                                        <button type="button" x-on:click="$dispatch('close')" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-xl font-bold">Batal</button>
-                                        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold">Simpan Perubahan</button>
-                                    </div>
-                                </form>
-                            </x-modal>
 
                             @empty
                             <tr>
@@ -239,4 +178,68 @@
             </div>
         </form>
     </x-modal>
+    <!-- Loop Modal Edit di Luar Tabel -->
+    @foreach($jenisTanamans as $tanaman)
+    <x-modal name="edit-tanaman-{{ $tanaman->id }}" focusable>
+        <form method="post" action="{{ route($role.'.jenis_tanaman.update', $tanaman->id) }}" class="p-6">
+            @csrf
+            @method('PUT')
+            <h2 class="text-lg font-bold text-gray-900 mb-4">Edit Tanaman: {{ $tanaman->nama_tanaman }}</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">Nama Tanaman</label>
+                    <input type="text" name="nama_tanaman" value="{{ $tanaman->nama_tanaman }}" class="w-full border-gray-300 rounded-xl" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">Kategori</label>
+                    <select name="kategori_tanaman" class="w-full border-gray-300 rounded-xl" required>
+                        <option value="Sayuran Daun" {{ $tanaman->kategori_tanaman == 'Sayuran Daun' ? 'selected' : '' }}>Sayuran Daun</option>
+                        <option value="Sayuran Buah" {{ $tanaman->kategori_tanaman == 'Sayuran Buah' ? 'selected' : '' }}>Sayuran Buah</option>
+                        <option value="Umbi" {{ $tanaman->kategori_tanaman == 'Umbi' ? 'selected' : '' }}>Umbi</option>
+                        <option value="Buah" {{ $tanaman->kategori_tanaman == 'Buah' ? 'selected' : '' }}>Buah</option>
+                        <option value="Tanaman Bumbu" {{ $tanaman->kategori_tanaman == 'Tanaman Bumbu' ? 'selected' : '' }}>Tanaman Bumbu</option>
+                        <option value="Lainnya" {{ $tanaman->kategori_tanaman == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">Satuan Default (Target/Panen)</label>
+                    <select name="satuan_default" class="w-full border-gray-300 rounded-xl" required>
+                        <option value="Ikat" {{ $tanaman->satuan_default == 'Ikat' ? 'selected' : '' }}>Ikat</option>
+                        <option value="Kg" {{ $tanaman->satuan_default == 'Kg' ? 'selected' : '' }}>Kg</option>
+                        <option value="Buah" {{ $tanaman->satuan_default == 'Buah' ? 'selected' : '' }}>Buah</option>
+                        <option value="Gram" {{ $tanaman->satuan_default == 'Gram' ? 'selected' : '' }}>Gram</option>
+                        <option value="Karung" {{ $tanaman->satuan_default == 'Karung' ? 'selected' : '' }}>Karung</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">Satuan Opsional</label>
+                    <input type="text" name="satuan_opsional" value="{{ is_array($tanaman->satuan_opsional) ? implode(', ', $tanaman->satuan_opsional) : '' }}" class="w-full border-gray-300 rounded-xl" placeholder="Misal: Kg, Karung">
+                    <p class="text-[10px] text-gray-500 mt-1">Pisahkan dengan koma jika lebih dari satu.</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">Estimasi Bobot (Kg / 1 Satuan)</label>
+                    <input type="number" step="0.001" name="estimasi_bobot_per_satuan_kg" value="{{ (float) $tanaman->estimasi_bobot_per_satuan_kg }}" class="w-full border-gray-300 rounded-xl" required>
+                    <p class="text-[10px] text-gray-500 mt-1">Isi 1 jika satuan default adalah Kg.</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">Umur Panen (Hari)</label>
+                    <input type="number" name="umur_panen_hari" value="{{ $tanaman->umur_panen_hari }}" class="w-full border-gray-300 rounded-xl">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">Status</label>
+                    <select name="status" class="w-full border-gray-300 rounded-xl" required>
+                        <option value="Aktif" {{ $tanaman->status == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                        <option value="Tidak Aktif" {{ $tanaman->status == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mt-6 flex justify-end gap-3">
+                <button type="button" x-on:click="$dispatch('close')" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-xl font-bold">Batal</button>
+                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold">Simpan Perubahan</button>
+            </div>
+        </form>
+    </x-modal>
+    @endforeach
+
 </x-app-layout>

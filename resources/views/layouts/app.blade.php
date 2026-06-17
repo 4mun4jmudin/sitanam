@@ -252,9 +252,8 @@
         <!-- Utility Scripts & Styles -->
         <script>
             // 1. Smart Loader: Only show if request takes more than 150ms
-            let spaLoaderTimeout;
             document.addEventListener("turbo:click", function() {
-                spaLoaderTimeout = setTimeout(() => {
+                window.spaLoaderTimeout = setTimeout(() => {
                     const loader = document.getElementById('spa-loader');
                     if(loader) {
                         loader.classList.remove('opacity-0', 'pointer-events-none');
