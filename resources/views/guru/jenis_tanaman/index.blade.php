@@ -120,14 +120,37 @@
 
     <!-- Tambah Modal -->
     <x-modal name="tambah-tanaman" focusable>
-        <form method="post" action="{{ route($role.'.jenis_tanaman.store') }}" class="p-6">
+        <form method="post" action="{{ route($role.'.jenis_tanaman.store') }}" class="p-6"
+            x-data="{
+                nama: '',
+                satuan: 'Ikat',
+                estimasi: '',
+                updateEstimasi() {
+                    let n = this.nama.toLowerCase();
+                    if (this.satuan === 'Kg') {
+                        this.estimasi = '1';
+                    } else if (this.satuan === 'Ikat') {
+                        if (n.includes('kangkung') || n.includes('bayam')) this.estimasi = '0.2';
+                        else if (n.includes('sawi') || n.includes('pakcoy')) this.estimasi = '0.25';
+                        else this.estimasi = '0.25';
+                    } else if (this.satuan === 'Karung') {
+                        this.estimasi = '50';
+                    } else if (this.satuan === 'Gram') {
+                        this.estimasi = '0.001';
+                    } else if (this.satuan === 'Buah') {
+                        if (n.includes('melon')) this.estimasi = '1.5';
+                        else if (n.includes('semangka')) this.estimasi = '3';
+                        else this.estimasi = '0.5';
+                    }
+                }
+            }">
             @csrf
             <h2 class="text-lg font-bold text-gray-900 mb-4">Tambah Master Tanaman Baru</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-1">Nama Tanaman</label>
-                    <input type="text" name="nama_tanaman" class="w-full border-gray-300 rounded-xl" placeholder="Misal: Sawi Hijau" required>
+                    <input type="text" name="nama_tanaman" x-model="nama" @input="updateEstimasi" class="w-full border-gray-300 rounded-xl" placeholder="Misal: Sawi Hijau" required>
                 </div>
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-1">Kategori</label>
@@ -142,7 +165,7 @@
                 </div>
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-1">Satuan Default (Target/Panen)</label>
-                    <select name="satuan_default" class="w-full border-gray-300 rounded-xl" required>
+                    <select name="satuan_default" x-model="satuan" @change="updateEstimasi" class="w-full border-gray-300 rounded-xl" required>
                         <option value="Ikat">Ikat</option>
                         <option value="Kg">Kg</option>
                         <option value="Buah">Buah</option>
@@ -157,7 +180,7 @@
                 </div>
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-1">Estimasi Bobot (Kg / 1 Satuan)</label>
-                    <input type="number" step="0.001" name="estimasi_bobot_per_satuan_kg" class="w-full border-gray-300 rounded-xl" placeholder="Misal: 0.25" required>
+                    <input type="number" step="0.001" name="estimasi_bobot_per_satuan_kg" x-model="estimasi" class="w-full border-gray-300 rounded-xl" placeholder="Misal: 0.25" required>
                     <p class="text-[10px] text-gray-500 mt-1">Isi 1 jika satuan default adalah Kg.</p>
                 </div>
                 <div>
